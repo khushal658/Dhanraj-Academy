@@ -1,0 +1,41 @@
+  <!-- ! Footer  -->
+  </div>
+</div>
+
+<!-- SweetAlert2 Library & Admin Toast Notifications -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+{% if messages %}
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 3500,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer);
+        toast.addEventListener('mouseleave', Swal.resumeTimer);
+      }
+    });
+
+    {% for message in messages %}
+      Toast.fire({
+        icon: '{% if "error" in message.tags or "danger" in message.tags %}error{% elif "warning" in message.tags %}warning{% elif "info" in message.tags %}info{% else %}success{% endif %}',
+        title: '{{ message|escapejs }}'
+      });
+    {% endfor %}
+  });
+</script>
+{% endif %}
+
+<!-- Chart library -->
+<script src="/static/ad/plugins/chart.min.js"></script>
+<!-- Icons library -->
+<script src="/static/ad/plugins/feather.min.js"></script>
+<!-- Custom scripts -->
+<script src="/static/ad/js/script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,771 @@
+
+{% include "user/navbar.html" %}
+{% include "user/base.html" %}
+
+
+<body>
+
+<section class="hero2" >
+   
+<!-- BOOTSTRAP WRAPPER -->
+<div class="container ">
+<div class="row align-items-center g-5">
+
+    <!-- LEFT -->
+    <div class="col-12 col-lg-6">
+
+        <div class="hero-left">
+
+            <div class="hero-badge">
+                <span class="dot"></span>
+                Admissions Open 2026–27
+            </div>
+
+            <h1 class="hero-title">
+                Your Journey to<br>
+                <span class="accent">Success</span> Starts Here
+            </h1>
+
+            <p class="hero-subtitle">
+                India's premier competitive exam coaching institute — trusted by over 50,000 students
+                across UPSC, SSC, Banking, and State PSC exams.
+            </p>
+
+            <div class="hero-stats">
+                <div>
+                    <div class="stat-num">50K+</div>
+                    <div class="stat-label">Students</div>
+                </div>
+
+                <div>
+                    <div class="stat-num">95%</div>
+                    <div class="stat-label">Pass Rate</div>
+                </div>
+
+                <div>
+                    <div class="stat-num">12+</div>
+                    <div class="stat-label">Years</div>
+                </div>
+            </div>
+
+            <div class="hero-cta">
+                 <a href="/enroll/" class="btn-primary-hero">Enroll Now →</a>
+                 <a href="/contact/" class="btn-primary-hero">Contact</a>
+               
+            </div>
+
+        </div>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="col-12 col-lg-6">
+
+        <div class="hero-right">
+
+            <div class="hero-card">
+
+                <p class="card-title">Popular Courses</p>
+
+                <div class="exam-list">
+
+                    <div class="exam-item">
+                        <div class="exam-icon">🏛️</div>
+                        <div>
+                            <div class="exam-name">MPSC State Service</div>
+                            <div class="exam-sub">>State Services · Group B & C</div>
+                        </div>
+                        <span class="exam-badge">Trending</span>
+                    </div>
+
+                    <div class="exam-item">
+                        <div class="exam-icon">📊</div>
+                        <div>
+                            <div class="exam-name">Police Bharti</div>
+                            <div class="exam-sub">Constable · Driver · SRPF</div>
+                        </div>
+                    </div>
+
+                    <div class="exam-item">
+                        <div class="exam-icon">🏦</div>
+                        <div>
+                            <div class="exam-name">Gramsevak</div>
+                            <div class="exam-sub">Rural Development · Panchayat Services</div>
+                        </div>
+                        <span class="exam-badge">New</span>
+                    </div>
+
+                    <div class="exam-item">
+                        <div class="exam-icon">📋</div>
+                        <div>
+                            <div class="exam-name">Vanrakshak</div>
+                            <div class="exam-sub">Forest Guard · Forest Department</div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="card-footer-note">
+                    ✦ Free demo class available for all courses
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+</div>
+
+</section>
+
+<!-- banner end -->
+
+
+
+<!-- about acadmy start -->
+
+
+  
+  <section>
+    <div class="container mt-5">
+      <div class="about-grid">
+   <div class="about-image-wrapper">
+
+    <div class="about-image-block">
+
+        <div class="about-quote">
+            {{ student_data.heading }}
+        </div>
+
+        <p style="color:rgba(255,255,255,0.6);font-size:15px;margin-bottom:28px;">
+            {{ student_data.paragraph }}
+        </p>
+
+        <div class="about-achievements">
+
+            <div class="about-ach-item">
+                <div class="about-ach-num">
+                    {{ student_data.train_number }}
+                </div>
+                <div class="about-ach-label">
+                    Students Trained
+                </div>
+            </div>
+
+            <div class="about-ach-item">
+                <div class="about-ach-num">
+                    {{ student_data.stu_num }}
+                </div>
+                <div class="about-ach-label">
+                    Selections
+                </div>
+            </div>
+
+            <div class="about-ach-item">
+                <div class="about-ach-num">
+                    {{ student_data.expfac_num }}
+                </div>
+                <div class="about-ach-label">
+                    Expert Faculty
+                </div>
+            </div>
+
+            <div class="about-ach-item">
+                <div class="about-ach-num">
+                    {{ student_data.course_num }}
+                </div>
+                <div class="about-ach-label">
+                    Courses
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="about-years-badge">
+        <span class="num">8+</span>
+        <span class="txt">Years<br>Trust</span>
+    </div>
+
+</div>
+<div class="about-content">
+
+    <div class="section-label">
+        About Dhanraj
+    </div>
+
+    <div class="divider"></div>
+
+    <h2 class="section-title">
+        {{ data.main_heading }}
+    </h2>
+
+    <p style="color:var(--gray-600);font-size:16px;line-height:1.7;margin-bottom:20px;">
+        {{ data.about_description }}
+    </p>
+
+    <div class="vision-box">
+
+        <strong style="color:var(--saffron-dark);font-size:13px;letter-spacing:1px;text-transform:uppercase;">
+            Our Vision
+        </strong>
+
+        <p style="margin-top:6px;">
+            {{ data.vision_description }}
+        </p>
+
+    </div>
+
+    <div class="about-timeline">
+
+        <div class="timeline-item">
+
+            <div class="timeline-year">
+                {{ data.year1 }}
+            </div>
+
+            <div class="timeline-text">
+                {{ data.timeline1 }}
+            </div>
+
+        </div>
+
+        <div class="timeline-item">
+
+            <div class="timeline-year">
+                {{ data.year2 }}
+            </div>
+
+            <div class="timeline-text">
+                {{ data.timeline2 }}
+            </div>
+
+        </div>
+
+        <div class="timeline-item">
+
+            <div class="timeline-year">
+                {{ data.year3 }}
+            </div>
+
+            <div class="timeline-text">
+                {{ data.timeline3 }}
+            </div>
+
+        </div>
+
+        <div class="timeline-item">
+
+            <div class="timeline-year">
+                {{ data.year4 }}
+            </div>
+
+            <div class="timeline-text">
+                {{ data.timeline4 }}
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- WHY SECTION -->
+  <section class="why-section section-padding">
+    <div class="container">
+
+        <div class="why-grid">
+
+            {% for i in why_data %}
+
+            <div class="why-card">
+
+                <div class="why-icon">
+                     <i class="{{ i.icon }}" style="color:#2563eb;font-size:30px;"></i>
+                </div>
+
+                <div class="why-title">
+                    {{ i.title }}
+                </div>
+
+                <div class="why-desc">
+                    {{ i.description }}
+                </div>
+
+            </div>
+
+            {% empty %}
+
+            <div class="why-card">
+
+                <div class="why-title">
+                    No Data Found
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+</section>
+
+
+<!-- academy statistics start -->
+
+
+<section class="statistics-section">
+
+<div class="container">
+
+    <!-- Heading -->
+    <div class="text-center mb-3">
+
+        <!-- Replace with your logo -->
+        <img src="/{{profile.logo}}"
+             alt="Academy Logo"
+             class="section-logo">
+
+        <h2 class="section-title">
+            Academy Statistics
+        </h2>
+
+        <p class="section-subtitle">
+            Our Success in Numbers
+        </p>
+
+    </div>
+
+    <!-- Statistics Cards -->
+    <div class="row g-4">
+     {% for stat in statistis %}
+        <div class="col-6 col-md-4 col-lg">
+            <div class="stats-card">
+
+                <div class="icon-box">
+                    <i class="{{stat.statistic_icon}}"></i>
+                </div>
+
+                <h3 class="stats-number counter" data-target="{{stat.statistic_count}}">
+                    {{stat.statistic_count}}
+                </h3>
+
+                <p class="stats-title">
+                    {{stat.statistic_title}}
+                </p>
+
+            </div>
+        </div>
+        {% endfor %}
+
+        <!-- <div class="col-6 col-md-4 col-lg">
+            <div class="stats-card">
+
+                <div class="icon-box">
+                    <i class="bi bi-trophy-fill stats-icon"></i>
+                </div>
+
+                <h3 class="stats-number counter" data-target="900">
+                    0
+                </h3>
+
+                <p class="stats-title">
+                    Students Selected
+                </p>
+
+            </div>
+        </div> -->
+
+        <!-- <div class="col-6 col-md-4 col-lg">
+            <div class="stats-card">
+
+                <div class="icon-box">
+                    <i class="bi bi-book-fill stats-icon"></i>
+                </div>
+
+                <h3 class="stats-number counter" data-target="15">
+                    0
+                </h3>
+
+                <p class="stats-title">
+                    Courses Available
+                </p>
+
+            </div>
+        </div> -->
+
+        <!-- <div class="col-6 col-md-4 col-lg">
+            <div class="stats-card">
+
+                <div class="icon-box">
+                    <i class="bi bi-journal-check stats-icon"></i>
+                </div>
+
+                <h3 class="stats-number counter" data-target="10">
+                    0
+                </h3>
+
+                <p class="stats-title">
+                    Running Batches
+                </p>
+
+            </div>
+        </div> -->
+
+        <!-- <div class="col-6 col-md-4 col-lg">
+            <div class="stats-card">
+
+                <div class="icon-box">
+                    <i class="bi bi-award-fill stats-icon"></i>
+                </div>
+
+                <h3 class="stats-number counter" data-target="8">
+                    0
+                </h3>
+
+                <p class="stats-title">
+                    Years Experience
+                </p>
+
+            </div>
+        </div> -->
+
+    </div>
+
+</div>
+
+</section>
+
+<!-- mpsc section start here  -->
+
+ <!-- card section  -->
+<section>
+  <div class="container pt-4 pb-4">
+    <div class="row">
+      <div class="col-12">
+        <h1 class="d-flex justify-content-center" >    
+      <button class="course-tab active fw-bold fs-3 " data-filter="all">All Courses</button>
+   
+   </h1>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section >
+
+<div class="container courses-grid mb-5">
+ <!-- MPSC -->
+   {% for course in home_courses %}
+   
+      <div class="course-card" data-category="mpsc">
+        <!-- <div class="course-card" data-category="mpsc"></div> -->
+        <div class="course-badge">Most Popular</div>
+        <div class="course-card-header orange">
+          <div class="course-card-tag">{{ course.department }}</div>
+          <div class="course-card-name">{{ course.course_name }}</div>
+        </div>
+        <div class="course-card-body">
+          <div class="course-detail-list">
+            <div class="course-detail"><span class="course-detail-icon">📅</span><strong>Duration:</strong> {{course.duration}}</div>
+            <div class="course-detail"><span class="course-detail-icon">💰</span><strong>Fees:</strong> ₹{{ course.fees }}</div>
+            <div class="course-detail"><span class="course-detail-icon">⏰</span><strong>Timing:</strong> {{ course.timing }}</div>
+            <div class="course-detail"><span class="course-detail-icon">🏛️</span><strong>{{ course.extra_label }}</strong> {{ course.extra_value }}</div>
+          </div>
+      
+          <div class="course-actions">
+            <a href="#" class="btn btn-saffron">Join Now</a>
+            <a href="/course/" class="btn btn-navy">Know More</a>
+          </div>
+        </div>
+      </div>
+
+      {% endfor %}
+      
+
+
+
+      
+
+
+</div>
+</section>
+
+
+<!-- notification start here  -->
+
+<div class="section-title">
+<h2 style="text-align: start;">🔔 Notifications</h2>
+</div>
+
+<div class="updates-grid container">
+<!-- Card 1 -->
+{% for i in latest%}
+       <div class="update-card">
+
+    <div class="card-image">
+
+        {% if i.slider_image %}
+        <img src="{{ i.slider_image.url }}" alt="">
+        {% endif %}
+
+    </div>
+
+    <div class="card-content">
+
+        <span class="category-badge">
+            {{ i.category }}
+        </span>
+
+        <h3>
+            {{ i.heading }}
+        </h3>
+
+        <p>
+            {{ i.heading_description }}
+        </p>
+
+        <div class="card-footer">
+
+            <div class="update-date">
+                <i class="fa-regular fa-calendar"></i>
+                {{ i.dob }}
+            </div>
+
+            <button class="share-btn p-2">
+
+                <a href="/latest_update/"> View More</a>
+            </button>
+
+            <button class="share-btn  action-btn">
+                <i class="fas fa-share-nodes"></i>
+                Share
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+{% endfor %}
+
+
+
+        
+<!-- Card 2 -->
+
+<!-- <div class="update-card">
+
+<div class="card-image">
+<img src="https://images.unsplash.com/photo-1448375240586-882707db888b?w=800" alt="">
+</div>
+
+<div class="card-content">
+
+<span class="category-badge">
+Notification
+</span>
+
+<h3>
+Vanrakshak Bharti Notification
+</h3>
+
+<p>
+Forest Department recruitment notification released.
+</p>
+
+<div class="card-footer">
+
+<div class="update-date">
+<i class="fa-regular fa-calendar"></i>
+12 June 2026
+</div>
+
+<button class="share-btn p-2"><a href="/latest_update/">View More </a>
+</button>
+
+<button class="share-btn p-2">
+<i class="fas fa-share-nodes"></i>
+Share
+</button>
+
+</div>
+
+</div>
+
+</div> -->
+
+<!-- Card 3 -->
+
+<!-- <div class="update-card">
+
+<div class="card-image">
+<img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800" alt="">
+</div>
+
+<div class="card-content">
+
+<span class="category-badge">
+Notification
+</span>
+
+<h3>
+MPSC Notification
+</h3>
+
+<p>
+Latest MPSC recruitment notification available now.
+</p>
+
+<div class="card-footer">
+
+<div class="update-date">
+<i class="fa-regular fa-calendar"></i>
+10 June 2026
+</div>
+
+<button class="share-btn p-2 "><a href="/latest_update/"> View More </a>
+</button>
+
+<button class="share-btn p-2">
+<i class="fas fa-share-nodes"></i>
+Share
+</button>
+
+</div>
+
+</div>
+
+</div> -->
+
+
+
+</div>
+
+
+<!-- result section start here  -->
+
+
+    <div class="section-title">
+        <h2>🏆 पोलीस भरती निकाल</h2>
+    </div>
+
+    <div class="card-grid container">
+{% for i in result%}
+        <div class="student-card">
+
+            <img src="{{ i.image.url }}" alt="{{ i.name }}">
+
+            <h3>{{ i.name }}</h3>
+
+            <p> {{ i.year }}</p>
+
+            <span class="rank">
+                 {{ i.rank }}
+            </span>
+
+            <button class="story-btn">
+                <a href="/result/">यशोगाथा वाचा</a>
+            </button>
+
+        </div>
+    {% endfor %}
+
+       
+    </div>
+
+
+    <!-- faculty start -->
+    <div class="faculty-section30">
+      <div class=" section-title-label37">Teacher Profiles</div>
+      <div class="cards-grid25">
+
+        {% for i in teacher %}
+      <div class="faculty-card29">
+     
+        
+        <div><img src="/{{i.images}}" alt=""
+            style="width:100px;height:100px;border-radius:50%;background:#e9ecef;border:3px solid #FFC107;box-shadow:0 0 0 4px rgba(255,193,7,0.15);margin:0 auto 14px;display:flex;align-items:center;justify-content:center;font-size:32px;color:#aaa;">
+        </div>
+        <h4>{{i.fullname}}</h4>
+        <div class="role36">{{i.traner}}</div>
+        <div class="experience28">💼 {{i.experience}}</div>
+        <div class="social-icons38">
+          <a href="{{i.linkedin}}"><i class="fab fa-linkedin"></i></a>
+          <a href="{{i.twitter}}"><i class="fab fa-github"></i></a>
+          <a href="{{i.instagram}}"><i class="fab fa-instagram"></i></a>
+        </div>
+        
+      </div>
+       {% endfor %}
+
+        <!-- <div class="faculty-card29">
+        <img src="/static/web/images/Anit kumar.png" alt="" style="width:100px;height:100px;border-radius:50%;background:#e9ecef;border:3px solid #FFC107;box-shadow:0 0 0 4px rgba(255,193,7,0.15);margin:0 auto 14px;display:flex;align-items:center;justify-content:center;font-size:32px;color:#aaa;">
+          <h4>MR. Nikil Desai</h4>
+        <div class="role36">MPSC Trainer</div>
+          <div class="experience28">💼 10+ Years Experience</div>
+                 <div class="social-icons38">
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                            <a href="#"><i class="fab fa-github"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                        </div>
+        </div> -->
+
+        <!-- <div class="faculty-card29">
+          <div><img src="/static/web/images/amit.jpg" alt="" style="width:100px;height:100px;border-radius:50%;background:#e9ecef;border:3px solid #FFC107;box-shadow:0 0 0 4px rgba(255,193,7,0.15);margin:0 auto 14px;display:flex;align-items:center;justify-content:center;font-size:32px;color:#aaa;"></div>
+          <h4>HAMRAJ SHAIKH</h4>
+          <div class="role36">UPSC Trainer</div>
+          <div class="experience28">💼 12+ Years Experience</div>
+                <div class="social-icons38">
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                            <a href="#"><i class="fab fa-github"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+        </div> -->
+
+      </div>
+    </div>
+
+
+
+
+</body>
+
+
+<!--academy  statistics section js -->
+<script>
+
+const counters = document.querySelectorAll(".counter");
+
+counters.forEach(counter => {
+
+    let target = Number(counter.dataset.target);
+    let current = 0;
+
+    let step = Math.ceil(target / 50);
+
+    let timer = setInterval(() => {
+
+        current += step;
+
+        if(current >= target){
+            counter.innerText = target + "+";
+            clearInterval(timer);
+        } else {
+            counter.innerText = current;
+        }
+
+    }, 60);
+
+});
+
+</script>
+
+{% include "user/footer.html" %}

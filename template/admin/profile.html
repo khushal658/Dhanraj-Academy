@@ -1,0 +1,322 @@
+{% include "admin/navbar.html" %}
+
+<style>
+    .container{
+    width:95%;
+    margin:auto;
+    padding:20px;
+}
+
+/* Card Design */
+.card{
+    background:#fff;
+    border-radius:12px;
+    box-shadow:0 4px 15px rgba(0,0,0,0.1);
+    margin-bottom:25px;
+    overflow:hidden;
+}
+
+.card-header{
+    background:#0d6efd;
+    color:white;
+    padding:15px 20px;
+    font-size:22px;
+    font-weight:600;
+}
+
+.card-body{
+    padding:25px;
+}
+
+/* Form */
+.custom-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:20px;
+}
+
+.custom-col-6{
+    flex:0 0 calc(50% - 10px);
+}
+
+.custom-col-12{
+    flex:0 0 100%;
+}
+
+
+label{
+    display:block;
+    margin-bottom:6px;
+    font-weight:600;
+    color:#333;
+}
+
+.form-control{
+    width:100%;
+    padding:10px 12px;
+    border:1px solid #ddd;
+    border-radius:8px;
+    outline:none;
+    font-size:14px;
+    box-sizing:border-box;
+}
+
+.form-control:focus{
+    border-color:#0d6efd;
+    box-shadow:0 0 5px rgba(13,110,253,0.3);
+}
+
+textarea.form-control{
+    resize:none;
+    height:80px;
+}
+
+/* Buttons */
+.btn{
+    text-decoration:none;
+    padding:8px 15px;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+    font-size:14px;
+    display:inline-block;
+}
+
+.btn-success{
+    background:#198754;
+    color:white;
+}
+
+.btn-success:hover{
+    background:#157347;
+}
+
+.btn-warning{
+    background:#ffc107;
+    color:black;
+}
+
+.btn-warning:hover{
+    background:#e0a800;
+}
+
+.btn-danger{
+    background:#dc3545;
+    color:white;
+}
+
+.btn-danger:hover{
+    background:#bb2d3b;
+}
+
+/* Table */
+.table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+.table th{
+    background:#0d6efd;
+    color:white;
+    padding:12px;
+    text-align:center;
+}
+
+.table td{
+    padding:12px;
+    text-align:center;
+    border:1px solid #ddd;
+}
+
+.table tr:nth-child(even){
+    background:#f8f9fa;
+}
+
+.table tr:hover{
+    background:#eef5ff;
+}
+
+/* Logo Image */
+.logo-img{
+    width:70px;
+    height:70px;
+    border-radius:8px;
+    object-fit:cover;
+    border:2px solid #ddd;
+}
+
+/* Responsive */
+.table-responsive{
+    overflow-x:auto;
+}
+
+@media(max-width:768px){
+
+    .col-md-6{
+        width:100%;
+    }
+
+    .table{
+        min-width:900px;
+    }
+}
+</style>
+
+<body>
+
+   <div class="container mt-4">
+
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+            <h4>Academy Profile</h4>
+        </div>
+
+        <div class="card-body">
+            <form action="/save_profile/" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+
+              <div class="custom-row">
+
+                <div class="custom-col-6">
+                    <label>Mobile Number</label>
+                    <input type="number" name="mobile" class="form-control">
+                </div>
+
+                <div class="custom-col-6">
+                    <label>Email</label>
+                    <input type="email" name="email" class="form-control">
+                </div>
+
+                <div class="custom-col-6">
+                    <label>Password</label>
+                    <input type="password" name="password" class="form-control">
+                </div>
+
+                <div class="custom-col-6">
+                    <label>Admission Year</label>
+                    <input type="text" name="year" class="form-control">
+                </div>
+
+                <div class="custom-col-6">
+                    <label>Logo</label>
+                    <input type="file" name="logo" class="form-control">
+                </div>
+
+                <div class="custom-col-6">
+                    <label>Academy Name</label>
+                    <input type="text" name="academy_name" class="form-control">
+                </div>
+
+                <div class="custom-col-6">
+                    <label>Facebook</label>
+                    <input type="text" name="facebook" class="form-control">
+                </div>
+
+                <div class="custom-col-6">
+                    <label>LinkedIn</label>
+                    <input type="text" name="linkdin" class="form-control">
+                </div>
+
+                <div class="custom-col-6">
+                    <label>Twitter</label>
+                    <input type="text" name="twitter" class="form-control">
+                </div>
+
+                <div class="custom-col-6">
+                    <label>YouTube</label>
+                    <input type="text" name="youtube" class="form-control">
+                </div>
+
+                <div class="custom-col-6">
+                    <label>Instagram</label>
+                    <input type="text" name="instagram" class="form-control">
+                </div>
+
+                <div class="custom-col-12">
+                    <label>Address</label>
+                    <textarea name="address" class="form-control"></textarea>
+                </div>
+
+            </div>
+
+                <button type="submit" class="btn btn-success">
+                    Save Profile
+                </button>
+
+                 
+               
+
+            </form>
+        </div>
+    </div>
+
+    <!-- <div class="card shadow mt-4">
+        <div class="card-header bg-dark text-white">
+            <h4>Profile List</h4>
+        </div>
+
+        <div class="card-body">
+            <table class="table table-bordered table-hover">
+                <thead class="table-primary">
+                    <tr>
+                       
+                        <th>Logo</th>
+                        <th>Academy Name</th>
+                        <th>Mobile</th>
+                        <th>Email</th>
+                        <th>Year</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                  
+                    <tr>
+                       
+
+                        <td>
+                            <img src="/{{ profile_data.logo }}"
+                                 width="70"
+                                 height="70"
+                                 class="rounded">
+                        </td>
+
+                        <td>{{ profile_data.academy_name }}</td>
+                        <td>{{ profile_data.mobile }}</td>
+                        <td>{{ profile_data.email }}</td>
+                        <td>{{ profile_data.year }}</td>
+
+                        <td>
+                            <a href="{% url 'update_profile' profile_data.id %}"
+                               class="btn btn-warning btn-sm">
+                                Update
+                            </a>
+
+                           
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
+        </div>
+    </div> -->
+
+</div>
+
+</body>
+
+{% if messages %}
+        {% for message in messages %}
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: '{{ message }}',
+                confirmButtonColor: '#1a56db'
+            });
+        </script>
+    {% endfor %}
+{% endif %}
+
+
+{% include "admin/footer.html" %}

@@ -1,0 +1,168 @@
+{% include "user/navbar.html" %}
+{% include "user/base.html" %}
+
+
+<body>
+  <section class="about-section section-padding" id="about">
+  <div class="hero4">
+
+    <h1>COURSE DHANRAJ</h1>
+    
+</section>
+    <section class="courses-section section-padding" id="courses">
+  <div class="container">
+    
+
+
+    <!-- card section  -->
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <h1>    
+      <button class="course-tab active fw-bold fs-3" data-filter="all">All Courses</button>
+   
+   </h1>
+      </div>
+    </div>
+  </div>
+</section>
+    <div class="courses-grid">
+      <!-- MPSC -->
+       {% for i in course %}
+      <div class="course-card" data-category="mpsc" id="mpsc">
+        <!-- <div class="course-card" data-category="mpsc"></div> -->
+        <!-- <div class="course-badge">Most Popular</div> -->
+        <div class="course-card-header orange">
+          <div class="course-card-tag">{{i.department}}</div>
+          <div class="course-card-name">{{i.course_name}}</div>
+        </div>
+        <div class="course-card-body">
+          <div class="course-detail-list">
+            <div class="course-detail"><span class="course-detail-icon">📅</span><strong>Duration:</strong> {{ i.duration}}</div>
+            <div class="course-detail"><span class="course-detail-icon">💰</span><strong>Fees:</strong>₹{{i.fees}}</div>
+            <div class="course-detail"><span class="course-detail-icon">⏰</span><strong>Timing:</strong>{{i.timing}}</div>
+            <div class="course-detail"><span class="course-detail-icon">🏛️</span><strong>{{i.extra_label}} :</strong> {{i.extra_value}}</div>
+          </div>
+      
+          <div class="course-actions">
+            <a href="/enroll/" class="btn btn-saffron">Join Now</a>
+            <a href="{% url 'course_mpsc' i.id %}" class="btn btn-navy">Know More</a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+<!-- know more popup -->
+<div id="courseModal" class="modal1">
+    <div class="modal-content1">
+
+        <span class="close-btn1">&times;</span>
+
+        <div class="modal-header1">
+            <h2 id="courseTitle">MPSC Rajyaseva</h2>
+            <div class="modal-subtitle">
+                Complete Competitive Exam Preparation
+            </div>
+        </div>
+
+        <div class="modal-body1">
+
+            <p id="courseInfo">
+                Detailed course information here...
+            </p>
+
+            <div class="course-features1">
+                <div class="feature">📚 Complete Notes</div>
+                <div class="feature">📝 Weekly Tests</div>
+                <div class="feature">🎯 Expert Faculty</div>
+                <div class="feature">📱 Mobile App Access</div>
+                <div class="feature">🏆 Previous Papers</div>
+                <div class="feature">🎓 Doubt Solving</div>
+            </div>
+
+            <a href="#contact" class="enroll-btn btn-lg">
+              BUY NOW
+            </a>
+
+        </div>
+
+    </div>
+</div>
+</body>
+
+
+<script>
+const tabs = document.querySelectorAll('.course-tab');
+const cards = document.querySelectorAll('.course-card');
+
+tabs.forEach(tab => {
+
+    tab.addEventListener('click', () => {
+
+        tabs.forEach(btn => btn.classList.remove('active'));
+        tab.classList.add('active');
+
+        const filter = tab.dataset.filter;
+
+        cards.forEach(card => {
+
+            if (
+                filter === 'all' ||
+                card.dataset.category === filter ||
+                card.dataset.category === 'all'
+            ) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
+
+        });
+
+    });
+
+});
+
+// know more 
+const modal = document.getElementById("courseModal");
+
+document.querySelectorAll(".know-more").forEach(btn=>{
+
+    btn.addEventListener("click",(e)=>{
+
+        e.preventDefault();
+
+        document.getElementById("courseTitle").innerText =
+        btn.dataset.title;
+
+        document.getElementById("courseInfo").innerText =
+        btn.dataset.info;
+
+        modal.style.display="block";
+    });
+
+});
+
+document.querySelector(".close-btn1").onclick=()=>{
+    modal.style.display="none";
+};
+
+window.onclick=(e)=>{
+    if(e.target===modal){
+        modal.style.display="none";
+    }
+};
+</script>
+
+
+
+
+
+
+
+
+
+
+{% include "user/footer.html" %}

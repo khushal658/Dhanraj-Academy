@@ -1,0 +1,122 @@
+{% include "user/navbar.html" %}
+{% include "user/base.html" %}
+
+<section class="blogs-banner">
+
+    <div class="blogs-overlay">
+
+        <h5>Knowledge Hub</h5>
+
+        <h1>
+            ब्लॉग्स, चालू घडामोडी आणि परीक्षा अपडेट्स
+        </h1>
+
+        <p>
+            स्पर्धा परीक्षांशी संबंधित ताज्या चालू घडामोडी, अभ्यासासाठी
+            उपयुक्त टिप्स, यशस्वी रणनीतीविषयक लेख आणि महत्त्वाच्या
+            परीक्षा अधिसूचना मिळवत राहा.
+        </p>
+
+    </div>
+
+</section>
+
+
+<section class="blogs-section">
+
+    <div class="blogs-title">
+
+        <h2>अभ्यास मार्गदर्शन विभाग</h2>
+
+        <p>
+            नेहमी अद्ययावत रहा आणि तुमची परीक्षा तयारी अधिक प्रभावी करा
+        </p>
+
+    </div>
+
+<div class="blogs-grid">
+
+    {% for blog in blogs %}
+
+    <div class="blogs-card">
+
+        {% if blog.image %}
+            <img src="{{ blog.image.url }}" alt="{{ blog.title }}">
+        {% endif %}
+
+        <div class="blogs-content">
+
+            <h3>{{ blog.title }}</h3>
+
+            <p>
+                {{ blog.description|truncatewords:25 }}
+            </p>
+
+ </div>
+
+    </div>
+
+    {% empty %}
+        <p>No blogs found 😢</p>
+    {% endfor %}
+<a href="{% url 'timetable_blog' %}" class="blogs-read-btn">
+    Read More →
+</a>
+
+<a href="{% url 'tips_blog' %}" class="blogs-read-btn">
+    Read More →
+</a>
+
+<a href="{% url 'preparation_blog' %}" class="blogs-read-btn">
+    Read More →
+</a>
+
+<a href="{% url 'current_affairs_blog' %}" class="blogs-read-btn">
+    Read More →
+</a></div>       
+</section> 
+{% include "user/footer.html" %}
+<style>
+    .blogs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.blogs-card {
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+/* content full stretch */
+.blogs-content {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+/* 🔥 BUTTON FIX */
+.blogs-read-btn{
+    margin-top:auto;
+    display:block;
+    padding:10px 14px;
+    background:#F4C430;
+    color:#fff !important;
+    text-decoration:none;
+    border-radius:8px;
+    font-size:14px;
+    text-align:center;
+    margin-bottom:5px;
+    transition:0.3s;
+}
+
+.blogs-read-btn:hover{
+    background:#143b85;
+    color:#fff !important;
+}</style>

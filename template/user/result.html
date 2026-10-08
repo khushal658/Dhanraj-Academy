@@ -1,0 +1,199 @@
+{% include "user/navbar.html" %}
+{% include "user/base.html" %}
+
+<style>
+.story-btn a {
+    color: black;
+    text-decoration: none;
+}
+</style>
+
+<body>
+
+<!-- HERO -->
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <h1>आमचे सर्वोत्तम यशस्वी विद्यार्थी</h1>
+
+        <p>
+            हजारो विद्यार्थ्यांनी समर्पण, कठोर परिश्रम आणि योग्य मार्गदर्शनाच्या बळावर आपली स्वप्ने पूर्ण केली आहेत.
+        </p>
+
+    </div>
+
+</section>
+
+<!-- POLICE -->
+<section class="result-section">
+
+    <div class="section-title">
+        <h2>🏆 पोलिस भरती निकाल</h2>
+    </div>
+
+    <div class="card-grid">
+        {% for result in police_results %}
+        <div class="student-card">
+
+            <img src="{{ result.image.url }}" alt="{{ result.name }}">
+
+            <h3>{{ result.name }}</h3>
+
+            <p> {{ result.year }}</p>
+
+            <span class="rank">
+                 {{ result.rank }}
+            </span>
+
+            <button class="story-btn">
+                <a href="{% url 'success_story' result.id %}">यशोगाथा वाचा</a>
+            </button>
+
+        </div>
+        {% endfor %}
+    </div>
+
+</section>
+
+
+<!-- Gramsevak RESULTS -->
+
+<section class="result-section">
+
+    <div class="section-title">
+        <h2>🏆 ग्रामसेवक निकाल</h2>
+    </div>
+
+    <div class="card-grid">
+
+        {% for result in gramsevak_results %}
+
+        <div class="student-card">
+
+            <img src="{{ result.image.url }}">
+
+            <h3>{{ result.name }}</h3>
+
+            <p> {{ result.year }}</p>
+
+            <span class="rank">
+                 {{ result.rank }}
+            </span>
+
+            <button class="story-btn">
+                <a href="{% url 'success_story' result.id %}">यशोगाथा वाचा</a>
+            </button>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+
+<!-- वनरक्षक निवड -->
+ <section class="result-section">
+
+    <div class="section-title">
+        <h2>🏆 वनरक्षक भरती निकाल </h2>
+    </div>
+    
+   <div class="card-grid">
+
+        {% for result in vanrakshak_results %}
+
+        <div class="student-card">
+
+            <img src="{{ result.image.url }}">
+
+            <h3>{{ result.name }}</h3>
+
+            <p> {{ result.year }}</p>
+
+            <span class="rank">
+                 {{ result.rank }}
+            </span>
+
+            <button class="story-btn">
+                <a href="{% url 'success_story' result.id %}">यशोगाथा वाचा</a>
+            </button>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+ </section>
+<!-- MPSC -->
+
+<section class="result-section">
+    <div class="section-title">
+        <h2>🏆 MPSC Results</h2>
+    </div>
+<div class="card-grid">
+
+        {% for result in mpsc_results %}
+
+        <div class="student-card">
+
+            <img src="{{ result.image.url }}">
+
+            <h3>{{ result.name }}</h3>
+
+            <p> {{ result.year }}</p>
+
+            <span class="rank">
+                 {{ result.rank }}
+            </span>
+
+            <button class="story-btn">
+                <a href="{% url 'success_story' result.id %}">यशोगाथा वाचा</a>
+            </button>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+    
+</section>
+<!-- TALATHI -->
+
+<section class="result-section">
+    <div class="section-title">
+        <h2>🏆 Talathi Results</h2>
+    </div>
+     <div class="card-grid">
+
+        {% for result in talathi_results %}
+
+        <div class="student-card">
+
+            <img src="{{ result.image.url }}">
+
+            <h3>{{ result.name }}</h3>
+
+            <p>{{ result.year }}</p>
+
+            <span class="rank">
+                 {{ result.rank }}
+            </span>
+
+            <button class="story-btn">
+                <a href="{% url 'success_story' result.id %}">यशोगाथा वाचा</a>
+            </button>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+</section>
+</body>
+
+{% include "user/footer.html" %}

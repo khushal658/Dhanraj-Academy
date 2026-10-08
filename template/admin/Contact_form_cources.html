@@ -1,0 +1,287 @@
+
+{% include "admin/navbar.html" %}
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:#f1f5f9;
+    font-family:Arial,sans-serif;
+}
+
+.container-fluid{
+    width:100%;
+    padding:25px;
+}
+
+.card{
+    width:100%;
+    background:#fff;
+    border-radius:20px;
+    padding:30px;
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+}
+
+.page-title{
+    text-align:center;
+    font-size:32px;
+    font-weight:bold;
+    color:#4f46e5;
+    margin-bottom:25px;
+}
+
+.row{
+    display:flex;
+    gap:15px;
+    flex-wrap:wrap;
+}
+
+.col-md-10{
+    flex:1;
+}
+
+.col-md-2{
+    width:180px;
+}
+
+.form-control{
+    width:100%;
+    height:55px;
+    padding:12px 15px;
+    border:2px solid #d1d5db;
+    border-radius:12px;
+    font-size:15px;
+    outline:none;
+    transition:.3s;
+}
+
+.form-control:focus{
+    border-color:#4f46e5;
+}
+
+.w-100{
+    width:100%;
+}
+
+.btn{
+    border:none;
+    cursor:pointer;
+    text-decoration:none;
+    display:inline-block;
+    transition:.3s;
+}
+
+.btn-success{
+    width:100%;
+    height:55px;
+    border-radius:12px;
+    background:#4f46e5;
+    color:white;
+    font-size:16px;
+    font-weight:600;
+}
+
+.btn-success:hover{
+    background:#4338ca;
+}
+
+.btn-warning{
+    background:#f59e0b;
+    color:white;
+    padding:8px 15px;
+    border-radius:8px;
+    margin-right:5px;
+}
+
+.btn-warning:hover{
+    background:#d97706;
+}
+
+.btn-danger{
+    background:#ef4444;
+    color:white;
+    padding:8px 15px;
+    border-radius:8px;
+}
+
+.btn-danger:hover{
+    background:#dc2626;
+}
+
+hr{
+    margin:25px 0;
+    border:1px solid #e5e7eb;
+}
+
+.table-responsive{
+    overflow-x:auto;
+}
+
+.table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+.table th{
+    background:#4f46e5;
+    color:white;
+    padding:15px;
+    text-align:center;
+}
+
+.table td{
+    padding:15px;
+    border:1px solid #e5e7eb;
+    text-align:center;
+}
+
+.table tbody tr:hover{
+    background:#eef2ff;
+}
+
+.empty-row{
+    padding:20px;
+    color:#666;
+}
+
+@media(max-width:768px){
+
+    .container-fluid{
+        padding:10px;
+    }
+
+    .page-title{
+        font-size:24px;
+    }
+
+    .col-md-10,
+    .col-md-2{
+        width:100%;
+        flex:100%;
+    }
+
+    .btn-success{
+        margin-top:10px;
+    }
+
+    .btn-warning,
+    .btn-danger{
+        display:block;
+        width:100%;
+        margin-top:5px;
+    }
+
+    .table{
+        font-size:14px;
+    }
+}
+
+</style>
+
+<div class="container-fluid">
+
+    <div class="card">
+
+        <h2 class="page-title">
+            Course Management
+        </h2>
+
+        <form method="POST" action="/save_Contact_form_cources/">
+            {% csrf_token %}
+
+            <div class="row">
+
+                <div class="col-md-10">
+                    <input
+                        type="text"
+                        name="course_name"
+                        class="form-control"
+                        placeholder="Enter Course Name"
+                        required>
+                </div>
+
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-success">
+                        Add Course
+                    </button>
+                </div>
+
+            </div>
+        </form>
+
+        <hr>
+
+        <div class="table-responsive">
+
+            <table class="table">
+
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Course Name</th>
+                        <th width="220">Action</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    {% for i in Contact_form_cources_data %}
+
+                    <tr>
+                         <td>{{ forloop.counter }}</td>
+
+                        <td>{{ i.course_name }}</td>
+
+                        <td>
+
+                            <a href="{% url 'update_contact_form_course' i.id %}"
+                               class="btn btn-warning">
+                                Update
+                            </a>
+
+                            <a href="{% url 'Delete_Contact_form_cources' i.id %}"
+                               class="btn btn-danger"
+                               onclick="return confirm('Delete Course ?')">
+                                Delete
+                            </a>
+
+                        </td>
+                    </tr>
+
+                    {% empty %}
+
+                    <tr>
+                        <td colspan="3" class="empty-row">
+                            No Courses Found
+                        </td>
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+ <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+{% if messages %}
+{% for message in messages %} <script>
+Swal.fire({
+icon: 'success',
+title: 'Success',
+text: '{{ message }}',
+confirmButtonText: 'OK'
+}); </script>
+{% endfor %}
+{% endif %}
+{% include "admin/footer.html" %}

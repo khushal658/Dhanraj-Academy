@@ -1,0 +1,329 @@
+{% include "admin/navbar.html" %}
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+ <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<style>
+/* body{
+    background:#f1f5f9;
+    font-family:'Poppins',sans-serif;
+     min-height: 100vh;
+}
+
+.page-wrap{
+       max-width:1100px;
+    margin:30px auto;
+    display:flex;
+    flex-direction:column;
+    gap:28px;
+
+} */
+
+body{
+    background:#f1f5f9;
+    font-family:'Poppins',sans-serif;
+}
+
+.page-wrap{
+    max-width:1100px;
+    margin:30px auto;
+    display:flex;
+    flex-direction:column;
+    gap:28px;
+    padding-top: 0;
+}
+
+
+.custom-card{
+    background:#fff;
+    border-radius:16px;
+    overflow:hidden;
+    box-shadow:0 8px 30px rgba(0,0,0,.08);
+}
+
+.card-head{
+    padding:18px 26px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.card-head.blue{
+    background:#1a56db;
+}
+
+.card-head.dark{
+    background:#1e2636;
+}
+
+.card-head h3{
+    color:#fff;
+    margin:0;
+    font-size:18px;
+    font-weight:600;
+}
+
+.card-body{
+    padding:28px;
+}
+
+.form-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+}
+
+.field{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+}
+
+.field input,
+.field textarea{
+    width:100%;
+    background:#f8fafc;
+    border:1px solid #dbe2ea;
+    border-radius:10px;
+    padding:12px 14px;
+    font-size:14px;
+    outline:none;
+    box-sizing:border-box;
+}
+
+.field textarea{
+    height:120px;
+    resize:vertical;
+}
+
+.field input:focus,
+.field textarea:focus{
+    border-color:#1a56db;
+    box-shadow:0 0 0 3px rgba(26,86,219,.12);
+}
+
+.save-btn{
+    width:100%;
+    height:52px;
+    background:#1a56db;
+    color:white;
+    border:none;
+    border-radius:12px;
+    font-size:16px;
+    font-weight:600;
+    margin-top:20px;
+    cursor:pointer;
+}
+
+.save-btn:hover{
+    background:#1641a3;
+}
+
+.table-responsive{
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:14px;
+}
+
+table thead tr{
+    background:#1e2636;
+}
+
+table thead th{
+    color:white;
+    padding:14px;
+    text-align:center;
+    white-space:nowrap;
+}
+
+table td{
+    padding:12px;
+    text-align:center;
+    border-bottom:1px solid #e5e7eb;
+}
+
+table tbody tr:hover{
+    background:#eff6ff;
+}
+
+.actions{
+    display:flex;
+    justify-content:center;
+    gap:8px;
+}
+
+.btn-update{
+    background:#1a56db;
+    color:white;
+    padding:8px 15px;
+    border-radius:8px;
+    text-decoration:none;
+}
+
+.btn-delete{
+    background:#dc2626;
+    color:white;
+    padding:8px 15px;
+    border-radius:8px;
+    text-decoration:none;
+}
+
+.btn-update:hover{
+    background:#1641a3;
+    color:white;
+}
+
+.btn-delete:hover{
+    background:#b91c1c;
+    color:white;
+}
+
+
+.toast-msg{
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #198754;
+    color: white;
+    padding: 15px 25px;
+    border-radius: 8px;
+    font-weight: 600;
+    z-index: 9999;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    animation: fadeOut 4s forwards;
+}
+
+@keyframes fadeOut{
+    0%,80%{opacity:1;}
+    100%{opacity:0;}
+}
+
+
+</style>
+
+
+
+
+
+
+
+<div class="page-wrap container"> 
+
+    <!-- Form Card -->
+     
+
+    <!-- Table Card -->
+     <div class="custom-card">
+
+        <div class="card-head dark">
+            <h3>MPSC Course Records</h3>
+        </div>
+
+        <div class="card-body" style="padding:0;">
+            <div class="table-responsive">
+
+                <table>
+                    <tr>
+                     <thead>
+
+                        <th>ID</th>
+                        <th>Department</th>
+                        <th>Course Name</th>
+                        <th>Duration</th>
+                        <th>Fees</th>
+                        <th>Timing</th>
+                        <!-- <th>Mode</th> -->
+                         <th>Extra label</th>
+                         <th>Extra Value</th>
+                        <th>Course Full Name</th>
+                        <th>Title</th>
+                        <th>Eligibility</th>
+                        <th>Benefit 1</th>
+                        <th>Benefit 2</th>
+                        <th>Benefit 3</th>
+                        <th>Benefit 4</th>
+                        <th>Benefit 5</th>
+                        <th>Admission Notice</th>
+                        <th>Action</th>
+                        </thead>
+                    </tr>
+
+                    {% for i in mpsc %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ i.department }}</td>
+                        <td>{{ i.course_name }}</td>
+                        <td>{{ i.duration }}</td>
+                        <td>{{ i.fees }}</td>
+                        <td>{{ i.timing }}</td>
+                        <!-- <td>{{ i.mode }}</td> -->
+                        <td>{{ i.extra_label }}</td>
+                        <td>{{ i.extra_value }}</td>
+
+
+                        <td>{{ i.heading }}</td>
+                        <td>{{ i.title }}</td>
+                        <td>{{ i.eligibility }}</td>
+
+                        <td>{{ i.benefit1 }}</td>
+                        <td>{{ i.benefit2 }}</td>
+                        <td>{{ i.benefit3 }}</td>
+                        <td>{{ i.benefit4 }}</td>
+                        <td>{{ i.benefit5 }}</td>
+
+                        <td>{{ i.admission_notice }}</td>
+
+                        <td>
+                            <div class="actions">
+
+                                <a href="{% url 'update_mpsc_courses' i.id %}"
+                                   class="btn-update" >
+                                    Update
+                                </a>
+
+                                <a href="{% url 'delete_mpsc' i.id %}"
+                                   class="btn-delete"
+                                   onclick="return confirm('Are you sure you want to delete this record?')">
+                                    Delete
+                                </a>
+
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+
+                </table>
+
+            </div>
+        </div>
+
+    </div>
+
+          {% if messages %}
+        {% for message in messages %}
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: '{{ message }}',
+                confirmButtonColor: '#1a56db'
+            });
+        </script>
+    {% endfor %}
+{% endif %}
+
+    </div>
+    
+
+
+
+
+
+
+{% include "admin/footer.html" %}

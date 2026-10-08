@@ -1,0 +1,261 @@
+{% include "admin/navbar.html" %}
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<style>
+body{
+    background:#f1f5f9;
+    font-family:'Poppins',sans-serif;
+}
+
+.page-wrap{
+    max-width:1100px;
+    margin:30px auto;
+    display:flex;
+    flex-direction:column;
+    gap:25px;
+    padding:0 15px;
+}
+
+.custom-card{
+    background:#fff;
+    border-radius:16px;
+    overflow:hidden;
+    box-shadow:0 8px 30px rgba(0,0,0,.08);
+}
+
+.card-head{
+    padding:18px 26px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    color:#fff;
+}
+
+.card-head.blue{background:#1a56db;}
+.card-head.dark{background:#1e2636;}
+
+.card-body{padding:24px;}
+
+/* GRID */
+.stats-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:16px;
+}
+
+/* FIELD */
+.field{
+    display:flex;
+    flex-direction:column;
+    gap:7px;
+}
+
+.field label{
+    font-size:13px;
+    font-weight:600;
+}
+
+.field input,
+.field select,
+.field textarea{
+    height:46px;
+    border:1px solid #dbe2ea;
+    border-radius:10px;
+    padding:10px 12px;
+    outline:none;
+    font-size:14px;
+}
+
+textarea{
+    height:90px;
+    resize:none;
+}
+
+/* BUTTON */
+.save-btn{
+    width:100%;
+    height:52px;
+    background:#1a56db;
+    color:#fff;
+    border:none;
+    border-radius:12px;
+    font-weight:600;
+    margin-top:15px;
+}
+
+/* TABLE */
+.table-responsive-custom{
+    width:100%;
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
+    min-width:1200px;
+}
+
+/* ACTION BUTTONS */
+.actions{
+    display:flex;
+    justify-content:center;
+    gap:8px;
+}
+
+.btn-update,
+.btn-delete{
+    padding:7px 12px;
+    border-radius:8px;
+    color:#fff;
+    text-decoration:none;
+    font-size:13px;
+}
+
+.btn-update{background:#1a56db;}
+.btn-delete{background:#dc2626;}
+
+/* RESPONSIVE */
+@media(max-width:992px){
+    .stats-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+}
+
+@media(max-width:576px){
+    .stats-grid{
+        grid-template-columns:1fr;
+    }
+
+    .card-body{
+        padding:16px;
+    }
+}
+</style>
+
+<div class="page-wrap">
+
+<!-- FORM -->
+<!-- <div class="custom-card">
+
+    <div class="card-head blue">
+        <i class="ti ti-award"></i>
+        <h3 style="color: white;">Contact US Form Management</h3>
+    </div>
+
+    <div class="card-body">
+
+        <form action="/save_Contact_card/" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="stats-grid">
+
+          
+
+               
+
+                <div class="field">
+                    <label>icon</label>
+                    <input type="text" name="icon">
+                </div>
+
+                <div class="field">
+                    <label>Title</label>
+                    <input type="text" name="title">
+                </div>
+
+                <div class="field">
+                    <label>Dec</label>
+                    <input type="text" name="dec">
+                </div>
+
+        
+             
+        
+                <div class="field">
+                    <label>para</label>
+                    <input type="text" name="para">
+                </div>
+
+            </div>
+
+            
+
+            <button type="submit" class="save-btn">
+                Save Form
+            </button>
+
+        </form>
+
+    </div>
+</div> -->
+
+<!-- TABLE -->
+<div class="custom-card">
+
+    <div class="card-head blue">
+        <i class="ti ti-table"  ></i>
+        <h3 style="color: white;">Contact Card List</h3>
+    </div>
+
+    <div class="card-body table-responsive-custom">
+
+        <table class="table table-hover" border="1px">
+
+            <thead class="table-dark">
+                <tr >
+                                 
+                            <th>ID</th>
+                            <th>icon</th>
+                            <th>Title</th>
+                            <th>Dec</th>
+                            <th>Paragraph</th>
+                            <th>Action</th>
+                        </tr>
+                       
+            </thead>
+                {% for i in Contact_card_data %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td class="{{ i.icon }}"></td>
+                            <td>{{ i.title }}</td>
+                            <td>{{ i.dec }}</td>
+                            <td>{{ i.para }}</td>
+
+                           
+                            <td>
+                                <div class="actions">
+                                    <a href="{% url 'Update_Contact_card' i.id %}" class="btn-update">
+                                        <i class="ti ti-edit" style="font-size:15px"></i>Update
+                                    </a>
+                                    <a href="{% url 'Delete_Contact_card' i.id %}" class="btn-delete">
+                                        <i class="ti ti-trash" style="font-size:15px"></i>Delete
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+            <tbody>
+               
+                {% endfor %}
+            </tbody>
+
+        </table>
+ <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+{% if messages %}
+{% for message in messages %} <script>
+Swal.fire({
+icon: 'success',
+title: 'Success',
+text: '{{ message }}',
+confirmButtonText: 'OK'
+}); </script>
+{% endfor %}
+{% endif %}
+
+    </div>
+
+</div>
+
+</div>
+
+{% include "admin/footer.html" %}

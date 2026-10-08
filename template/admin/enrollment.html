@@ -1,0 +1,196 @@
+{% include "admin/navbar.html" %}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<style>
+.enroll-container{
+    width:95%;
+    margin:0px auto;
+    padding: 0px;
+}
+
+/* Title */
+.page-title{
+    font-size:30px;
+    font-weight:700;
+    color:#0d6efd;
+    margin-bottom:10px;
+}
+
+/* Card */
+.table-card{
+    background:#fff;
+    padding:20px;
+    border-radius:14px;
+    box-shadow:0 6px 20px rgba(0,0,0,0.08);
+    overflow-x:auto;
+}
+
+/* Total */
+.total-records{
+    margin:10px 0 15px;
+    font-size:15px;
+    font-weight:600;
+    color:#555;
+}
+
+/* Table */
+.table{
+    margin-bottom:0;
+    border-collapse:separate;
+    border-spacing:0 8px;
+}
+
+.table thead th{
+    background:#0d6efd;
+    color:#fff;
+    text-align:center;
+    padding:12px;
+    border:0;
+}
+
+.table tbody tr{
+    background:#f8f9fa;
+    transition:0.3s;
+}
+
+.table tbody tr:hover{
+    background:#e9f2ff;
+    transform:scale(1.01);
+}
+
+.table td{
+    text-align:center;
+    vertical-align:middle;
+    padding:12px;
+    border:0;
+}
+
+/* Badges */
+.badge-course{
+    /* background:#198754; */
+    color:#0c0909;
+    padding:5px 10px;
+    border-radius:20px;
+    font-size:12px;
+}
+
+.badge-batch{
+    background:#f8f9fa;
+    color:#000;
+    padding:5px 10px;
+    border-radius:20px;
+    font-size:12px;
+  
+}
+
+/* Button */
+.btn-view{
+    background:#198754;
+    color:#fff;
+    padding:7px 14px;
+    border-radius:6px;
+    text-decoration:none;
+    font-size:13px;
+    font-weight:500;
+    display:inline-block;
+    transition:0.3s;
+}
+
+.btn-view:hover{
+    background:#157347;
+    color:#fff;
+    transform:scale(1.05);
+}
+
+/* Empty row */
+.empty{
+    padding:20px;
+    color:#999;
+}
+</style>
+
+<div class="enroll-container">
+
+    <h2 class="page-title">Student Enrollment List</h2>
+
+    <div class="total-records">
+        Total Records : {{ enroll_data|length }}
+    </div>
+
+    <div class="total-records">
+    <a href="{% url 'download_enroll_csv' %}" class="btn-view">
+    <i class="bi bi-download"></i> Download CSV
+    </a>
+    </div>
+
+    
+
+    <div class="table-card">
+ 
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Sr No.</th>
+                    <th>Student Name</th>
+                    <th>Mobile</th>
+                    <th>Email</th>
+                    <th>Course</th>
+                    <th>Batch</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for enroll in enroll_data %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td><strong>{{ enroll.name }}</strong></td>
+                    <td>{{ enroll.mobile }}</td>
+                    <td>{{ enroll.email }}</td>
+
+                    <td>
+                        <span class="badge-course">
+                            {{ enroll.course }}
+                        </span>
+                    </td>
+
+                    <td>
+                        <span class="badge-batch">
+                            {{ enroll.batch }}
+                        </span>
+                    </td>
+
+                    <td>
+                        <a href="{% url 'view_enrollment' enroll.id %}"
+                           class="btn-view">
+                            View Details
+                        </a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="7" class="empty">
+                        No Enrollment Records Found
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+
+        </table>
+
+    </div>
+    {% if messages %}
+    {% for message in messages %}
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: '{{ message }}',
+                confirmButtonColor: '#1a56db'
+            });
+        </script>
+    {% endfor %}
+{% endif %}
+</div>
+
+{% include "admin/footer.html" %}

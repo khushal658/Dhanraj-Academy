@@ -1,0 +1,497 @@
+{% include "user/navbar.html" %}
+{% include "user/base.html" %}
+
+<style>
+     body {
+            background: #f4f6f9
+        }
+</style>
+
+
+<body>
+
+    <section class="hero-banner7">
+        <div class="container">
+            <div class="hero-content7">
+
+                <h1 class="hero-title7">
+                    Test <span>Series</span>
+                </h1>
+
+
+
+                <div class="hero-line7"></div>
+
+
+
+            </div>
+        </div>
+    </section>
+
+    <div class="container my-5">
+        <div class="card p-4 shadow mb-4">
+            <h3>Student Information</h3>
+            <input type="text" id="studentName" class="form-control mb-3" placeholder="Enter Your Name">
+            <select id="category" class="form-select">
+                <option>Police Bharti</option>
+                <option>Talathi</option>
+                <option>Gramsevak</option>
+                <option>Vanrakshak</option>
+                <option>MPSC</option>
+                <option>UPSC</option>
+            </select>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card7 shadow p-4 text-center">
+                    <h4>Daily Test</h4>
+                    <p>50 Questions</p>
+                    <button class="btn btn-theme" onclick="startTest('daily')">Start Test</button>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card7 shadow p-4 text-center">
+                    <h4>Weekly Test</h4>
+                    <p>50 Questions</p>
+                    <button class="btn btn-theme" onclick="startTest('weekly')">Start Test</button>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card7 shadow p-4 text-center">
+                    <h4>Mock Test</h4>
+                    <p>50 Questions</p>
+                    <button class="btn btn-theme" onclick="startTest('mock')">Start Test</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="testSection" class="card7 p-4 shadow mt-5">
+            <div class="d-flex justify-content-between">
+                <h4 id="questionCount"></h4>
+                <div id="timer">60:00</div>
+            </div>
+            <hr>
+            <h5 id="question"></h5>
+            <div id="options"></div>
+
+            <div class="mt-4">
+                <button class="btn btn-secondary" onclick="prevQuestion()">Previous</button>
+                <button class="btn btn-primary" onclick="nextQuestion()">Next</button>
+                <button class="btn btn-success" onclick="submitTest()">Submit</button>
+            </div>
+        </div>
+
+        <div id="resultSection" class="mt-5" style="display:none;">
+
+            <div class="card7 shadow border-0">
+
+                <div class="card-header text-center text-white" style="background:#001f54;">
+
+                    <h2 class="mb-0"><img src="logo.jpeg" style="border-radius:50%;" alt="" width="100"> DHANRAJ POLICE
+                        BHARTI ACADEMY</h2>
+                    <p class="mb-0">Online Test Result</p>
+                </div>
+
+                <div class="card-body p-4">
+
+                    <div class="text-center mb-4">
+                        <h2></h2>
+                        <h3 id="studentResultName"></h3>
+                        <h5 class="text-primary" id="testTypeResult"></h5>
+                    </div>
+
+                    <table class="table table-bordered text-center">
+                        <tr>
+                            <th>Total Questions</th>
+                            <td id="totalQ"></td>
+                        </tr>
+
+                        <tr>
+                            <th>Correct Answers</th>
+                            <td id="correct"></td>
+                        </tr>
+
+                        <tr>
+                            <th>Percentage</th>
+                            <td><span id="percentage"></span>%</td>
+                        </tr>
+
+                        <tr>
+                            <th>Result Status</th>
+                            <td id="status"></td>
+                        </tr>
+                    </table>
+
+                    <div class="text-center mt-4">
+                        <h4 class="text-success">Congratulations!</h4>
+
+                        <p>
+
+                            <b>Dhanraj Police Bharti Academy Test Series</b>
+                        </p>
+                    </div>
+                    <hr class="my-4">
+
+
+
+                    <div class="row mt-5 text-center">
+
+                        <div class="col-6">
+                            <p>𝓚𝓾𝓼𝓱𝓪𝓵 𝓢𝓾𝓵</p>
+                            <h6>CEO Signature</h6>
+                            <strong>Dhanraj Academy</strong>
+                        </div>
+
+                        <div class="col-6">
+                            <p>𝓓𝓷𝔂𝓪𝓷𝓮𝓼𝓱𝔀𝓪𝓻</p>
+                            <h6>Director Signature</h6>
+                            <strong>Dhanraj Academy</strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+        <div class="card p-4 shadow mt-4">
+            <h3>Leaderboard</h3>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Name</th>
+                        <th>Score</th>
+                        <th>%</th>
+                    </tr>
+                </thead>
+                <tbody id="leaderboardBody"></tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <script>
+        const dailyQuestions = [
+            { question: "भारतीय राज्यघटनेचे जनक कोण आहेत?", options: ["महात्मा गांधी", "डॉ. बाबासाहेब आंबेडकर", "नेहरू", "पटेल"], answer: "डॉ. बाबासाहेब आंबेडकर" },
+            { question: "महाराष्ट्र दिन कधी साजरा करतात?", options: ["1 मे", "15 ऑगस्ट", "26 जानेवारी", "2 ऑक्टोबर"], answer: "1 मे" },
+            { question: "25 × 4 = ?", options: ["80", "90", "100", "120"], answer: "100" },
+            { question: "भारतात किती राज्ये आहेत?", options: ["28", "29", "30", "27"], answer: "28" },
+            { question: "पोलीस भरतीत धाव किती मीटर असते?", options: ["800", "1200", "1600", "2000"], answer: "1600" },
+            { question: "भारतीय राष्ट्रगीताचे लेखक कोण आहेत?", options: ["रवींद्रनाथ टागोर", "बंकिमचंद्र चट्टोपाध्याय", "महात्मा गांधी", "नेहरू"], answer: "रवींद्रनाथ टागोर" },
+            { question: "भारतीय राष्ट्रध्वजात किती रंग आहेत?", options: ["2", "3", "4", "5"], answer: "3" },
+            { question: "महाराष्ट्राची राजधानी कोणती?", options: ["पुणे", "नाशिक", "मुंबई", "नागपूर"], answer: "मुंबई" },
+            { question: "भारताचा राष्ट्रीय प्राणी कोणता?", options: ["सिंह", "वाघ", "हत्ती", "चित्ता"], answer: "वाघ" },
+            { question: "भारताचा राष्ट्रीय पक्षी कोणता?", options: ["मोर", "कावळा", "पोपट", "गरुड"], answer: "मोर" },
+            { question: "12 × 12 = ?", options: ["124", "144", "154", "134"], answer: "144" },
+            { question: "भारतातील सर्वात लांब नदी कोणती?", options: ["यमुना", "गंगा", "गोदावरी", "नर्मदा"], answer: "गंगा" },
+            { question: "भारतीय राज्यघटना कधी लागू झाली?", options: ["26 जानेवारी 1950", "15 ऑगस्ट 1947", "26 नोव्हेंबर 1949", "1 मे 1960"], answer: "26 जानेवारी 1950" },
+            { question: "भारताचे पहिले राष्ट्रपती कोण होते?", options: ["राजेंद्र प्रसाद", "नेहरू", "गांधी", "पटेल"], answer: "राजेंद्र प्रसाद" },
+            { question: "भारतातील सर्वात उंच पर्वत कोणता?", options: ["कांचनजंगा", "एव्हरेस्ट", "अरावली", "सह्याद्री"], answer: "कांचनजंगा" },
+
+            { question: "7 × 8 = ?", options: ["54", "56", "58", "60"], answer: "56" },
+            { question: "भारतीय चलनाचे नाव काय आहे?", options: ["डॉलर", "रुपया", "युरो", "पौंड"], answer: "रुपया" },
+            { question: "महाराष्ट्रात किती जिल्हे आहेत?", options: ["34", "35", "36", "38"], answer: "36" },
+            { question: "भारतीय राष्ट्रीय काँग्रेसची स्थापना कधी झाली?", options: ["1885", "1947", "1950", "1905"], answer: "1885" },
+            { question: "भारताचे पहिले पंतप्रधान कोण होते?", options: ["गांधी", "पटेल", "जवाहरलाल नेहरू", "राजेंद्र प्रसाद"], answer: "जवाहरलाल नेहरू" },
+            { question: "100 ÷ 4 = ?", options: ["20", "25", "30", "40"], answer: "25" },
+            { question: "भारताचा राष्ट्रीय खेळ कोणता मानला जातो?", options: ["क्रिकेट", "हॉकी", "कबड्डी", "फुटबॉल"], answer: "हॉकी" },
+            { question: "सूर्य पूर्वेला उगवतो का?", options: ["होय", "नाही", "कधी कधी", "माहित नाही"], answer: "होय" },
+            { question: "भारतीय संसदेत किती सभागृहे आहेत?", options: ["1", "2", "3", "4"], answer: "2" },
+            { question: "भारताचा राष्ट्रीय वृक्ष कोणता?", options: ["वड", "आंबा", "निंब", "पिंपळ"], answer: "वड" },
+
+            { question: "15 × 6 = ?", options: ["80", "85", "90", "95"], answer: "90" },
+            { question: "महाराष्ट्राचे राज्यफूल कोणते?", options: ["ताम्हण", "कमळ", "गुलाब", "जास्वंद"], answer: "ताम्हण" },
+            { question: "भारताचे राष्ट्रीय फळ कोणते?", options: ["केळी", "सफरचंद", "आंबा", "द्राक्ष"], answer: "आंबा" },
+            { question: "भारतातील सर्वात मोठे राज्य कोणते?", options: ["राजस्थान", "महाराष्ट्र", "उत्तर प्रदेश", "मध्य प्रदेश"], answer: "राजस्थान" },
+            { question: "26 नोव्हेंबर हा दिवस कोणता म्हणून साजरा केला जातो?", options: ["संविधान दिवस", "स्वातंत्र्य दिवस", "प्रजासत्ताक दिवस", "शिक्षक दिन"], answer: "संविधान दिवस" },
+            { question: "9 × 9 = ?", options: ["72", "81", "90", "99"], answer: "81" },
+            { question: "भारतातील सर्वात मोठे शहर कोणते?", options: ["दिल्ली", "कोलकाता", "मुंबई", "चेन्नई"], answer: "मुंबई" },
+            { question: "महाराष्ट्र राज्याची स्थापना कधी झाली?", options: ["1 मे 1960", "15 ऑगस्ट 1947", "26 जानेवारी 1950", "1 मे 1956"], answer: "1 मे 1960" },
+            { question: "भारतातील सर्वात मोठे वाळवंट कोणते?", options: ["थार", "सहारा", "गोबी", "कालाहारी"], answer: "थार" },
+            { question: "50 + 25 = ?", options: ["65", "70", "75", "80"], answer: "75" },
+
+            { question: "भारताचा राष्ट्रीय जलचर प्राणी कोणता?", options: ["डॉल्फिन", "मगर", "कासव", "व्हेल"], answer: "डॉल्फिन" },
+            { question: "भारतीय ध्वजातील अशोक चक्रात किती आरे आहेत?", options: ["20", "22", "24", "26"], answer: "24" },
+            { question: "11 × 11 = ?", options: ["111", "121", "131", "141"], answer: "121" },
+            { question: "भारतातील सर्वात लहान राज्य कोणते?", options: ["गोवा", "सिक्कीम", "त्रिपुरा", "मणिपूर"], answer: "गोवा" },
+            { question: "भारतीय सैन्य दिन कधी साजरा केला जातो?", options: ["15 जानेवारी", "26 जानेवारी", "15 ऑगस्ट", "1 मे"], answer: "15 जानेवारी" },
+            { question: "8 × 7 = ?", options: ["54", "56", "58", "60"], answer: "56" },
+            { question: "भारतातील पहिली महिला राष्ट्रपती कोण होत्या?", options: ["इंदिरा गांधी", "प्रतिभा पाटील", "सरोजिनी नायडू", "सुषमा स्वराज"], answer: "प्रतिभा पाटील" },
+            { question: "भारताचा राष्ट्रीय गोड पदार्थ कोणता मानला जातो?", options: ["जलेबी", "लाडू", "रसगुल्ला", "गुलाबजाम"], answer: "जलेबी" },
+            { question: "144 ÷ 12 = ?", options: ["10", "11", "12", "13"], answer: "12" },
+            { question: "भारतातील सर्वात मोठे बंदर कोणते?", options: ["मुंबई", "कांडला", "कोलकाता", "चेन्नई"], answer: "मुंबई" },
+            { question: "5² = ?", options: ["10", "15", "20", "25"], answer: "25" },
+            { question: "भारतातील सर्वोच्च न्यायालय कोठे आहे?", options: ["मुंबई", "दिल्ली", "चेन्नई", "कोलकाता"], answer: "दिल्ली" },
+            { question: "18 × 5 = ?", options: ["80", "85", "90", "95"], answer: "90" },
+            { question: "भारताचे राष्ट्रीय गीत कोणते?", options: ["जन गण मन", "वंदे मातरम्", "सारे जहाँ से अच्छा", "जय हिंद"], answer: "वंदे मातरम्" },
+            { question: "200 ÷ 10 = ?", options: ["10", "15", "20", "25"], answer: "20" }
+
+
+        ];
+
+        const weeklyQuestions = [
+            { question: "भारतीय राज्यघटनेचे शिल्पकार कोण?", options: ["महात्मा गांधी", "डॉ. बाबासाहेब आंबेडकर", "नेहरू", "पटेल"], answer: "डॉ. बाबासाहेब आंबेडकर" },
+            { question: "महाराष्ट्र दिन कधी साजरा केला जातो?", options: ["1 मे", "15 ऑगस्ट", "26 जानेवारी", "2 ऑक्टोबर"], answer: "1 मे" },
+            { question: "भारताची राजधानी कोणती?", options: ["मुंबई", "दिल्ली", "कोलकाता", "चेन्नई"], answer: "दिल्ली" },
+            { question: "भारतात किती राज्ये आहेत?", options: ["28", "29", "30", "27"], answer: "28" },
+            { question: "12 × 12 = ?", options: ["124", "144", "154", "164"], answer: "144" },
+            { question: "भारताचे पहिले पंतप्रधान कोण?", options: ["गांधी", "पटेल", "नेहरू", "आंबेडकर"], answer: "नेहरू" },
+            { question: "राष्ट्रीय पक्षी कोणता?", options: ["मोर", "कबूतर", "गरुड", "पोपट"], answer: "मोर" },
+            { question: "25 × 4 = ?", options: ["80", "90", "100", "110"], answer: "100" },
+            { question: "भारतीय चलनाचे नाव काय?", options: ["डॉलर", "रुपया", "युरो", "पौंड"], answer: "रुपया" },
+            { question: "सूर्य कोणत्या दिशेला उगवतो?", options: ["उत्तर", "दक्षिण", "पूर्व", "पश्चिम"], answer: "पूर्व" },
+
+            { question: "भारताचा राष्ट्रीय खेळ कोणता मानला जातो?", options: ["क्रिकेट", "हॉकी", "कबड्डी", "फुटबॉल"], answer: "हॉकी" },
+            { question: "15 × 6 = ?", options: ["80", "85", "90", "95"], answer: "90" },
+            { question: "भारताचे पहिले राष्ट्रपती कोण?", options: ["राजेंद्र प्रसाद", "नेहरू", "पटेल", "गांधी"], answer: "राजेंद्र प्रसाद" },
+            { question: "राष्ट्रीय वृक्ष कोणता?", options: ["वड", "आंबा", "निंब", "पिंपळ"], answer: "वड" },
+            { question: "100 ÷ 4 = ?", options: ["20", "25", "30", "40"], answer: "25" },
+            { question: "भारतातील सर्वात मोठे राज्य कोणते?", options: ["राजस्थान", "महाराष्ट्र", "उत्तर प्रदेश", "गुजरात"], answer: "राजस्थान" },
+            { question: "7 × 8 = ?", options: ["54", "56", "58", "60"], answer: "56" },
+            { question: "भारतीय संसदेत किती सभागृहे आहेत?", options: ["1", "2", "3", "4"], answer: "2" },
+            { question: "राष्ट्रीय फळ कोणते?", options: ["केळी", "आंबा", "सफरचंद", "द्राक्ष"], answer: "आंबा" },
+            { question: "9 × 9 = ?", options: ["72", "81", "90", "99"], answer: "81" },
+
+            { question: "महाराष्ट्राची राजधानी कोणती?", options: ["पुणे", "नाशिक", "मुंबई", "नागपूर"], answer: "मुंबई" },
+            { question: "भारतीय राष्ट्रगीताचे लेखक कोण?", options: ["टागोर", "गांधी", "नेहरू", "पटेल"], answer: "टागोर" },
+            { question: "11 × 11 = ?", options: ["111", "121", "131", "141"], answer: "121" },
+            { question: "भारतातील सर्वात मोठे शहर कोणते?", options: ["मुंबई", "दिल्ली", "कोलकाता", "चेन्नई"], answer: "मुंबई" },
+            { question: "5² = ?", options: ["10", "15", "20", "25"], answer: "25" },
+            { question: "भारतीय सैन्य दिन कधी साजरा होतो?", options: ["15 जानेवारी", "26 जानेवारी", "15 ऑगस्ट", "2 ऑक्टोबर"], answer: "15 जानेवारी" },
+            { question: "144 ÷ 12 = ?", options: ["10", "11", "12", "13"], answer: "12" },
+            { question: "भारतातील सर्वोच्च न्यायालय कोठे आहे?", options: ["मुंबई", "दिल्ली", "चेन्नई", "कोलकाता"], answer: "दिल्ली" },
+            { question: "18 × 5 = ?", options: ["80", "85", "90", "95"], answer: "90" },
+            { question: "राष्ट्रीय गीत कोणते?", options: ["जन गण मन", "वंदे मातरम्", "जय हिंद", "सारे जहाँ से अच्छा"], answer: "वंदे मातरम्" },
+
+            { question: "200 ÷ 10 = ?", options: ["10", "15", "20", "25"], answer: "20" },
+            { question: "भारतीय ध्वजातील अशोक चक्रात किती आरे आहेत?", options: ["20", "22", "24", "26"], answer: "24" },
+            { question: "50 + 25 = ?", options: ["65", "70", "75", "80"], answer: "75" },
+            { question: "भारतातील सर्वात लहान राज्य कोणते?", options: ["गोवा", "सिक्कीम", "त्रिपुरा", "मणिपूर"], answer: "गोवा" },
+            { question: "8 × 7 = ?", options: ["54", "56", "58", "60"], answer: "56" },
+            { question: "भारतीय राष्ट्रीय काँग्रेसची स्थापना कधी झाली?", options: ["1885", "1905", "1947", "1950"], answer: "1885" },
+            { question: "10 × 10 = ?", options: ["90", "100", "110", "120"], answer: "100" },
+            { question: "राष्ट्रीय जलचर प्राणी कोणता?", options: ["डॉल्फिन", "मगर", "कासव", "व्हेल"], answer: "डॉल्फिन" },
+            { question: "13 × 5 = ?", options: ["55", "60", "65", "70"], answer: "65" },
+
+            { question: "भारताचा राष्ट्रीय प्राणी कोणता?", options: ["सिंह", "वाघ", "हत्ती", "चित्ता"], answer: "वाघ" },
+            { question: "6 × 9 = ?", options: ["54", "56", "58", "60"], answer: "54" },
+            { question: "महाराष्ट्रात किती जिल्हे आहेत?", options: ["34", "35", "36", "38"], answer: "36" },
+            { question: "14 × 7 = ?", options: ["88", "98", "108", "118"], answer: "98" },
+            { question: "भारतीय राज्यघटना कधी लागू झाली?", options: ["26 जानेवारी 1950", "15 ऑगस्ट 1947", "26 नोव्हेंबर 1949", "1 मे 1960"], answer: "26 जानेवारी 1950" },
+            { question: "भारतीय ध्वजातील अशोक चक्रात किती आरे आहेत?", options: ["20", "22", "24", "26"], answer: "24" },
+            { question: "11 × 11 = ?", options: ["111", "121", "131", "141"], answer: "121" },
+            { question: "भारतातील सर्वात लहान राज्य कोणते?", options: ["गोवा", "सिक्कीम", "त्रिपुरा", "मणिपूर"], answer: "गोवा" },
+            { question: "8 × 7 = ?", options: ["54", "56", "58", "60"], answer: "56" },
+            { question: "भारतातील पहिली महिला राष्ट्रपती कोण होत्या?", options: ["प्रतिभा पाटील", "इंदिरा गांधी", "सरोजिनी नायडू", "सुषमा स्वराज"], answer: "प्रतिभा पाटील" },
+            { question: "भारताचा राष्ट्रीय जलचर प्राणी कोणता?", options: ["डॉल्फिन", "मगर", "कासव", "व्हेल"], answer: "डॉल्फिन" }
+        ];
+
+        const mockQuestions = [
+            { question: "भारतीय संविधान कधी लागू झाले?", options: ["26 Jan 1950", "15 Aug 1947", "1 May 1960", "26 Nov 1949"], answer: "26 Jan 1950" },
+            { question: "महाराष्ट्रातील सर्वात उंच शिखर?", options: ["हरिश्चंद्रगड", "कळसूबाई", "राजगड", "तोरणा"], answer: "कळसूबाई" },
+            { question: "50 ÷ 5 = ?", options: ["5", "10", "15", "20"], answer: "10" },
+            { question: "राष्ट्रीय गीत कोणते?", options: ["जन गण मन", "वंदे मातरम्", "जय हिंद", "सारे जहाँ से अच्छा"], answer: "वंदे मातरम्" },
+            { question: "भारतीय लष्कर दिवस कधी?", options: ["15 Jan", "26 Jan", "15 Aug", "1 May"], answer: "15 Jan" },
+
+
+            { question: "छत्रपती शिवाजी महाराजांचा राज्याभिषेक कधी झाला?", options: ["1674", "1670", "1680", "1665"], answer: "1674" },
+            { question: "भारतातील सर्वात लांब धरण कोणते?", options: ["जयकवाडी", "हिराकूड", "कोयना", "भाक्रा"], answer: "हिराकूड" },
+            { question: "17 × 6 = ?", options: ["92", "102", "112", "122"], answer: "102" },
+            { question: "भारताचा राष्ट्रीय जलचर प्राणी कोणता?", options: ["डॉल्फिन", "व्हेल", "मगर", "कासव"], answer: "डॉल्फिन" },
+            { question: "सह्याद्री पर्वतरांगेला दुसरे नाव काय?", options: ["अरावली", "विंध्य", "पश्चिम घाट", "सातपुडा"], answer: "पश्चिम घाट" },
+
+            { question: "20 × 8 = ?", options: ["140", "150", "160", "170"], answer: "160" },
+            { question: "भारतातील पहिला उपग्रह कोणता?", options: ["आर्यभट्ट", "रोहिणी", "चांद्रयान", "मंगळयान"], answer: "आर्यभट्ट" },
+            { question: "भारतीय अंतराळ संशोधन संस्थेचे संक्षिप्त रूप काय?", options: ["ISRO", "NASA", "DRDO", "BARC"], answer: "ISRO" },
+            { question: "13 × 7 = ?", options: ["81", "91", "101", "111"], answer: "91" },
+            { question: "भारतातील सर्वात मोठे सरोवर कोणते?", options: ["चिल्का", "वुलर", "लोणार", "सांभर"], answer: "चिल्का" },
+
+            { question: "महाराष्ट्रातील संत ज्ञानेश्वरांची समाधी कोठे आहे?", options: ["आळंदी", "पंढरपूर", "देहू", "पैठण"], answer: "आळंदी" },
+            { question: "21 × 9 = ?", options: ["179", "189", "199", "209"], answer: "189" },
+            { question: "भारताचा राष्ट्रीय सरीसृप कोणता?", options: ["नाग", "घोरपड", "मगर", "कासव"], answer: "नाग" },
+            { question: "पंढरपूर कोणत्या नदीच्या काठी आहे?", options: ["कृष्णा", "गोदावरी", "भीमा", "तापी"], answer: "भीमा" },
+            { question: "18 × 8 = ?", options: ["124", "134", "144", "154"], answer: "144" },
+
+            { question: "भारतीय संविधानात किती मूलभूत कर्तव्ये आहेत?", options: ["10", "11", "12", "13"], answer: "11" },
+            { question: "महाराष्ट्रातील सर्वात मोठा जिल्हा कोणता?", options: ["पुणे", "नाशिक", "अहमदनगर", "गडचिरोली"], answer: "अहमदनगर" },
+            { question: "16 × 7 = ?", options: ["102", "112", "122", "132"], answer: "112" },
+            { question: "भारतातील पहिली महिला पंतप्रधान कोण?", options: ["प्रतिभा पाटील", "इंदिरा गांधी", "सरोजिनी नायडू", "सुषमा स्वराज"], answer: "इंदिरा गांधी" },
+            { question: "गोदावरी नदीचे उगमस्थान कुठे आहे?", options: ["त्र्यंबकेश्वर", "महाबळेश्वर", "नाशिक", "पैठण"], answer: "त्र्यंबकेश्वर" },
+
+            { question: "14 × 9 = ?", options: ["116", "126", "136", "146"], answer: "126" },
+            { question: "भारतातील सर्वात उंच धबधबा कोणता?", options: ["दूधसागर", "जोग", "कुंचीकल", "भंडारदरा"], answer: "कुंचीकल" },
+            { question: "महाराष्ट्रात किती महसूल विभाग आहेत?", options: ["5", "6", "7", "8"], answer: "6" },
+            { question: "24 × 5 = ?", options: ["110", "120", "130", "140"], answer: "120" },
+            { question: "भारतीय राष्ट्रीय दिनदर्शिका कोणती?", options: ["शक", "विक्रम", "हिजरी", "ग्रेगोरियन"], answer: "शक" },
+
+            { question: "22 × 4 = ?", options: ["78", "88", "98", "108"], answer: "88" },
+            { question: "महाराष्ट्रातील सर्वात लांब नदी कोणती?", options: ["कृष्णा", "गोदावरी", "तापी", "भीमा"], answer: "गोदावरी" },
+            { question: "भारतीय संविधानातील कलम 370 कोणत्या राज्याशी संबंधित होते?", options: ["पंजाब", "काश्मीर", "गुजरात", "गोवा"], answer: "काश्मीर" },
+            { question: "27 × 3 = ?", options: ["71", "81", "91", "101"], answer: "81" },
+            { question: "भारतातील सर्वात मोठे संग्रहालय कोणते?", options: ["राष्ट्रीय संग्रहालय", "इंडियन म्युझियम", "छत्रपती संग्रहालय", "सालारजंग"], answer: "इंडियन म्युझियम" },
+
+            { question: "19 × 5 = ?", options: ["85", "95", "105", "115"], answer: "95" },
+            { question: "भारतातील पहिला अणुस्फोट कुठे झाला?", options: ["पोखरण", "तारापूर", "कल्पक्कम", "जैतापूर"], answer: "पोखरण" },
+            { question: "संत तुकाराम महाराजांचे गाव कोणते?", options: ["देहू", "आळंदी", "पैठण", "पंढरपूर"], answer: "देहू" },
+            { question: "23 × 6 = ?", options: ["128", "138", "148", "158"], answer: "138" },
+            { question: "भारताचे पहिले उपराष्ट्रपती कोण?", options: ["डॉ. राधाकृष्णन", "राजेंद्र प्रसाद", "झाकीर हुसेन", "गिरी"], answer: "डॉ. राधाकृष्णन" },
+
+            { question: "26 × 4 = ?", options: ["94", "104", "114", "124"], answer: "104" },
+            { question: "भारतीय रिझर्व्ह बँकेची स्थापना कधी झाली?", options: ["1935", "1947", "1950", "1969"], answer: "1935" },
+            { question: "महाराष्ट्रातील लोणार सरोवर कोणत्या प्रकारचे आहे?", options: ["खारे", "गोडे", "ज्वालामुखी", "उल्कापात"], answer: "उल्कापात" },
+            { question: "28 × 5 = ?", options: ["130", "140", "150", "160"], answer: "140" },
+            { question: "भारताचा राष्ट्रीय वारसा प्राणी कोणता?", options: ["हत्ती", "वाघ", "सिंह", "गेंडा"], answer: "हत्ती" },
+
+            { question: "32 ÷ 4 = ?", options: ["6", "7", "8", "9"], answer: "8" },
+            { question: "भारतातील सर्वात मोठे गुहेचे मंदिर कोणते?", options: ["अजिंठा", "वेरूळ", "एलिफंटा", "कार्ले"], answer: "वेरूळ" },
+            { question: "45 ÷ 5 = ?", options: ["7", "8", "9", "10"], answer: "9" },
+            { question: "भारतीय नौदल दिवस कधी साजरा होतो?", options: ["4 डिसेंबर", "15 जानेवारी", "26 जानेवारी", "8 ऑक्टोबर"], answer: "4 डिसेंबर" },
+            { question: "36 ÷ 6 = ?", options: ["4", "5", "6", "7"], answer: "6" },
+
+            { question: "भारतातील सर्वात मोठे राज्य (लोकसंख्या) कोणते?", options: ["महाराष्ट्र", "उत्तर प्रदेश", "बिहार", "राजस्थान"], answer: "उत्तर प्रदेश" },
+            { question: "49 ÷ 7 = ?", options: ["5", "6", "7", "8"], answer: "7" },
+            { question: "भारतीय वायुदल दिवस कधी साजरा केला जातो?", options: ["8 ऑक्टोबर", "4 डिसेंबर", "15 जानेवारी", "26 जानेवारी"], answer: "8 ऑक्टोबर" },
+            { question: "64 ÷ 8 = ?", options: ["6", "7", "8", "9"], answer: "8" },
+            { question: "भारतीय संविधान दिवस कधी साजरा करतात?", options: ["26 नोव्हेंबर", "26 जानेवारी", "15 ऑगस्ट", "2 ऑक्टोबर"], answer: "26 नोव्हेंबर" }
+        ];
+
+
+        let questions = [];
+        let currentQuestion = 0;
+        let score = 0;
+        let time = 3600;
+        let timerStarted = false;
+        function startTest(type) {
+
+            score = 0;
+            currentQuestion = 0;
+
+            if (type === "daily") {
+                questions = [...dailyQuestions]
+                    .sort(() => Math.random() - 0.5)
+                    .slice(0, 50);
+                selectedTest = "Daily Test";
+            }
+            else if (type === "weekly") {
+                questions = [...weeklyQuestions]
+                    .sort(() => Math.random() - 0.5)
+                    .slice(0, 50);
+                selectedTest = "Weekly Test";
+            }
+            else {
+                questions = [...mockQuestions]
+                    .sort(() => Math.random() - 0.5)
+                    .slice(0, 50);
+                selectedTest = "Mock Test";
+            }
+
+            document.getElementById("testSection").style.display = "block";
+            loadQuestion();
+
+            if (!timerStarted) {
+                startTimer();
+                timerStarted = true;
+            }
+        }
+
+        function loadQuestion() {
+            let q = questions[currentQuestion];
+            document.getElementById("questionCount").innerHTML = `Question ${currentQuestion + 1}/${questions.length}`;
+            document.getElementById("question").innerHTML = q.question;
+
+            let output = "";
+            q.options.forEach(option => {
+                output += `<div class="form-check">
+<input class="form-check-input" type="radio" name="answer" value="${option}">
+<label class="form-check-label">${option}</label>
+</div>`;
+            });
+            document.getElementById("options").innerHTML = output;
+        }
+
+        function nextQuestion() {
+            let selected = document.querySelector('input[name="answer"]:checked');
+            if (selected && selected.value === questions[currentQuestion].answer) { score++; }
+
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                loadQuestion();
+            }
+        }
+
+        function prevQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                loadQuestion();
+            }
+        }
+
+        function submitTest() {
+            document.getElementById("testSection").style.display = "none";
+            document.getElementById("resultSection").style.display = "block";
+
+            let percentage = (score / questions.length) * 100;
+
+            document.getElementById("studentResultName").innerHTML = document.getElementById("studentName").value;
+            document.getElementById("totalQ").innerHTML = questions.length;
+            document.getElementById("correct").innerHTML = score;
+            document.getElementById("percentage").innerHTML = percentage.toFixed(0);
+            document.getElementById("status").innerHTML =
+                percentage >= 50
+                    ? "<span class='badge bg-success fs-5'>PASS</span>"
+                    : "<span class='badge bg-danger fs-5'>FAIL</span>";
+
+            let leaderboard = JSON.parse(localStorage.getItem("leaderboard_v2")) || [];
+            leaderboard.push({
+                name: document.getElementById("studentName").value,
+                score: score,
+                percentage: percentage.toFixed(0)
+            });
+            leaderboard.sort((a, b) => b.score - a.score);
+            localStorage.setItem("leaderboard_v2", JSON.stringify(leaderboard));
+            showLeaderboard();
+        }
+
+        function showLeaderboard() {
+            let board = JSON.parse(localStorage.getItem("leaderboard_v2")) || [];
+            let output = "";
+            board.forEach((student, index) => {
+                output += `<tr>
+<td>${index + 1}</td>
+<td>${student.name}</td>
+<td>${student.score}</td>
+<td>${student.percentage}%</td>
+</tr>`;
+            });
+            document.getElementById("leaderboardBody").innerHTML = output;
+        }
+
+        function startTimer() {
+            setInterval(() => {
+                let minutes = Math.floor(time / 60);
+                let seconds = time % 60;
+                document.getElementById("timer").innerHTML = minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+                time--;
+                if (time < 0) { submitTest(); }
+            }, 1000);
+        }
+
+        document.getElementById("testTypeResult").innerHTML = selectedTest;
+
+        showLeaderboard();
+
+        // Auto refresh leaderboard
+        setInterval(showLeaderboard, 5000);
+    </script>
+</body>
+
+
+
+{% include "user/footer.html" %}

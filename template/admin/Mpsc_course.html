@@ -1,0 +1,293 @@
+{% include "admin/navbar.html" %}
+<style>
+
+.course-container{
+    width:95%;
+    margin:35px auto;
+}
+
+/* Page Title */
+.page-title{
+    font-size:30px;
+    font-weight:700;
+    color:#0d6efd;
+    margin-bottom:20px;
+}
+
+/* Form Card */
+.form-card{
+    background:#fff;
+    padding:25px;
+    border-radius:15px;
+    box-shadow:0 5px 20px rgba(0,0,0,0.08);
+}
+
+/* Grid Layout */
+.form-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:18px;
+}
+
+/* Field */
+.field{
+    display:flex;
+    flex-direction:column;
+    font-size:14px;
+    font-weight:600;
+    color:#444;
+}
+
+.field input,
+.field textarea{
+    margin-top:8px;
+    padding:12px 14px;
+    border:1px solid #dcdcdc;
+    border-radius:10px;
+    font-size:15px;
+    outline:none;
+    transition:0.3s;
+}
+
+.field input:focus,
+.field textarea:focus{
+    border-color:#0d6efd;
+    box-shadow:0 0 0 3px rgba(13,110,253,0.15);
+}
+
+.field textarea{
+    min-height:120px;
+    resize:vertical;
+}
+
+/* Full Width Field */
+.full-width{
+    grid-column:1/3;
+}
+
+/* Button */
+.save-btn{
+    margin-top:20px;
+    background:#0d6efd;
+    color:white;
+    border:none;
+    padding:12px 30px;
+    border-radius:10px;
+    font-size:16px;
+    font-weight:600;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.save-btn:hover{
+    background:#0b5ed7;
+}
+
+/* Mobile */
+@media(max-width:768px){
+
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    .full-width{
+        grid-column:auto;
+    }
+
+    .page-title{
+        font-size:24px;
+    }
+}
+
+
+.custom-card{
+    width:95%;
+    margin:25px auto;
+    background:#fff;
+    border-radius:15px;
+    overflow:hidden;
+    box-shadow:0 5px 20px rgba(0,0,0,.08);
+}
+
+.card-head{
+    background:#0d6efd;
+    padding:15px 20px;
+}
+
+.card-head h3{
+    color:#fff;
+    margin:0;
+}
+
+.course-table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+.course-table th,
+.course-table td{
+    padding:14px;
+    border-bottom:1px solid #eee;
+}
+
+.details-row{
+    background:#f8f9fa;
+}
+
+.btn-update{
+    background:#198754;
+    color:#fff;
+    padding:6px 12px;
+    text-decoration:none;
+    border-radius:6px;
+}
+
+.btn-delete{
+    background:#dc3545;
+    color:#fff;
+    padding:6px 12px;
+    text-decoration:none;
+    border-radius:6px;
+}
+
+
+.field input:invalid,
+.field textarea:invalid{
+    border:2px solid red;
+}
+
+.error-msg{
+    color:red;
+    font-size:12px;
+    margin-top:5px;
+    display:none;
+}
+
+.field input:invalid + .error-msg,
+.field textarea:invalid + .error-msg{
+    display:block;
+}
+
+
+
+</style>
+
+<div class="course-container">
+
+    <h2 class="page-title">MPSC Course Management</h2>
+
+    <div class="form-card">
+
+        <form action="/save_mpsc/" method="POST">
+            {% csrf_token %}
+
+            <div class="form-grid">
+
+                <div class="field">
+                    Enter Department
+                    <input type="text"
+                        name="department"
+                        placeholder="Enter Department"
+                        required>
+                    <small class="error-msg">Department is required</small>
+                </div>
+
+                <div class="field">
+                    Enter Course Name
+                    <input type="text"
+                        name="course_name"
+                        placeholder="Enter Course Name"
+                        required>
+                    <small class="error-msg">Course Name is required</small>
+                </div>
+                <div class="field">
+                    Enter Duration
+                    <input type="text" name="duration" placeholder="Enter Duration">
+                </div>
+
+                <div class="field">
+                    Enter Fees
+                    <input type="number"
+                        name="fees"
+                        placeholder="Enter Fees"
+                        min="0"
+                        required>
+                    <small class="error-msg">Fees is required</small>
+                </div>
+
+                <div class="field">
+                    Enter Timing
+                    <input type="text" name="timing" placeholder="Enter Timing">
+                </div>
+
+                <div class="field">
+                    Enter Label
+                    <input type="text" name="extra_label" placeholder="Enter Label">
+                </div>
+
+                <div class="field">
+                    Enter Value
+                    <input type="text" name="extra_value" placeholder="Enter Value">
+                </div>
+
+                <div class="field">
+                    Course Heading
+                    <input type="text" name="heading" placeholder="Course Heading">
+                </div>
+
+                <div class="field">
+                    Course Title
+                    <input type="text" name="title" placeholder="Course Title">
+                </div>
+
+                <div class="field">
+                    Eligibility Criteria
+                    <input type="text" name="eligibility" placeholder="Eligibility Criteria">
+                </div>
+
+                <div class="field">
+                    Benefit 1
+                    <input type="text" name="benefit1" placeholder="Benefit 1">
+                </div>
+
+                <div class="field">
+                    Benefit 2
+                    <input type="text" name="benefit2" placeholder="Benefit 2">
+                </div>
+
+                <div class="field">
+                    Benefit 3
+                    <input type="text" name="benefit3" placeholder="Benefit 3">
+                </div>
+
+                <div class="field">
+                    Benefit 4
+                    <input type="text" name="benefit4" placeholder="Benefit 4">
+                </div>
+
+                <div class="field">
+                    Benefit 5
+                    <input type="text" name="benefit5" placeholder="Benefit 5">
+                </div>
+
+               <div class="field full-width">
+                    Admission Notice
+                    <textarea name="admission_notice"
+                            placeholder="Admission Notice"
+                            required></textarea>
+                    <small class="error-msg">Admission Notice is required</small>
+                </div>
+
+            </div>
+
+            <button type="submit" class="save-btn">
+                Save Course
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% include "admin/footer.html" %}

@@ -1,0 +1,156 @@
+{% include "user/navbar.html" %}
+{% include "user/base.html" %}
+
+
+<style>
+    .current-affairs{
+    padding:80px 8%;
+    background:#f8f9fc;
+}
+
+.affairs-heading{
+    text-align:center;
+    margin-bottom:50px;
+}
+
+.affairs-heading h2{
+    font-size:42px;
+    color:#0A2A66;
+    margin-bottom:10px;
+}
+
+.affairs-heading p{
+    color:#666;
+}
+
+.affairs-container{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+    gap:25px;
+}
+
+.affair-card{
+    background:#fff;
+    padding:25px;
+    border-radius:18px;
+    box-shadow:0 5px 20px rgba(0,0,0,.1);
+    transition:.3s;
+    border-top:5px solid #0A2A66;
+}
+
+.affair-card:hover{
+    transform:translateY(-8px);
+}
+
+.date{
+    display:inline-block;
+    background:#0A2A66;
+    color:#fff;
+    padding:6px 12px;
+    border-radius:20px;
+    font-size:13px;
+    margin-bottom:15px;
+}
+
+.affair-card h3{
+    color:#0A2A66;
+    font-size:22px;
+    margin-bottom:12px;
+}
+
+.affair-card p{
+    color:#555;
+    line-height:1.7;
+}
+</style>
+{% for i in affairs %}
+
+<div class="affair-card">
+
+    <span class="date">
+        {{ i.date }}
+    </span>
+
+    <h3>
+        {{ i.title }}
+    </h3>
+
+    <p>
+        {{ i.description }}
+    </p>
+
+</div>
+
+{% empty %}
+
+<div class="affair-card">
+    <h3>No Current Affairs Available</h3>
+    <p>सध्या कोणताही डेटा उपलब्ध नाही.</p>
+</div>
+
+{% endfor %}
+
+<!-- <div class="affair-card">
+    <span class="date">जून 2026</span>
+    <h3>CCEA ने ₹24,249 कोटींच्या महामार्ग प्रकल्पांना मंजुरी</h3>
+    <p>
+        केंद्र सरकारने ओडिशा, तेलंगणा, बिहार आणि मध्य प्रदेशातील
+        700 किमीपेक्षा अधिक लांबीच्या राष्ट्रीय महामार्ग प्रकल्पांना मंजुरी दिली.
+    </p>
+</div>
+
+<div class="affair-card">
+    <span class="date">जून 2026</span>
+    <h3>भारतात मान्सूनचे आगमन</h3>
+    <p>
+        केरळमध्ये मान्सूनचे आगमन झाले असून शेती आणि जलसाठ्यासाठी
+        हा महत्त्वाचा टप्पा मानला जातो.
+    </p>
+</div>
+
+<div class="affair-card">
+    <span class="date">जून 2026</span>
+    <h3>RBI उपगव्हर्नर स्वामीनाथन जानकीरामन यांचा कार्यकाळ वाढवला</h3>
+    <p>
+        भारतीय रिझर्व्ह बँकेचे उपगव्हर्नर स्वामीनाथन जानकीरामन
+        यांचा कार्यकाळ 2028 पर्यंत वाढविण्यात आला.
+    </p>
+</div>
+
+<div class="affair-card">
+    <span class="date">जून 2026</span>
+    <h3>भारत जगातील दुसरी सर्वात मोठी Solar Growth Market</h3>
+    <p>
+        सौरऊर्जा क्षमता वाढीमध्ये भारताने अमेरिका मागे टाकत
+        जगातील दुसरे स्थान मिळवले.
+    </p>
+</div>
+
+<div class="affair-card">
+    <span class="date">जून 2026</span>
+    <h3>PM मोदी यांनी दमन विमानतळाच्या नवीन टर्मिनलचे उद्घाटन केले</h3>
+    <p>
+        दमनमधील नवीन विमानतळ टर्मिनलमुळे प्रादेशिक हवाई संपर्क
+        आणि पर्यटनाला चालना मिळणार आहे.
+    </p>
+</div>रश्न 7: भारताचा राष्ट्रीय पक्षी कोणता आहे?</h3>
+    <p><strong>उत्तर:</strong> मोर</p>
+</div>
+
+<div class="affair-card">
+    <span class="date">09 जून 2026</span>
+    <h3>प्रश्न 8: भारतातील सर्वात लांब नदी कोणती?</h3>
+    <p><strong>उत्तर:</strong> गंगा</p>
+</div>
+
+<div class="affair-card">
+    <span class="date">09 जून 2026</span>
+    <h3>प्रश्न 9: संयुक्त राष्ट्र संघाची स्थापना कधी झाली?</h3>
+    <p><strong>उत्तर:</strong> 24 ऑक्टोबर 1945</p>
+</div>
+
+<div class="affair-card">
+    <span class="date">09 जून 2026</span>
+    <h3>प्रश्न 10: भारताचा राष्ट्रीय खेळ कोणता?</h3>
+    <p><strong>उत्तर:</strong> हॉकी</p>
+</div> -->

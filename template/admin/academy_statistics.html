@@ -1,0 +1,241 @@
+
+{% include "admin/navbar.html" %}
+
+<style>
+.container{
+    width:95%;
+    margin:auto;
+    padding:20px;
+}
+
+.card{
+    background:#fff;
+    border-radius:10px;
+    box-shadow:0 4px 10px rgba(0,0,0,0.1);
+    margin-bottom:20px;
+}
+
+.card-header{
+    background:#0d6efd;
+    color:#fff;
+    padding:15px;
+    font-size:20px;
+    font-weight:bold;
+}
+
+.card-body{
+    padding:20px;
+}
+
+.form-group{
+    margin-bottom:15px;
+}
+
+label{
+    display:block;
+    margin-bottom:5px;
+    font-weight:600;
+}
+
+.form-control{
+    width:100%;
+    padding:10px;
+    border:1px solid #ccc;
+    border-radius:5px;
+}
+
+.btn{
+    padding:8px 15px;
+    border:none;
+    border-radius:5px;
+    text-decoration:none;
+    cursor:pointer;
+}
+
+.btn-success{
+    background:#198754;
+    color:white;
+}
+
+.btn-warning{
+    background:#ffc107;
+    color:black;
+}
+
+.btn-danger{
+    background:#dc3545;
+    color:white;
+}
+
+.table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+.table th{
+    background:#0d6efd;
+    color:white;
+    padding:10px;
+}
+
+.table td{
+    border:1px solid #ddd;
+    padding:10px;
+    text-align:center;
+}
+.toast-msg{
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #198754;
+    color: white;
+    padding: 15px 25px;
+    border-radius: 8px;
+    font-weight: 600;
+    z-index: 9999;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    animation: fadeOut 4s forwards;
+}
+
+@keyframes fadeOut{
+    0%,80%{opacity:1;}
+    100%{opacity:0;}
+}
+
+
+.form-control:invalid{
+    border:2px solid red;
+}
+
+.error-msg{
+    color:red;
+    font-size:13px;
+    margin-top:5px;
+    display:none;
+}
+
+.form-control:invalid + .error-msg{
+    display:block;
+}
+
+</style>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+<div class="container">
+
+    <!-- Form Card -->
+    <div class="card">
+        <div class="card-header">
+            Academy Statistics
+        </div>
+
+        <div class="card-body">
+            <form action="/save_academy_statistic/" method="post">
+                {% csrf_token %}
+
+                <div class="form-group">
+                            <label>Statistic Title</label>
+                            <input type="text"
+                                name="statistic_title"
+                                class="form-control"
+                                required>
+                                  <small class="error-msg">
+                                    Please enter Statistic Title
+                                </small>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Statistic Count</label>
+                            <input type="number"
+                                name="statistic_count"
+                                class="form-control"
+                                required  min="0">
+
+                                <small class="error-msg">
+                                    Please enter Statistic Count
+                                </small>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Bootstrap Icon Class</label>
+                            <input type="text"
+                                name="statistic_icon"
+                                class="form-control"
+                                placeholder="bi bi-people-fill"
+                                required>
+                                 <small class="error-msg">
+                                    Please enter Bootstrap Icon Class
+                                </small>
+                        </div>
+                <button type="submit" class="btn btn-success"  onclick="alert('Are you sure submit Statistics')" >
+                    Save
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Table Card -->
+    <div class="card">
+        <div class="card-header">
+            Statistics List
+        </div>
+
+        <div class="card-body">
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Icon</th>
+                        <th>Title</th>
+                        <th>Count</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for stat in statistic %}
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+
+                        <td>
+                            <i class="{{ stat.statistic_icon }}"></i>
+                        </td>
+
+                        <td>{{ stat.statistic_title }}</td>
+
+                        <td>{{ stat.statistic_count }}</td>
+
+                        <td style="display:flex; gap:10px; justify-content:center; flex-wrap:nowrap;">
+                            <a href="{% url 'update_statistic' stat.id %}"
+                               class="btn btn-warning "  >
+                               Update
+                            </a>
+
+                            <a href="{% url 'delete_statistic' stat.id %}"
+                               class="btn btn-danger"
+                               onclick="return confirm('Are you sure delete record')">
+                               Delete
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+
+            </table>
+
+        </div>
+    </div>
+    {% if messages %}
+    {% for message in messages %}
+        <div class="toast-msg">
+            ✅ {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}
+
+</div>
+
+{% include "admin/footer.html" %}
+```

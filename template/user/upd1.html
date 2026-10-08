@@ -1,0 +1,193 @@
+
+{% include "user/navbar.html" %}
+{% include "user/base.html" %}
+
+    <!-- HERO SECTION -->
+
+<section class="pb-hero">
+
+    <div class="pb-overlay"></div>
+
+    <div class="pb-hero-content">
+
+        <span class="pb-badge">
+            {{ data.badge_text }}
+        </span>
+
+        <h1>
+            {{ data.hero_heading }}
+        </h1>
+
+        <p>
+            {{ data.hero_description }}
+        </p>
+
+    </div>
+
+</section>
+
+    <!-- OVERVIEW -->
+
+<section class="pb-overview-section">
+
+    <h2>
+        {{ data.overview_title }}
+    </h2>
+
+    <p>
+        {{ data.overview_description }}
+    </p>
+
+</section>
+
+    <!-- PHYSICAL + EXAM -->
+<section class="pb-info-grid">
+<div class="pb-info-card">
+
+    <h3>
+        🏃 {{ data.physical_title }}
+    </h3>
+
+    <ul>
+
+        {% if data.physical_point_1 %}
+        <li>{{ data.physical_point_1 }}</li>
+        {% endif %}
+
+        {% if data.physical_point_2 %}
+        <li>{{ data.physical_point_2 }}</li>
+        {% endif %}
+
+        {% if data.physical_point_3 %}
+        <li>{{ data.physical_point_3 }}</li>
+        {% endif %}
+
+        {% if data.physical_point_4 %}
+        <li>{{ data.physical_point_4 }}</li>
+        {% endif %}
+
+        {% if data.physical_point_5 %}
+        <li>{{ data.physical_point_5 }}</li>
+        {% endif %}
+
+    </ul>
+
+</div>
+
+<div class="pb-info-card">
+
+    <h3>
+        📝 {{ data.written_title }}
+    </h3>
+
+    <ul>
+
+        {% if data.written_point_1 %}
+        <li>{{ data.written_point_1 }}</li>
+        {% endif %}
+
+        {% if data.written_point_2 %}
+        <li>{{ data.written_point_2 }}</li>
+        {% endif %}
+
+        {% if data.written_point_3 %}
+        <li>{{ data.written_point_3 }}</li>
+        {% endif %}
+
+        {% if data.written_point_4 %}
+        <li>{{ data.written_point_4 }}</li>
+        {% endif %}
+
+        {% if data.written_point_5 %}
+        <li>{{ data.written_point_5 }}</li>
+        {% endif %}
+
+    </ul>
+
+</div>
+</section>
+
+
+    <!-- SELECTION PROCESS -->
+
+<section class="pb-selection-section">
+
+    <h2>
+        {{ data.selection_title }}
+    </h2>
+
+    <p class="pb-selection-subtitle">
+        {{ data.selection_description }}
+    </p>
+
+    <div class="pb-selection-grid">
+
+        <div class="pb-selection-card">
+
+            <span class="pb-step-number">
+                01
+            </span>
+
+            <h3>
+                {{ data.step1_title }}
+            </h3>
+
+            <p>
+                {{ data.step1_description }}
+            </p>
+
+        </div>
+
+        <div class="pb-selection-card">
+
+            <span class="pb-step-number">
+                02
+            </span>
+
+            <h3>
+                {{ data.step2_title }}
+            </h3>
+
+            <p>
+                {{ data.step2_description }}
+            </p>
+
+        </div>
+
+        <div class="pb-selection-card">
+
+            <span class="pb-step-number">
+                03
+            </span>
+
+            <h3>
+                {{ data.step3_title }}
+            </h3>
+
+            <p>
+                {{ data.step3_description }}
+            </p>
+
+        </div>
+
+        <div class="pb-selection-card">
+
+            <span class="pb-step-number">
+                04
+            </span>
+
+            <h3>
+                {{ data.step4_title }}
+            </h3>
+
+            <p>
+                {{ data.step4_description }}
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+{% include "user/footer.html" %}
+

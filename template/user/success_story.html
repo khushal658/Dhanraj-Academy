@@ -1,0 +1,114 @@
+{% include "user/navbar.html" %}
+{% include "user/base.html" %}
+
+
+<!-- HERO SECTION -->
+
+
+
+<!-- HERO SECTION -->
+
+<section class="ssd-hero-banner">
+
+
+<div class="ssd-hero-bg"></div>
+
+<div class="ssd-hero-overlay"></div>
+
+<div class="ssd-hero-content">
+
+    <img src="{{ result.image.url }}"
+         alt="{{ result.name }}"
+         class="ssd-student-photo">
+
+    <h1>{{ result.name }}</h1>
+
+    <p>
+        {{ result.title }} 
+    </p>
+
+</div>
+
+
+</section>
+
+<!-- SUCCESS STORY SECTION -->
+
+<section class="ssd-story-section">
+
+
+<div class="ssd-story-container">
+
+    <div class="ssd-story-header">
+
+        <h2>🎉 Success Story</h2>
+
+        <span>
+            Selected as {{ result.post }}
+        </span>
+
+    </div>
+
+    <div class="ssd-student-info">
+
+        <div class="ssd-info-box">
+            <h4>Post</h4>
+            <p>{{ result.post }}</p>
+        </div>
+
+        <div class="ssd-info-box">
+            <h4>Education</h4>
+            <p>{{ result.education }}</p>
+        </div>
+
+        <div class="ssd-info-box">
+            <h4>Posting</h4>
+            <p>{{ result.posting }}</p>
+        </div>
+
+        <div class="ssd-info-box">
+            <h4>Preparation</h4>
+            <p>{{ result.preparation }}</p>
+        </div>
+
+    </div>
+
+    <div class="ssd-story-card">
+
+        <h3>🚀 Success Journey</h3>
+
+        <p>
+            {{ result.success_journey }}
+        </p>
+
+    </div>
+
+    <div class="ssd-story-card">
+    <h3>📚 Daily Routine</h3>
+
+    <ul>
+        {% for item in result.daily_routine.splitlines %}
+            {% if item %}
+                <li>{{ item }}</li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+</div>
+
+    <div class="ssd-story-card">
+
+        <h3>💬 Student Message</h3>
+
+        <blockquote>
+            "{{ result.student_message }}"
+        </blockquote>
+
+    </div>
+
+</div>
+
+
+</section>
+
+{% include "user/footer.html" %}
+

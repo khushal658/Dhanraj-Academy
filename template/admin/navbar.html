@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Elegant Dashboard | Dashboard</title>
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="/static/ad/img/svg/logo.svg" type="image/x-icon">
+  <!-- Custom styles -->
+  <link rel="stylesheet" href="/static/ad/css/style.min.css">
+  <style>
+    /* Sidebar Layout - Clean, Compact & Perfectly Spaced */
+    @media (min-width: 1200px) {
+      .page-flex {
+        display: flex !important;
+      }
+      .sidebar {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        bottom: 0 !important;
+        height: 100vh !important;
+        max-height: 100vh !important;
+        width: 253px !important;
+        z-index: 1000 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: flex-start !important;
+        background-color: #0061f7 !important;
+        padding: 15px 15px 15px 20px !important;
+        overflow: hidden !important;
+        box-sizing: border-box !important;
+      }
+      .main-wrapper {
+        margin-left: 253px !important;
+        width: calc(100% - 253px) !important;
+        min-height: 100vh;
+      }
+      .sidebar.hidden + .main-wrapper {
+        margin-left: 64px !important;
+        width: calc(100% - 64px) !important;
+      }
+    }
+
+    /* Flex internal structure for sidebar */
+    .sidebar-start {
+      display: flex !important;
+      flex-direction: column !important;
+      flex: 1 1 auto !important;
+      min-height: 0 !important;
+      overflow: hidden !important;
+      justify-content: flex-start !important;
+    }
+
+    .sidebar-head {
+      flex-shrink: 0 !important;
+      padding-bottom: 12px !important;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+    }
+
+    /* Scrollable menu section inside sidebar */
+    .sidebar-body {
+      flex: 1 1 auto !important;
+      overflow-y: auto !important;
+      overflow-x: hidden !important;
+      padding-top: 10px !important;
+      padding-bottom: 10px !important;
+      padding-right: 2px !important;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+    }
+
+    /* Subtle scrollbar for sidebar menu */
+    .sidebar-body::-webkit-scrollbar {
+      width: 4px;
+    }
+    .sidebar-body::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .sidebar-body::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.25);
+      border-radius: 4px;
+    }
+    .sidebar-body::-webkit-scrollbar-thumb:hover {
+      background: rgba(255, 255, 255, 0.45);
+    }
+
+    /* Fixed profile footer at bottom of sidebar */
+    .sidebar-footer {
+      flex-shrink: 0 !important;
+      padding-top: 10px !important;
+      margin-top: auto !important;
+    }
+
+    /* Element Height & Spacing (Clean vertical padding) */
+    .sidebar-body-menu li {
+      position: relative !important;
+      margin-bottom: 2px !important;
+    }
+
+    .sidebar-body-menu a {
+      position: relative !important;
+      display: flex !important;
+      align-items: center !important;
+      padding: 9px 35px 9px 12px !important;
+      min-height: 38px !important;
+      opacity: 0.75;
+      color: #fff;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 1.4;
+      white-space: nowrap !important;
+      border-radius: 8px !important;
+      transition: background 0.2s ease, opacity 0.2s ease;
+    }
+
+    .sidebar-body-menu a:hover,
+    .sidebar-body-menu a.active {
+      opacity: 1 !important;
+      color: #ffffff !important;
+      background: rgba(255, 255, 255, 0.18) !important;
+      font-weight: 600 !important;
+    }
+
+    .show-cat-btn.active {
+      opacity: 1 !important;
+      color: #ffffff !important;
+      background: rgba(255, 255, 255, 0.15) !important;
+      font-weight: 600 !important;
+    }
+
+    /* Vertically center dropdown arrow button */
+    .category__btn {
+      position: absolute !important;
+      right: 8px !important;
+      top: 50% !important;
+      transform: translateY(-50%) !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      width: 24px !important;
+      height: 24px !important;
+      border-radius: 50% !important;
+      z-index: 2 !important;
+    }
+
+    .category__btn.rotated .icon {
+      transform: rotate(180deg) !important;
+    }
+
+    /* Submenu Padding & Spacing */
+    .cat-sub-menu {
+      padding-left: 20px !important;
+    }
+
+    .cat-sub-menu li {
+      margin-bottom: 2px !important;
+    }
+
+    .cat-sub-menu a {
+      padding: 7px 10px 7px 10px !important;
+      font-size: 13px !important;
+      line-height: 1.4 !important;
+      white-space: normal !important;
+      word-break: break-word !important;
+      min-height: auto !important;
+      border-radius: 6px !important;
+      opacity: 0.75 !important;
+      color: rgba(255, 255, 255, 0.85) !important;
+    }
+
+    .cat-sub-menu a:hover,
+    .cat-sub-menu a.active {
+      opacity: 1 !important;
+      color: #ffffff !important;
+      background: rgba(255, 255, 255, 0.25) !important;
+      font-weight: 600 !important;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="layer"></div>
+<!-- ! Body -->
+<a class="skip-link sr-only" href="#skip-target">Skip to content</a>
+<div class="page-flex">
+  <!-- ! Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-start">
+        <div class="sidebar-head">
+            <a href="/" class="logo-wrapper" title="Home">
+                <span class="sr-only">Home</span>
+                <span class="icon logo" aria-hidden="true"></span>
+                <div class="logo-text">
+                    <span class="logo-title">Dhanraj</span>
+                    <span class="logo-subtitle">Dashboard</span>
+                </div>
+
+            </a>
+            <button class="sidebar-toggle transparent-btn " title="Menu" type="button">
+                <span class="sr-only">Toggle menu</span>
+                <span class="icon menu-toggle" aria-hidden="true"></span>
+            </button>
+        </div>
+        <div class="sidebar-body">
+            <ul class="sidebar-body-menu">
+                <li>
+                    <a href="/admin/"><span class="icon home" aria-hidden="true"></span>Dashboard</a>
+                </li>
+
+
+                <li>
+                    <a class="show-cat-btn" href="##">
+                        <span class="icon document" aria-hidden="true"></span>Enrollments
+                        <span class="category__btn transparent-btn" title="Open list">
+                            <span class="sr-only">Open list</span>
+                            <span class="icon arrow-down" aria-hidden="true"></span>
+                        </span>
+                    </a>
+                    <ul class="cat-sub-menu">
+                        <li>
+                            <a href="/admin/enrollment/">Enrollment</a>
+                        </li>
+                       
+                    </ul>
+                </li>
+                
+                <li>
+                    <a class="show-cat-btn" href="##">
+                        <span class="icon document" aria-hidden="true"></span>Home
+                        <span class="category__btn transparent-btn" title="Open list">
+                            <span class="sr-only">Open list</span>
+                            <span class="icon arrow-down" aria-hidden="true"></span>
+                        </span>
+                    </a>
+                    <ul class="cat-sub-menu">
+                        <!-- <li>
+                            <a href="/admin/profile/">Profile</a>
+                        </li> -->
+
+
+                         <!-- <li>
+                            <a href="/admin/profile_list/">Profile list</a>
+                        </li> -->
+
+
+                        <li>
+                            <a href="/admin/academy_statistics/">Academy Statistic</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a class="show-cat-btn" href="##">
+                        <span class="icon folder" aria-hidden="true"></span>About
+                        <span class="category__btn transparent-btn" title="Open list">
+                            <span class="sr-only">Open list</span>
+                            <span class="icon arrow-down" aria-hidden="true"></span>
+                        </span>
+                    </a>
+                    <ul class="cat-sub-menu">
+                        <li>
+                            <a href="/admin/about/">About 1</a>
+                        </li>
+
+                         <li>
+                            <a href="/admin/maharashtra_compitation/">Trusted exams in Maharashtra</a>
+                            <a href="/admin/acadamy_speciality/">Dhanraj Acdamy Speciality</a>
+                            <a href="/admin/student_sucess/">यशस्वी वाटचाल आकडेवारीत</a>
+                        </li>
+                    </ul>
+                </li>
+              
+
+                <li>
+                    <a class="show-cat-btn" href="##">
+                        <span class="icon folder" aria-hidden="true"></span>Course
+                        <span class="category__btn transparent-btn" title="Open list">
+                            <span class="sr-only">Open list</span>
+                            <span class="icon arrow-down" aria-hidden="true"></span>
+                        </span>
+                    </a>
+                    <ul class="cat-sub-menu">
+                        <li>
+                            <a href="/admin/Mpsc_course/">All Courses</a>
+                        </li>
+
+                         <li>
+                            <a href="/admin/course_list/">course list</a>
+                        </li>
+                    </ul>
+                </li>
+
+
+
+
+
+                 <li>
+                    <a class="show-cat-btn" href="##">
+                        <span class="icon paper" aria-hidden="true"></span>Latest Update
+                        <span class="category__btn transparent-btn" title="Open list">
+                            <span class="sr-only">Open list</span>
+                            <span class="icon arrow-down" aria-hidden="true"></span>
+                        </span>
+                    </a>
+                    <ul class="cat-sub-menu">
+                        
+                        <li>
+                            <a href="/latest_page/">Latest Update page</a>
+                        </li>
+                      
+                    </ul>
+                </li>
+                <li>
+
+
+                <li>
+                    <a class="show-cat-btn" href="##">
+                        <span class="icon paper" aria-hidden="true"></span>Books & Notes
+                        <span class="category__btn transparent-btn" title="Open list">
+                            <span class="sr-only">Open list</span>
+                            <span class="icon arrow-down" aria-hidden="true"></span>
+                        </span>
+                    </a>
+                    <ul class="cat-sub-menu">
+                        <li>
+                            <a href="/admin/book/">All Books</a>
+                        </li>
+                      
+                    </ul>
+                </li>
+                <li>
+
+
+                    <li>
+                    <a class="show-cat-btn" href="##">
+                        <span class="icon paper" aria-hidden="true"></span>Result
+                        <span class="category__btn transparent-btn" title="Open list">
+                            <span class="sr-only">Open list</span>
+                            <span class="icon arrow-down" aria-hidden="true"></span>
+                        </span>
+                    </a>
+                    <ul class="cat-sub-menu">
+                        <!-- <li>
+                            <a href="pages.html">All Results</a>
+                        </li> -->
+                        <li>
+                            <a href="/save_result/">All Result</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+
+
+                 <li>
+                    <a class="show-cat-btn" href="##">
+                        <span class="icon user-3" aria-hidden="true"></span>Faulty
+                        <span class="category__btn transparent-btn" title="Open list">
+                            <span class="sr-only">Open list</span>
+                            <span class="icon arrow-down" aria-hidden="true"></span>
+                        </span>
+                    </a>
+                    <ul class="cat-sub-menu">
+                         <li>
+                            <a href="/Teacher_Profiles/">Teacher Profiles</a>
+                        </li>
+                           <li>
+                            <a href="/Demo_Sessions/">Demo Sessions</a>
+                        
+                        </li>
+
+                         <li>
+                            <a href="/Subject/">Subject Experts</a>
+                        </li>
+
+                        <li>
+                            <a href="/Student_Reviews/">Student Reviews</a>
+                        </li>
+                    </ul>
+                </li>
+
+                 <li>
+                    <a class="show-cat-btn" href="##">
+                        <span class="icon image" aria-hidden="true"></span>Gallary
+                        <span class="category__btn transparent-btn" title="Open list">
+                            <span class="sr-only">Open list</span>
+                            <span class="icon arrow-down" aria-hidden="true"></span>
+                        </span>
+                    </a>
+                    <ul class="cat-sub-menu">
+                        <li>
+                            <a href="/admin/photo_gallary/">Photo Gallary</a>
+                        </li>
+                        <li>
+                            <a href="/admin/video_gallary/">Video Gallary</a>
+                        </li>
+                    </ul>
+                </li>
+
+
+
+                <li>
+                    <a class="show-cat-btn" href="##">
+                        <span class="icon edit" aria-hidden="true"></span>Blog
+                        <span class="category__btn transparent-btn" title="Open list">
+                            <span class="sr-only">Open list</span>
+                            <span class="icon arrow-down" aria-hidden="true"></span>
+                        </span>
+                    </a>
+                    <ul class="cat-sub-menu">
+                        <li>
+                            <a href="/admin/blog_card/">blog_card</a>
+                        </li>
+                        <li>
+                            <a href="/admin/read_more1/">Time Table</a>
+                        </li>
+                                                <li>
+                            <a href="/admin/read_more2/">Current Affiars</a>
+                        </li>
+
+                    </ul>
+                </li>
+
+                 <!-- <li>
+                    <a href="appearance.html"><span class="icon edit" aria-hidden="true"></span>Appearance</a>
+                </li> -->
+
+
+
+
+                 <li>
+                    <a class="show-cat-btn" href="##">
+                        <span class="icon edit" aria-hidden="true"></span>Contact Us
+                        <span class="category__btn transparent-btn" title="Open list">
+                            <span class="sr-only">Open list</span>
+                            <span class="icon arrow-down" aria-hidden="true"></span>
+                        </span>
+                    </a>
+                    <ul class="cat-sub-menu">
+                        <li>
+                            <a href="/Contact_us/">Contact Us </a>
+                        </li>
+                        <li>
+                            <a href="/Contact_card/">Contact Card</a>
+                        </li>
+                         <li>
+                            <a href="/Contact_about/">Contact About</a>
+                        </li>
+                         <li>
+                            <a href="/Contact_form_table/">Contact Form </a>
+                        </li>
+
+                        <li>
+                                    <a href="/Contact_form_cources/">Contact Course </a>
+                        </li>
+
+                             <li>
+                            <a href="/Contact_callback/">Contact Call Back</a>
+                        </li>
+
+                              <li>
+                            <a href="/Contact_faq/">Contact Frequently </a>
+                        </li>
+
+                           <li>
+                            <a href="/Contact_AskedQ/">Contact Asked Questions </a>
+                        </li>
+
+                          <li>
+                            <a href="/Contact_Locations/">Contact Location </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+           
+        </div>
+    </div>
+    <div class="sidebar-footer">
+        <a href="##" class="sidebar-user">
+            <span class="sidebar-user-img">
+                <picture><source srcset="/static/ad/img/avatar/avatar-illustrated-01.webp" type="image/webp"><img src="./img/avatar/avatar-illustrated-01.png" alt="User name"></picture>
+            </span>
+            <div class="sidebar-user-info">
+                <span class="sidebar-user__title">Dhanraj Academy</span>
+                <span class="sidebar-user__subtitle">Director</span>
+            </div>
+        </a>
+    </div>
+</aside>
+  <div class="main-wrapper">
+    <!-- ! Main nav -->
+    <nav class="main-nav--bg">
+  <div class="container main-nav">
+    <div class="main-nav-start">
+      <div class="search-wrapper">
+        <i data-feather="search" aria-hidden="true"></i>
+        <input type="text" placeholder="Enter keywords ..." required>
+      </div>
+    </div>
+    <div class="main-nav-end">
+      <button class="sidebar-toggle transparent-btn" title="Menu" type="button">
+        <span class="sr-only">Toggle menu</span>
+        <span class="icon menu-toggle--gray" aria-hidden="true"></span>
+      </button>
+      <div class="lang-switcher-wrapper">
+        <button class="lang-switcher transparent-btn" type="button">
+          EN
+          <i data-feather="chevron-down" aria-hidden="true"></i>
+        </button>
+        <ul class="lang-menu dropdown">
+          <li><a href="##">English</a></li>
+          <li><a href="##">French</a></li>
+          <li><a href="##">Uzbek</a></li>
+        </ul>
+      </div>
+      <button class="theme-switcher gray-circle-btn" type="button" title="Switch theme">
+        <span class="sr-only">Switch theme</span>
+        <i class="sun-icon" data-feather="sun" aria-hidden="true"></i>
+        <i class="moon-icon" data-feather="moon" aria-hidden="true"></i>
+      </button>
+      <div class="notification-wrapper">
+        <button class="gray-circle-btn dropdown-btn" title="To messages" type="button">
+          <span class="sr-only">To messages</span>
+          <span class="icon notification active" aria-hidden="true"></span>
+        </button>
+        <ul class="users-item-dropdown notification-dropdown dropdown">
+          <li>
+            <a href="##">
+              <div class="notification-dropdown-icon info">
+                <i data-feather="check"></i>
+              </div>
+              <div class="notification-dropdown-text">
+                <span class="notification-dropdown__title">System just updated</span>
+                <span class="notification-dropdown__subtitle">The system has been successfully upgraded. Read more
+                  here.</span>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="##">
+              <div class="notification-dropdown-icon danger">
+                <i data-feather="info" aria-hidden="true"></i>
+              </div>
+              <div class="notification-dropdown-text">
+                <span class="notification-dropdown__title">The cache is full!</span>
+                <span class="notification-dropdown__subtitle">Unnecessary caches take up a lot of memory space and
+                  interfere ...</span>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="##">
+              <div class="notification-dropdown-icon info">
+                <i data-feather="check" aria-hidden="true"></i>
+              </div>
+              <div class="notification-dropdown-text">
+                <span class="notification-dropdown__title">New Subscriber here!</span>
+                <span class="notification-dropdown__subtitle">A new subscriber has subscribed.</span>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a class="link-to-page" href="##">Go to Notifications page</a>
+          </li>
+        </ul>
+      </div>
+      <div class="nav-user-wrapper">
+        <button href="##" class="nav-user-btn dropdown-btn" title="My profile" type="button">
+          <span class="sr-only">My profile</span>
+          <span class="nav-user-img">
+            <picture><source srcset="/static/ad/img/avatar/avatar-illustrated-02.webp" type="image/webp"><img src="./img/avatar/avatar-illustrated-02.png" alt="User name"></picture>
+          </span>
+        </button>
+        <ul class="users-item-dropdown nav-user-dropdown dropdown">
+          <li><a href="/admin/profile_list/">
+              <i data-feather="user" aria-hidden="true"></i>
+              <span>Profile</span>
+            </a></li>
+          <li><a href="##">
+              <i data-feather="settings" aria-hidden="true"></i>
+              <span>Account settings</span>
+            </a></li>
+          <li><a class="danger" href="/logout/">
+              <i data-feather="log-out" aria-hidden="true"></i>
+              <span>Log out</span>
+            </a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>
+<script>
+(function() {
+  function activateCurrentMenu() {
+    var currentPath = window.location.pathname;
+    function norm(p) {
+      if (!p) return '';
+      var c = p.split('?')[0].split('#')[0];
+      if (c.length > 1 && c.endsWith('/')) c = c.slice(0, -1);
+      return c;
+    }
+    var normCurrent = norm(currentPath);
+    var menuLinks = document.querySelectorAll('.sidebar-body-menu a');
+    if (!menuLinks || menuLinks.length === 0) return;
+
+    var bestMatch = null;
+    var maxLen = -1;
+
+    menuLinks.forEach(function(link) {
+      var href = link.getAttribute('href');
+      if (!href || href === '##' || href === '#' || href.indexOf('javascript') === 0) return;
+      var normHref = norm(href);
+      if (normCurrent === normHref) {
+        bestMatch = link;
+        maxLen = 10000;
+      } else if (normHref !== '/admin' && normHref !== '' && normCurrent.indexOf(normHref) === 0) {
+        if (normHref.length > maxLen) {
+          bestMatch = link;
+          maxLen = normHref.length;
+        }
+      }
+    });
+
+    if (bestMatch) {
+      menuLinks.forEach(function(l) { l.classList.remove('active'); });
+      bestMatch.classList.add('active');
+      var parentSub = bestMatch.closest('.cat-sub-menu');
+      if (parentSub) {
+        parentSub.classList.add('visible');
+        var parentLi = parentSub.closest('li');
+        if (parentLi) {
+          var parentBtn = parentLi.querySelector('.show-cat-btn');
+          if (parentBtn) {
+            parentBtn.classList.add('active');
+            var arrow = parentBtn.querySelector('.category__btn');
+            if (arrow) arrow.classList.add('rotated');
+          }
+        }
+      }
+    }
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', activateCurrentMenu);
+  } else {
+    activateCurrentMenu();
+  }
+})();
+</script>
+<!-- </div>
+</div> -->

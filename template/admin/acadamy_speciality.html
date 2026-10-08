@@ -1,0 +1,371 @@
+{% include "admin/navbar.html" %}
+
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#f1f5f9;
+}
+
+.about-form{
+    max-width:850px;
+    margin:40px auto;
+    background:#fff;
+    padding:40px;
+    border-radius:25px;
+    box-shadow:0 15px 40px rgba(0,0,0,0.12);
+}
+
+.about-form-title{
+    text-align:center;
+    font-size:34px;
+    font-weight:700;
+    color:#1e40af;
+    margin-bottom:10px;
+}
+
+.about-form-subtitle{
+    text-align:center;
+    color:#64748b;
+    margin-bottom:35px;
+    font-size:15px;
+}
+
+.about-card{
+    margin-bottom:25px;
+}
+
+.about-label{
+    display:block;
+    margin-bottom:10px;
+    font-size:16px;
+    font-weight:600;
+    color:#1e293b;
+}
+
+.about-input,
+.about-textarea{
+    width:100%;
+    border:2px solid #e2e8f0;
+    border-radius:14px;
+    padding:15px 18px;
+    font-size:15px;
+    outline:none;
+    transition:0.3s;
+    background:#fafafa;
+}
+
+.about-input:focus,
+.about-textarea:focus{
+    border-color:#2563eb;
+    background:#fff;
+    box-shadow:0 0 0 4px rgba(37,99,235,0.15);
+}
+
+.about-textarea{
+    resize:none;
+    min-height:140px;
+}
+
+.submit-wrapper{
+    text-align:center;
+    margin-top:35px;
+}
+
+.submit-btn{
+    border:none;
+    outline:none;
+    cursor:pointer;
+    background:linear-gradient(
+    135deg,
+    #2563eb,
+    #1d4ed8
+    );
+    color:white;
+    padding:16px 45px;
+    font-size:17px;
+    font-weight:600;
+    border-radius:50px;
+    transition:0.3s;
+    box-shadow:0 10px 25px rgba(37,99,235,0.3);
+}
+
+.submit-btn:hover{
+    transform:translateY(-3px);
+    box-shadow:0 15px 30px rgba(37,99,235,0.4);
+}
+
+.submit-btn:active{
+    transform:scale(.98);
+}
+
+</style>
+
+<form action="/save_why_choose_us/" method="POST" class="about-form">
+
+    {% csrf_token %}
+
+    <h2 class="about-form-title">
+        धनराज अकॅडमीची खास वैशिष्ट्ये
+    </h2>
+
+    <p class="about-form-subtitle">
+        Why Choose Us Section Management Panel
+    </p>
+
+    <div class="about-card">
+
+    <label class="about-label">
+        Icon Class
+    </label>
+
+  <div class="about-card">
+
+    <label class="about-label">
+        Select Icon
+    </label>
+
+<select name="icon" class="about-input">
+
+    <option value="">Select Icon</option>
+
+    <option value="fa-solid fa-graduation-cap">🎓 Graduation</option>
+
+    <option value="fa-solid fa-chalkboard-user">👨‍🏫 Teacher</option>
+
+    <option value="fa-solid fa-user-graduate">🧑‍🎓 Student</option>
+
+    <option value="fa-solid fa-book-open">📚 Books</option>
+
+    <option value="fa-solid fa-book">📖 Study Book</option>
+
+    <option value="fa-solid fa-pencil">✏️ Pencil</option>
+
+    <option value="fa-solid fa-pen">✍️ Pen</option>
+
+    <option value="fa-solid fa-clipboard-check">📝 Test Series</option>
+
+    <option value="fa-solid fa-file-lines">📄 Notes</option>
+
+    <option value="fa-solid fa-award">🏅 Award</option>
+
+    <option value="fa-solid fa-trophy">🏆 Trophy</option>
+
+    <option value="fa-solid fa-medal">🥇 Medal</option>
+
+    <option value="fa-solid fa-star">⭐ Star</option>
+
+    <option value="fa-solid fa-lightbulb">💡 Knowledge</option>
+
+    <option value="fa-solid fa-bullseye">🎯 Goal</option>
+
+    <option value="fa-solid fa-chart-line">📈 Success</option>
+
+    <option value="fa-solid fa-users">👥 Students</option>
+
+    <option value="fa-solid fa-user-group">👨‍👩‍👧‍👦 Team</option>
+
+    <option value="fa-solid fa-comments">💬 Doubt Solving</option>
+
+    <option value="fa-solid fa-headset">🎧 Support</option>
+
+    <option value="fa-solid fa-laptop">💻 Online Classes</option>
+
+    <option value="fa-solid fa-desktop">🖥️ Computer</option>
+
+    <option value="fa-solid fa-school">🏫 School</option>
+
+    <option value="fa-solid fa-building-columns">🏛️ Academy</option>
+
+    <option value="fa-solid fa-certificate">📜 Certificate</option>
+
+    <option value="fa-solid fa-calendar-days">📅 Daily Practice</option>
+
+    <option value="fa-solid fa-clock">⏰ Time Management</option>
+
+    <option value="fa-solid fa-rocket">🚀 Career Growth</option>
+
+    <option value="fa-solid fa-brain">🧠 Smart Learning</option>
+
+    <option value="fa-solid fa-magnifying-glass">🔍 Research</option>
+
+</select>
+
+</div>
+
+</div>
+
+    <div class="about-card">
+
+        <label class="about-label">
+            Card Title
+        </label>
+
+        <input
+        type="text"
+        name="title"
+        value="{{ edit_data.title|default:'' }}"
+        placeholder="Experienced Faculty"
+        class="about-input">
+
+    </div>
+
+    <div class="about-card">
+
+        <label class="about-label">
+            Description
+        </label>
+
+        <textarea
+        name="description"
+        rows="5"
+        placeholder="Enter Description"
+        class="about-textarea">{{ edit_data.description|default:'' }}</textarea>
+
+    </div>
+
+    <div class="submit-wrapper">
+
+        <button
+        type="submit"
+        class="submit-btn">
+
+            {% if edit_data %}
+                Update Card
+            {% else %}
+                Save Card
+            {% endif %}
+
+        </button>
+
+    </div>
+
+</form>
+
+
+<div style="
+margin-top:40px;
+background:white;
+padding:20px;
+border-radius:20px;
+box-shadow:0 10px 25px rgba(0,0,0,0.1);
+overflow-x:auto;
+">
+
+    <h2 style="
+    text-align:center;
+    margin-bottom:20px;
+    color:#1e40af;
+    ">
+        Saved Specialities
+    </h2>
+
+    <table style="
+    width:100%;
+    border-collapse:collapse;
+    min-width:800px;
+    ">
+
+        <thead>
+
+            <tr style="
+            background:#2563eb;
+            color:white;
+            ">
+
+
+                <th style="padding:15px;">Sr. No.</th>
+
+                <th style="padding:15px;">
+                Icon
+              </th>
+
+                <th style="padding:15px;">
+                    Title
+                </th>
+
+                <th style="padding:15px;">
+                    Description
+                </th>
+
+                <th style="padding:15px;">
+                    Action
+                </th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            {% for i in data %}
+
+            <tr style="border-bottom:1px solid #e5e7eb;">
+
+                <td style="padding:15px;">
+                    {{ forloop.counter }}
+                </td>
+
+                <td style="padding:15px;text-align:center;">
+            <i class="{{ i.icon }}" style="font-size:22px;color:#2563eb;"></i>
+            <br>
+        <small>{{ i.icon }}</small>
+       </td>
+
+                <td style="padding:15px;">
+                    {{ i.title }}
+                </td>
+
+                <td style="padding:15px;">
+                    {{ i.description }}
+                </td>
+
+                <td style="padding:15px;">
+
+                    <a
+                    href="/delete_speciality/{{ i.id }}/"
+                    onclick="return confirm('Delete this record?')"
+                    style="
+                    background:#ef4444;
+                    color:white;
+                    text-decoration:none;
+                    padding:8px 18px;
+                    border-radius:8px;
+                    ">
+                        Delete
+                    </a>
+
+                </td>
+
+            </tr>
+
+            {% empty %}
+
+            <tr>
+
+                <td
+                colspan="5"
+                style="
+                text-align:center;
+                padding:30px;
+                color:gray;
+                ">
+                    No Records Found
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>

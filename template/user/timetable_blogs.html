@@ -1,0 +1,186 @@
+{% include "user/navbar.html" %}
+{% include "user/base.html" %}
+
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>महाराष्ट्र स्पर्धा परीक्षा वेळापत्रक 2026</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#f5f7fb;
+}
+
+.exam-section{
+    max-width:1100px;
+    margin:60px auto;
+    padding:0 20px;
+}
+
+.exam-card{
+    background:#fff;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:0 15px 40px rgba(0,0,0,0.08);
+    border-top:5px solid #f4b400;
+}
+
+.exam-header{
+    background:linear-gradient(135deg,#0f172a,#1e293b);
+    color:#fff;
+    text-align:center;
+    padding:45px 25px;
+}
+
+.exam-header h2{
+    color:#f4b400;
+    font-size:34px;
+    font-weight:700;
+    margin-bottom:10px;
+}
+
+.exam-header p{
+    color:#dbe4f0;
+    font-size:16px;
+}
+
+.exam-table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+.exam-table thead{
+    background:#0f172a;
+}
+
+.exam-table th{
+    color:#f4b400;
+    padding:18px;
+    text-align:left;
+    font-size:17px;
+    font-weight:600;
+}
+
+.exam-table td{
+    padding:18px;
+    border-bottom:1px solid #eef2f7;
+    color:#334155;
+    font-size:15px;
+}
+
+.exam-table tr{
+    transition:.3s;
+}
+
+.exam-table tr:hover{
+    background:#fffdf5;
+}
+
+.date-badge{
+    background:#f4b400;
+    color:#0f172a;
+    padding:8px 15px;
+    border-radius:30px;
+    font-weight:600;
+    font-size:14px;
+}
+
+.note{
+    background:#fff8e1;
+    border-top:2px solid #f4b400;
+    padding:20px;
+    color:#7c5a00;
+    font-size:15px;
+    line-height:1.6;
+}
+
+@media(max-width:768px){
+
+    .exam-section{
+        margin:30px auto;
+    }
+
+    .exam-header{
+        padding:30px 15px;
+    }
+
+    .exam-header h2{
+        font-size:24px;
+    }
+
+    .exam-header p{
+        font-size:14px;
+    }
+
+    .exam-table th,
+    .exam-table td{
+        padding:12px;
+        font-size:13px;
+    }
+
+    .date-badge{
+        font-size:12px;
+        padding:6px 12px;
+    }
+}
+</style></head>
+<body>
+
+<section class="exam-section">
+
+    <div class="exam-card">
+
+        <div class="exam-header">
+            <h2>📅 महाराष्ट्र स्पर्धा परीक्षा वेळापत्रक 2026</h2>
+            <p>आगामी स्पर्धा परीक्षांच्या महत्त्वाच्या तारखा</p>
+        </div>
+
+        <table class="exam-table">
+            <thead>
+                <tr>
+                    <th>परीक्षा</th>
+                    <th>तारीख</th>
+                </tr>
+            </thead>
+
+<tbody>
+    {% for i in exams %}
+    <tr>
+        <td>{{ i.exam_name }}</td>
+        <td>
+            <span class="date-badge">
+                {{ i.exam_date }}
+            </span>
+        </td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td colspan="2" style="text-align:center;">
+            No Exam Schedule Available
+        </td>
+    </tr>
+    {% endfor %}
+</tbody>
+        </table>
+
+        <div class="note">
+            ⚠️ सूचना: परीक्षा तारखा आयोगाच्या अधिकृत अधिसूचनेनुसार बदलू शकतात.
+            कृपया अधिकृत वेबसाईट नियमित तपासा.
+        </div>
+
+    </div>
+
+</section>
+
+</body>
+</html>
+{% include "user/footer.html" %}

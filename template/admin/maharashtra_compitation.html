@@ -1,0 +1,538 @@
+{% include "admin/navbar.html" %}
+
+
+
+<style>
+
+.about-form{
+    max-width:1000px;
+    margin:40px auto;
+    background:#ffffff;
+    padding:35px;
+    border-radius:20px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.12);
+    border-top:6px solid #2563eb;
+}
+
+.about-form-title{
+    text-align:center;
+    font-size:32px;
+    font-weight:700;
+    color:#2563eb;
+    margin-bottom:10px;
+}
+
+.about-form-subtitle{
+    text-align:center;
+    color:#64748b;
+    margin-bottom:35px;
+    font-size:15px;
+}
+
+.about-card{
+    background:#f8fafc;
+    padding:20px;
+    border-radius:15px;
+    margin-bottom:25px;
+}
+
+.vision-card{
+    background:#fff7ed;
+    padding:25px;
+    border-radius:15px;
+    margin-bottom:25px;
+    border-left:5px solid #2563eb;
+}
+
+.timeline-card{
+    background:#eff6ff;
+    padding:25px;
+    border-radius:15px;
+    margin-bottom:30px;
+    border-left:5px solid #2563eb;
+}
+
+.about-label{
+    display:block;
+    font-weight:600;
+    margin-bottom:8px;
+    color:#1e293b;
+}
+
+.about-input{
+    width:100%;
+    padding:14px;
+    border:1px solid #cbd5e1;
+    border-radius:10px;
+    outline:none;
+    box-sizing:border-box;
+}
+
+.about-textarea{
+    width:100%;
+    padding:14px;
+    border:1px solid #cbd5e1;
+    border-radius:10px;
+    resize:none;
+    outline:none;
+    box-sizing:border-box;
+}
+
+.vision-textarea{
+    width:100%;
+    padding:14px;
+    border:1px solid #fed7aa;
+    border-radius:10px;
+    resize:none;
+    box-sizing:border-box;
+}
+
+.section-heading{
+    margin-top:0;
+    margin-bottom:20px;
+    color:#2563eb;
+}
+
+.timeline-heading{
+    margin-top:0;
+    margin-bottom:25px;
+    color:#2563eb;
+}
+
+.timeline-item-heading{
+    color:#1e40af;
+    margin-bottom:10px;
+}
+
+.timeline-input{
+    width:100%;
+    padding:12px;
+    border:1px solid #bfdbfe;
+    border-radius:8px;
+    margin-bottom:10px;
+    box-sizing:border-box;
+}
+
+.timeline-textarea{
+    width:100%;
+    padding:12px;
+    border:1px solid #bfdbfe;
+    border-radius:8px;
+    margin-bottom:20px;
+    resize:none;
+    box-sizing:border-box;
+}
+
+.submit-wrapper{
+    text-align:center;
+}
+
+.submit-btn{
+    background:linear-gradient(135deg,#2563eb,#2563eb);
+    color:white;
+    border:none;
+    padding:15px 45px;
+    font-size:18px;
+    font-weight:600;
+    border-radius:12px;
+    cursor:pointer;
+    box-shadow:0 8px 20px rgba(255,123,0,0.3);
+    transition:0.3s;
+}
+
+.submit-btn:hover{
+    transform:translateY(-2px);
+}
+
+</style>
+
+
+
+<section>
+<form action="/save_compitition/" method="POST" class="about-form">
+
+{% csrf_token %}
+
+<h2 class="about-form-title">
+    महाराष्ट्रातील विश्वासार्ह परीक्षा केंद्र
+</h2>
+
+<p class="about-form-subtitle">
+    About Section Management Panel
+</p>
+
+<!-- Main Heading -->
+
+<div class="about-card">
+
+    <label class="about-label">
+        Main Heading
+    </label>
+
+    <input
+    type="text"
+    name="main_heading" required
+    value="{{ edit_data.main_heading|default:'' }}"
+    placeholder="महाराष्ट्रातील विश्वासार्ह स्पर्धा परीक्षा केंद्र"
+    class="about-input">
+
+</div>
+
+<!-- About Description -->
+
+<div class="about-card">
+
+    <label class="about-label">
+        About Description
+    </label>
+
+    <textarea
+    name="about_description" required
+    rows="6"
+    placeholder="Enter About Description"
+    class="about-textarea">{{ edit_data.about_description|default:'' }}</textarea>
+
+</div>
+
+<!-- Vision Section -->
+
+<div class="vision-card">
+
+    <h3 class="section-heading">
+        Vision Section
+    </h3>
+
+    <label class="about-label">
+        Vision Description
+    </label>
+
+    <textarea
+    name="vision_description" required
+    rows="4"
+    placeholder="Enter Vision Description"
+    class="vision-textarea">{{ edit_data.vision_description|default:'' }}</textarea>
+
+</div>
+
+<!-- Timeline Section -->
+
+<div class="timeline-card">
+
+    <h3 class="timeline-heading">
+        Timeline Details
+    </h3>
+
+    <!-- Timeline 1 -->
+
+    <h4 class="timeline-item-heading">
+        Timeline 1
+    </h4>
+
+    <input
+    type="number"
+    name="year1" required
+    value="{{ edit_data.year1|default:'' }}"
+    placeholder="Year (2016)"
+    class="timeline-input">
+
+    <textarea
+    name="timeline1" required
+    rows="3"
+    placeholder="Timeline Description"
+    class="timeline-textarea">{{ edit_data.timeline1|default:'' }}</textarea>
+
+    <!-- Timeline 2 -->
+
+    <h4 class="timeline-item-heading">
+        Timeline 2
+    </h4>
+
+    <input
+    type="number" required
+    name="year2"
+    value="{{ edit_data.year2|default:'' }}"
+    placeholder="Year (2019)"
+    class="timeline-input">
+
+    <textarea
+    name="timeline2" required
+    rows="3"
+    placeholder="Timeline Description"
+    class="timeline-textarea">{{ edit_data.timeline2|default:'' }}</textarea>
+
+    <!-- Timeline 3 -->
+
+    <h4 class="timeline-item-heading">
+        Timeline 3
+    </h4>
+
+    <input
+    type="number"
+    name="year3" required
+    value="{{ edit_data.year3|default:'' }}"
+    placeholder="Year (2022)"
+    class="timeline-input">
+
+    <textarea
+    name="timeline3" required
+    rows="3"
+    placeholder="Timeline Description"
+    class="timeline-textarea">{{ edit_data.timeline3|default:'' }}</textarea>
+
+    <!-- Timeline 4 -->
+
+    <h4 class="timeline-item-heading">
+        Timeline 4
+    </h4>
+
+    <input
+    type="number"
+    name="year4" required
+    value="{{ edit_data.year4|default:'' }}"
+    placeholder="Year (2024)"
+    class="timeline-input">
+
+    <textarea
+    name="timeline4" required
+    rows="3"
+    placeholder="Timeline Description"
+    class="timeline-textarea">{{ edit_data.timeline4|default:'' }}</textarea>
+
+</div>
+
+<!-- Submit Button -->
+
+<div class="submit-wrapper">
+
+    <button
+    type="submit"
+    class="submit-btn">
+
+        {% if edit_data %}
+            Update About Section
+        {% else %}
+            Save About Section
+        {% endif %}
+
+    </button>
+
+</div>
+
+</form>
+
+</section>
+{% if messages %}
+    {% for message in messages %}
+        <script>
+            alert("{{ message|escapejs }}");
+        </script>
+    {% endfor %}
+{% endif %}
+
+
+
+{% include "admin/footer.html" %}
+
+
+
+
+
+<!-- table -->
+
+
+<div style="
+width:100%;
+overflow-x:auto;
+margin-top:40px;
+background:#ffffff;
+border-radius:20px;
+box-shadow:0 10px 30px rgba(0,0,0,0.12);
+">
+
+    <h2 style="
+    text-align:center;
+    padding:20px;
+    color:#2563eb;
+    margin:0;
+    font-size:28px;
+    ">
+        Saved Records
+    </h2>
+
+    <table style="
+    min-width:3000px;
+    width:100%;
+    border-collapse:collapse;
+    ">
+
+        <thead>
+
+            <tr style="
+            background:#1e40af;
+            color:white;
+            ">
+
+                <th style="padding:15px;border:1px solid #dbeafe;">SR No.</th>
+
+                <th style="padding:15px;border:1px solid #dbeafe;">
+                    Main Heading
+                </th>
+
+                <th style="padding:15px;border:1px solid #dbeafe;">
+                    About Description
+                </th>
+
+                <th style="padding:15px;border:1px solid #dbeafe;">
+                    Vision Description
+                </th>
+
+                <th style="padding:15px;border:1px solid #dbeafe;">
+                    Year 1
+                </th>
+
+                <th style="padding:15px;border:1px solid #dbeafe;">
+                    Timeline 1
+                </th>
+
+                <th style="padding:15px;border:1px solid #dbeafe;">
+                    Year 2
+                </th>
+
+                <th style="padding:15px;border:1px solid #dbeafe;">
+                    Timeline 2
+                </th>
+
+                <th style="padding:15px;border:1px solid #dbeafe;">
+                    Year 3
+                </th>
+
+                <th style="padding:15px;border:1px solid #dbeafe;">
+                    Timeline 3
+                </th>
+
+                <th style="padding:15px;border:1px solid #dbeafe;">
+                    Year 4
+                </th>
+
+                <th style="padding:15px;border:1px solid #dbeafe;">
+                    Timeline 4
+                </th>
+
+                <th style="padding:15px;border:1px solid #dbeafe;">
+                    Action
+                </th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+        {% if data %}
+
+        <tr style="border-bottom:1px solid #e5e7eb;">
+
+            <td style="padding:15px;border:1px solid #e5e7eb;">
+                1
+            </td>
+
+            <td style="padding:15px;border:1px solid #e5e7eb;">
+                {{ data.main_heading }}
+            </td>
+
+            <td style="padding:15px;border:1px solid #e5e7eb;">
+                {{ data.about_description }}
+            </td>
+
+            <td style="padding:15px;border:1px solid #e5e7eb;">
+                {{ data.vision_description }}
+            </td>
+
+            <td style="padding:15px;border:1px solid #e5e7eb;">
+                {{ data.year1 }}
+            </td>
+
+            <td style="padding:15px;border:1px solid #e5e7eb;">
+                {{ data.timeline1 }}
+            </td>
+
+            <td style="padding:15px;border:1px solid #e5e7eb;">
+                {{ data.year2 }}
+            </td>
+
+            <td style="padding:15px;border:1px solid #e5e7eb;">
+                {{ data.timeline2 }}
+            </td>
+
+            <td style="padding:15px;border:1px solid #e5e7eb;">
+                {{ data.year3 }}
+            </td>
+
+            <td style="padding:15px;border:1px solid #e5e7eb;">
+                {{ data.timeline3 }}
+            </td>
+
+            <td style="padding:15px;border:1px solid #e5e7eb;">
+                {{ data.year4 }}
+            </td>
+
+            <td style="padding:15px;border:1px solid #e5e7eb;">
+                {{ data.timeline4 }}
+            </td>
+
+            <td style="
+            padding:15px;
+            border:1px solid #e5e7eb;
+            text-align:center;
+            ">
+
+<a href="{% url 'update_compitition' data.id %}"
+   style="display:inline-block;
+          background:#10b981;
+          color:white;
+          text-decoration:none;
+          padding:10px 20px;
+          border-radius:8px;
+          font-weight:600;">
+    Update
+</a>
+
+                <a
+                href="/delete_compitition/{{ data.id }}/"
+                onclick="return confirm('Are you sure you want to delete this record?');"
+                style="
+                display:inline-block;
+                background:#ef4444;
+                color:white;
+                text-decoration:none;
+                padding:10px 20px;
+                border-radius:8px;
+                font-weight:600;
+                ">
+                    Delete
+                </a>
+
+            </td>
+
+        </tr>
+
+        {% else %}
+
+        <tr>
+            <td colspan="13"
+                style="
+                text-align:center;
+                padding:30px;
+                color:#64748b;
+                font-size:18px;">
+                No Records Found
+            </td>
+        </tr>
+
+        {% endif %}
+
+        </tbody>
+
+    </table>
+
+</div>

@@ -1,0 +1,179 @@
+{% include "admin/navbar.html" %}
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+
+<style>
+body {
+    background: #f1f5f9;
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
+}
+
+.page-wrap {
+    max-width: 1100px;
+    margin: 30px auto;
+}
+
+.custom-card {
+    background: #fff;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 30px rgba(0,0,0,.08);
+}
+
+.card-head {
+    padding: 18px 26px;
+    background: #105efc;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.card-head h3 {
+    color: #fff;
+    margin: 0;
+}
+
+.table-responsive { overflow-x: auto; }
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table thead tr {
+    background: #1056e1;
+}
+
+table thead th {
+    color: #fff;
+    padding: 12px;
+    text-align: center;
+}
+
+table td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+}
+
+/* STATUS COLORS */
+.badge {
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #fff;
+}
+
+.pending { background: #f59e0b; }
+.confirm { background: #22c55e; }
+.reject { background: #ef4444; }
+
+.actions {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+.btn-update {
+    background: #1a56db;
+    color: #fff;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 8px;
+}
+
+.btn-delete {
+    background: #dc2626;
+    color: #fff;
+    padding: 8px 14px;
+    border-radius: 8px;
+    text-decoration: none;
+}
+</style>
+
+<div class="page-wrap container">
+
+<div class="custom-card">
+
+    <div class="card-head">
+        <i class="ti ti-table"></i>
+        <h3>Contact Records</h3>
+    </div>
+
+    <div class="table-responsive">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Mobile</th>
+                    <th>Email</th>
+                    <th>Course</th>
+                    <th>Message</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+            {% for i in Contact_form_table_data %}
+            <tr>
+
+                <td>{{ forloop.counter }}</td>
+                <td>{{ i.fullname }}</td>
+                <td>{{ i.mobile }}</td>
+                <td>{{ i.email }}</td>
+                <td>{{ i.course }}</td>
+                <td>{{ i.mess }}</td>
+
+                <!-- STATUS DISPLAY -->
+                <td>
+                    {% if i.status == "Pending" %}
+                        <span class="badge pending">Pending</span>
+                    {% elif i.status == "Confirm" %}
+                        <span class="badge confirm">Confirm</span>
+                    {% else %}
+                        <span class="badge reject">Reject</span>
+                    {% endif %}
+                </td>
+
+                <!-- UPDATE FORM -->
+                <td>
+                <form method="POST" action="{% url 'update_contact_status' i.id %}">
+    {% csrf_token %}
+
+    <div style="display:flex; gap:8px; align-items:center; justify-content:center;">
+
+        <select name="status" class="form-select form-select-sm" style="width:120px;">
+            <option value="Pending" {% if i.status == "Pending" %}selected{% endif %}>Pending</option>
+            <option value="Confirm" {% if i.status == "Confirm" %}selected{% endif %}>Confirm</option>
+            <option value="Reject" {% if i.status == "Reject" %}selected{% endif %}>Reject</option>
+        </select>
+
+        <button type="submit" class="btn-update">
+            Save
+        </button>
+
+        <a href="{% url 'Delete_Contact_form_table' i.id %}" class="btn-delete">
+            Delete
+        </a>
+
+    </div>
+</form>
+                </td>
+
+            </tr>
+            {% endfor %}
+            </tbody>
+
+        </table>
+    </div>
+
+</div>
+</div>
+
+
+{% include "admin/footer.html" %}

@@ -1,0 +1,332 @@
+{% include "admin/navbar.html" %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Update Blog</title>
+
+<!-- Bootstrap CDN -->
+<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"> -->
+
+<style>
+body{
+    background:#eef2f7;
+}
+
+/* FORM */
+.form-wrapper{
+    width:95%;
+    max-width:1000px;
+    margin:30px auto;
+}
+
+.form-card{
+    background:#fff;
+    padding:40px;
+    border-radius:20px;
+    box-shadow:0 8px 25px rgba(0,0,0,0.08);
+}
+
+.form-title{
+    text-align:center;
+    color:#2563eb;
+    font-size:38px;
+    font-weight:700;
+    margin-bottom:35px;
+}
+
+.form-group{
+    margin-bottom:25px;
+}
+
+.form-group label{
+    display:block;
+    font-size:18px;
+    font-weight:600;
+    margin-bottom:10px;
+    color:#374151;
+}
+
+.form-control{
+    width:100%;
+    padding:14px 18px;
+    border:1px solid #d1d5db;
+    border-radius:12px;
+    font-size:16px;
+    outline:none;
+}
+
+.form-control:focus{
+    border-color:#2563eb;
+}
+
+textarea.form-control{
+    min-height:140px;
+}
+
+.blog-image{
+    width:220px;
+    height:140px;
+    object-fit:cover;
+    border-radius:12px;
+    border:2px solid #e5e7eb;
+}
+
+.btn-update{
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:12px;
+    background:#2563eb;
+    color:white;
+    font-size:18px;
+    font-weight:600;
+    cursor:pointer;
+}
+
+.btn-update:hover{
+    background:#1d4ed8;
+}
+
+/* TABLE */
+.blog-table-wrapper{
+    width:95%;
+    margin:40px auto;
+}
+
+.table-title{
+    text-align:center;
+    font-size:34px;
+    color:#2563eb;
+    margin-bottom:25px;
+    font-weight:700;
+}
+
+.table-card{
+    background:white;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:0 8px 25px rgba(0,0,0,0.08);
+}
+
+.custom-table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+.custom-table th{
+    background:#2563eb;
+    color:white;
+    padding:18px;
+    font-size:18px;
+    text-align:left;
+}
+
+.custom-table td{
+    padding:20px;
+    border-bottom:1px solid #e5e7eb;
+    font-size:17px;
+}
+
+.custom-table tr:hover{
+    background:#f8fafc;
+}
+
+.blog-thumb{
+    width:90px;
+    height:70px;
+    object-fit:cover;
+    border-radius:10px;
+    border:2px solid #e5e7eb;
+}
+
+/* NEW DELETE BUTTON */
+.delete-btn{
+    background:#f97316;
+    color:white;
+    text-decoration:none;
+    padding:10px 18px;
+    border-radius:10px;
+    font-weight:600;
+    display:inline-block;
+    transition:.3s;
+}
+
+.delete-btn:hover{
+    background:#ea580c;
+    color:white;
+}
+
+.table-responsive{
+    overflow-x:auto;
+}
+
+hr{
+    border:none;
+    height:1px;
+    background:#dbe2ea;
+    margin:40px 0;
+}
+
+@media(max-width:768px){
+
+    .form-card{
+        padding:20px;
+    }
+
+    .form-title{
+        font-size:28px;
+    }
+
+    .table-title{
+        font-size:28px;
+    }
+
+    .custom-table{
+        min-width:800px;
+    }
+}
+</style>
+
+</head>
+<body>
+
+<!-- Update Form -->
+
+<div class="form-wrapper">
+
+    <div class="form-card">
+
+        <h2 class="form-title">Update Blog</h2>
+
+        <form action="/save_blog/" method="POST" enctype="multipart/form-data">
+
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label >Blog Title</label>
+                <input type="text"
+                       name="title"
+                       class="form-control"
+                       value="{{ data.title }}"
+                       required>
+            </div>
+
+            <div class="form-group">
+                <label >Description</label>
+                <textarea name="description"
+                          rows="5"
+                          class="form-control"
+                          required>{{ data.description }}</textarea>
+            </div>
+
+            <div class="form-group">
+                <label >Current Image</label><br>
+
+                {% if data.image %}
+                <img src="{{ data.image.url }}" class="blog-image">
+                {% endif %}
+            </div>
+
+            <div class="mb-4">
+                <label >Change Image</label>
+                <input type="file"
+                       name="image"
+                       class="form-control">
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-update">
+                Update Blog
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+<hr class="my-5">
+
+<!-- Blog List -->
+
+<div class="blog-table-wrapper">
+
+    <h3 class="table-title">
+        📚 All Blogs
+    </h3>
+
+    <div class="table-card">
+
+        <div class="table-responsive">
+
+            <table class="custom-table">
+
+                <thead class="table-blue-header">
+                    <tr>
+                        <th>Sr. No.</th>
+                        <th>Image</th>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    {% for i in blogs %}
+                    <tr>
+
+                        <td class="fw-bold">
+                            {{ forloop.counter }}
+                        </td>
+
+                        <td>
+                            {% if i.image %}
+                            <img src="{{ i.image.url }}" class="blog-thumb">
+                            {% endif %}
+                        </td>
+
+                        <td class="fw-semibold text-primary">
+                            {{ i.title }}
+                        </td>
+
+                        <td>
+                            {{ i.description|truncatewords:15 }}
+                        </td>
+
+                        <td>
+                          <a href="{% url 'delete_blog' i.id %}"
+                                class="delete-btn"
+                                onclick="return confirm('Are you sure you want to delete this blog?')">
+                                Delete
+                          </a>
+                        </td>
+
+                    </tr>
+
+                    {% empty %}
+
+                    <tr>
+                        <td colspan="5" class="text-center text-muted py-4">
+                            No Blogs Found 😢
+                        </td>
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% include "admin/footer.html" %}
+
+</body>
+</html>

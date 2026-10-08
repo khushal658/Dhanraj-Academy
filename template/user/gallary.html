@@ -1,0 +1,261 @@
+{% include "user/navbar.html" %}
+{% include "user/base.html" %}
+
+
+ <!-- gallary section -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+<section class="gallery-hero">
+
+    <div class="hero-content">
+
+
+        <h1>
+            यशाच्या प्रवासातील
+            <span>प्रत्येक क्षण</span>
+        </h1>
+
+        <p>
+वर्गातील शिक्षण, मार्गदर्शनपर सेमिनार, विद्यार्थ्यांची यशोगाथा, पुरस्कार वितरण समारंभ आणि अकॅडमीतील अविस्मरणीय क्षणांचा अनुभव घ्या.
+        </p>
+
+
+    </div>
+
+</section>
+<!-- images -->
+ <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<section class="gallery-page">
+
+    <div class="container">
+
+        <div class="gallery-title">
+            <h2>Our Gallery</h2>
+            <p>Capturing Every Step Of Success</p>
+        </div>
+
+        <!-- Police Bharti -->
+        <div class="gallery-section" style="padding-top: 30px;">
+            <h3>🚔 Police Bharti</h3>
+
+<div class="container mt-5">
+
+    <div class="row">
+
+        {% for i in police %}
+
+        <div class="col-md-4 mb-4">
+
+            <div class="card shadow border-0 h-100">
+
+                {% if i.image %}
+                <img src="{{ i.image.url }}" class="card-img-top" alt="{{ i.category }}">
+                {% endif %}
+
+                <div class="card-body">
+
+                    <h5 class="card-title fw-bold text-primary">
+                        {{ i.category }}
+                    </h5>
+
+                    <p class="card-text text-muted">
+                        {{ i.description }}
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>        <!-- MPSC -->
+        <div class="gallery-section" style="padding-top: 30px;">
+            <h3>📚 MPSC</h3>
+
+
+<div class="row">
+    {% for i in mpsc %}
+    <div class="col-md-4 mb-4">
+        <div class="card h-100 shadow-sm">
+
+            {% if i.image %}
+            <img src="{{ i.image.url }}" class="card-img-top">
+            {% endif %}
+
+            <div class="card-body">
+                <h5 class="card-title">{{ i.category }}</h5>
+                <p class="card-text">{{ i.description }}</p>
+            </div>
+
+        </div>
+    </div>
+    {% endfor %}
+</div>
+        <!-- Talathi -->
+<div class="gallery-section" style="padding-top: 30px;">
+    <h3>📝 Talathi</h3>
+
+
+<div class="container mt-4">
+    <div class="row">
+
+        {% for i in talathi %}
+
+        <div class="col-md-4 mb-4">
+
+            <div class="card h-100 shadow-sm border-0">
+
+                {% if i.image %}
+                <img src="{{ i.image.url }}" class="card-img-top" alt="{{ i.category }}">
+                {% endif %}
+
+                <div class="card-body">
+                    <h5 class="card-title text-primary fw-bold">
+                        {{ i.category }}
+                    </h5>
+
+                    <p class="card-text">
+                        {{ i.description }}
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+</div>
+        <!-- Gramsevak -->
+<div class="gallery-section" style="padding-top: 30px;">
+    <h3>🏢 Gramsevak</h3>
+
+
+<div class="container mt-4">
+    <div class="row">
+
+        {% for i in gramsevak %}
+
+        <div class="col-lg-4 col-md-6 col-12 mb-4">
+
+            <div class="card h-100 shadow-sm border-0">
+
+                {% if i.image %}
+                <img src="{{ i.image.url }}" class="card-img-top" alt="{{ i.category }}">
+                {% endif %}
+
+                <div class="card-body">
+
+                    <h5 class="card-title text-primary fw-bold">
+                        {{ i.category }}
+                    </h5>
+
+                    <p class="card-text">
+                        {{ i.description }}
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+</div>
+        <!-- Vanrakshak -->
+<div class="gallery-section" style="padding-top: 30px;">
+    <h3>🌳 Vanrakshak</h3>
+<div class="container mt-4">
+    <div class="row">
+
+        {% for i in vanrakshak %}
+
+        <div class="col-lg-4 col-md-6 col-12 mb-4">
+
+            <div class="card h-100 shadow-sm border-0">
+
+                {% if i.image %}
+                <img src="{{ i.image.url }}" class="card-img-top" alt="{{ i.category }}">
+                {% endif %}
+
+                <div class="card-body">
+
+                    <h5 class="card-title fw-bold text-primary">
+                        {{ i.category }}
+                    </h5>
+
+                    <p class="card-text text-muted">
+                        {{ i.description }}
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+</div>     
+</section>
+
+<!-- Lightbox -->
+<!-- success video -->
+ <section class="success-stories">
+
+    <div class="section-title">
+        <span>Success Stories</span>
+        <h2>Hear From Our Achievers</h2>
+        <p>
+            Inspiring journeys and motivation for competitive exam aspirants.
+        </p>
+    </div>
+
+    <div class="video-row">
+
+<div class="video-row">
+
+{% for i in videos %}
+
+<div class="video-card">
+    <iframe
+        width="560"
+        height="315"
+        src="{{ i.video_url }}"
+        title="{{ i.title }}"
+        frameborder="0"
+        allowfullscreen>
+    </iframe>
+
+    <h3>{{ i.title }}</h3>
+    <p>{{ i.description }}</p>
+</div>
+
+{% endfor %}
+ 
+
+</section>
+</body>
+</html>
+
+
+
+{% include "user/footer.html" %}
+
+<style>
+    .card-img-top{
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+</style>
+
+

@@ -1,0 +1,254 @@
+{% include "user/navbar.html" %}
+{% include "user/base.html" %}
+
+  <style>
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'DM Sans', Arial, sans-serif; }
+    body-mock { background: #F5F0E8; }
+
+    .page-wrap31 { background: #F5F0E8; font-family: Arial, sans-serif; font-size: 14px; }
+
+
+
+.video-popup{
+    display:none;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100vw;
+    height:100vh;
+
+    background:#000;
+
+    z-index:999999;
+
+    justify-content:center;
+    align-items:center;
+
+    overflow:hidden;
+}
+
+.video-popup video{
+
+    width:auto;
+    height:90vh;
+
+    max-width:95vw;
+    max-height:90vh;
+
+    object-fit:contain;
+}
+
+.close-btn{
+
+    position:absolute;
+
+    top:15px;
+    right:25px;
+
+    color:#fff;
+
+    font-size:50px;
+    font-weight:bold;
+
+    cursor:pointer;
+
+    z-index:9999999;
+}
+
+.close-btn:hover{
+    color:#FFC107;
+}
+
+
+/* Mobile Responsive */
+
+@media(max-width:768px){
+
+    .video-popup video{
+
+        width:95vw;
+        height:auto;
+
+        max-height:80vh;
+    }
+
+    .close-btn{
+
+        top:10px;
+        right:15px;
+
+        font-size:40px;
+    }
+}
+
+  </style>
+
+  <div class="page-wrap31">
+
+  <section class="about-section section-padding" id="about">
+  <div class="hero4">
+
+    <h1>  Our Faculty Team</h1>
+    
+</section>
+    <div class="faculty-section30">
+      <div class="section-title-label37">Teacher Profiles</div>
+      <div class="cards-grid25">
+
+       {% for i in Teacher_Profiles_data %}
+      <div class="faculty-card29">
+     
+        
+        <div><img src="/{{i.images}}" alt=""
+            style="width:100px;height:100px;border-radius:50%;background:#e9ecef;border:3px solid #FFC107;box-shadow:0 0 0 4px rgba(255,193,7,0.15);margin:0 auto 14px;display:flex;align-items:center;justify-content:center;font-size:32px;color:#aaa;">
+        </div>
+        <h4>{{i.fullname}}</h4>
+        <div class="role36">{{i.traner}}</div>
+        <div class="experience28">💼 {{i.experience}}</div>
+        <div class="social-icons38">
+          <a href="{{i.linkedin}}"><i class="fab fa-linkedin"></i></a>
+          <a href="{{i.twitter}}"><i class="fab fa-github"></i></a>
+          <a href="{{i.instagram}}"><i class="fab fa-instagram"></i></a>
+        </div>
+        
+      </div>
+       {% endfor %}
+     
+
+        
+
+      </div>
+    </div>
+
+    <div class="subject-section42">
+      <div class="section-title-label37" style="margin-bottom:28px;">Our Subject Expertise</div>
+      <div class="subject-cards41">
+        {% for i in Subject_data %}
+        <div class="subject-card40">
+          <h4>{{i.title}}</h4>
+          <p>{{i.dec}}</p>
+        </div>
+    
+        {% endfor %}
+      
+      </div>
+    </div>
+
+  <div class="demo-section27">
+    {% for i in Demo_Sessions_data %}
+
+    <h2>{{ i.title }}</h2>
+    <p>{{ i.dec }}</p>
+
+    <a href="#"
+       class="demo-feature26"
+       onclick="openVideo('{{ i.sub_video.url }}'); return false;">
+
+        <span style="font-size:32px;color:#FFC107;display:block;margin-bottom:8px;">
+            ▶
+        </span>
+
+        <h5>{{ i.sub_dec }}</h5>
+
+    </a>
+
+    <a href="/contact/" class="btn-demo24">
+        {{ i.sub_btn }}
+    </a>
+
+    {% endfor %}
+</div>
+
+
+<!-- ================= VIDEO POPUP ================= -->
+
+<div id="videoPopup" class="video-popup">
+
+    <span class="close-btn" onclick="closeVideo()">
+        &times;
+    </span>
+
+    <video id="popupVideo" controls autoplay playsinline>
+    </video>
+
+</div>
+
+
+
+
+
+
+
+
+     
+    <div class="review-section35">
+          <div class="review-header34">
+            <h2>Student Reviews</h2>
+            <p>What Our Students Say About Us</p>
+          </div>
+          <div class="review-cards33">
+      {% for i in Student_Reviews_data %}
+            <div class="review-card32">
+              <img src="/{{i.images}}" alt=""
+                style="width:100px;height:100px;border-radius:50%;background:#e9ecef;border:3px solid #FFC107;box-shadow:0 0 0 4px rgba(255,193,7,0.15);margin:0 auto 14px;display:flex;align-items:center;justify-content:center;font-size:32px;color:#aaa;">
+              <h4>{{i.fullname}}</h4>
+              <h6>{{i.traner}}</h6>
+              <div class="stars39">{{i.icon}}</div>
+              <p>{{i.dec}}</p>
+            </div>
+            {% endfor %}
+
+          </div>
+        </div>
+  </div>
+
+
+  <script>
+
+function openVideo(videoUrl){
+
+    document.body.style.overflow = "hidden";
+
+    const popup = document.getElementById("videoPopup");
+    const video = document.getElementById("popupVideo");
+
+    popup.style.display = "flex";
+
+    video.src = videoUrl;
+
+    video.load();
+    video.play();
+}
+
+function closeVideo(){
+
+    document.body.style.overflow = "auto";
+
+    const popup = document.getElementById("videoPopup");
+    const video = document.getElementById("popupVideo");
+
+    video.pause();
+
+    video.removeAttribute("src");
+
+    video.load();
+
+    popup.style.display = "none";
+}
+
+
+/* Popup बाहेर क्लिक केल्यावर Close */
+
+document.getElementById("videoPopup").addEventListener("click", function(e){
+
+    if(e.target === this){
+
+        closeVideo();
+    }
+
+});
+
+</script>
+
+{% include "user/footer.html" %}

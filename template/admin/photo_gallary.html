@@ -1,0 +1,389 @@
+
+{% include "admin/navbar.html" %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Gallery Update</title>
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:'Segoe UI',sans-serif;
+        }
+
+        body{
+            background:#f4f7fc;
+        }
+
+        .main-container{
+            width:95%;
+            margin:25px auto;
+        }
+
+        /* Form Card */
+        .update-card{
+            background:#fff;
+            border-radius:16px;
+            padding:30px;
+            box-shadow:0 8px 25px rgba(0,0,0,0.08);
+            margin-bottom:30px;
+        }
+
+        .form-title{
+            text-align:center;
+            color:#0d6efd;
+            font-size:30px;
+            font-weight:700;
+            margin-bottom:25px;
+        }
+
+        .form-group{
+            margin-bottom:18px;
+        }
+
+        .form-label{
+            display:block;
+            margin-bottom:8px;
+            font-weight:600;
+            color:#333;
+        }
+
+        .form-control{
+            width:100%;
+            padding:12px;
+            border:1px solid #dcdcdc;
+            border-radius:10px;
+            font-size:15px;
+            transition:0.3s;
+        }
+
+        .form-control:focus{
+            border-color:#0d6efd;
+            outline:none;
+            box-shadow:0 0 8px rgba(13,110,253,0.2);
+        }
+
+        textarea{
+            resize:none;
+        }
+
+        .current-image{
+            width:250px;
+            border-radius:12px;
+            margin-top:10px;
+            border:3px solid #eaeaea;
+        }
+
+        .btn-update{
+            width:100%;
+            border:none;
+            background:#0d6efd;
+            color:white;
+            padding:14px;
+            font-size:17px;
+            font-weight:600;
+            border-radius:10px;
+            cursor:pointer;
+            transition:.3s;
+        }
+
+        .btn-update:hover{
+            background:#0b5ed7;
+        }
+
+        /* Table Card */
+        .table-card{
+            background:#fff;
+            border-radius:16px;
+            padding:20px;
+            box-shadow:0 8px 25px rgba(0,0,0,0.08);
+            overflow:hidden;
+        }
+
+        .table-title{
+            text-align:center;
+            color:#0d6efd;
+            font-size:28px;
+            font-weight:700;
+            margin-bottom:20px;
+        }
+
+        .table-responsive{
+            overflow-x:auto;
+        }
+
+        table{
+            width:100%;
+            border-collapse:collapse;
+        }
+
+        thead{
+            background:#0d6efd;
+            color:white;
+        }
+
+        th{
+            padding:14px;
+            text-align:center;
+            font-size:15px;
+        }
+
+        td{
+            padding:12px;
+            border-bottom:1px solid #e5e5e5;
+            text-align:center;
+            vertical-align:middle;
+        }
+
+        tbody tr:hover{
+            background:#f8fbff;
+        }
+
+        .table-img{
+            width:80px;
+            height:60px;
+            object-fit:cover;
+            border-radius:8px;
+            border:1px solid #ddd;
+        }
+
+        .btn{
+            text-decoration:none;
+            padding:8px 14px;
+            border-radius:8px;
+            color:white;
+            font-size:14px;
+            font-weight:600;
+            display:inline-block;
+        }
+
+        .btn-warning{
+            background:#ffc107;
+            color:#000;
+        }
+
+        .btn-warning:hover{
+            background:#e0a800;
+        }
+
+        .btn-danger{
+            background:#dc3545;
+        }
+
+        .btn-danger:hover{
+            background:#bb2d3b;
+        }
+
+        @media(max-width:768px){
+
+            .update-card,
+            .table-card{
+                padding:15px;
+            }
+
+            .form-title,
+            .table-title{
+                font-size:24px;
+            }
+
+            th,td{
+                font-size:13px;
+                padding:10px;
+            }
+
+            .btn{
+                margin-bottom:5px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="main-container">
+
+    <!-- Update Form -->
+    <div class="update-card">
+
+        <h2 class="form-title">Photo Gallery</h2>
+
+<form method="POST" enctype="multipart/form-data" action="/save_gallary/" id="galleryForm">
+    {% csrf_token %}
+
+    <div class="form-group">
+        <label class="form-label">Category</label>
+        <select name="category" class="form-control" required>
+            <option value="">Select Category</option>
+
+            <option value="Police Bharti">Police Bharti</option>
+            <option value="Talathi">Talathi</option>
+            <option value="Gramsevak">Gramsevak</option>
+            <option value="Vanrakshak">Vanrakshak</option>
+            <option value="MPSC">MPSC</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label class="form-label">Title</label>
+
+        <input type="text"
+               name="title"
+               id="title"
+               class="form-control"
+               value="{{ data.title }}"
+               required
+               minlength="3"
+               maxlength="100">
+    </div>
+
+    <div class="form-group">
+        <label class="form-label">Description</label>
+
+        <textarea name="description"
+                  id="description"
+                  rows="5"
+                  class="form-control"
+                  required
+                  minlength="10"
+                  maxlength="1000">{{ data.description }}</textarea>
+    </div>
+
+    {% if data.image %}
+    <div class="form-group">
+        <label class="form-label">Current Image</label>
+
+        <img src="{{ data.image.url }}"
+             class="current-image">
+    </div>
+    {% endif %}
+
+    <div class="form-group">
+        <label class="form-label">Change Image</label>
+
+        <input type="file"
+               name="image"
+               id="image"
+               class="form-control"
+               accept=".jpg,.jpeg,.png,.webp">
+
+        <small id="imageError" style="color:red;"></small>
+    </div>
+
+    <button type="submit" class="btn-update">
+        Add Gallery
+    </button>
+
+</form>
+
+    </div>
+
+    <!-- Gallery List -->
+    <div class="table-card">
+
+        <h3 class="table-title">Gallery Records</h3>
+
+        <div class="table-responsive">
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Sr.No</th>
+                        <th>Category</th>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Image</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                {% for i in data %}
+
+                    <tr>
+
+                        <td>{{ forloop.counter }}</td>
+
+                        <td>{{ i.category }}</td>
+
+                        <td>{{ i.title }}</td>
+
+                        <td>{{ i.description|truncatechars:50 }}</td>
+
+                        <td>
+                            {% if i.image %}
+                                <img src="{{ i.image.url }}"
+                                     class="table-img">
+                            {% else %}
+                                No Image
+                            {% endif %}
+                        </td>
+
+                        <td>
+                            <a href="{% url 'gallery_update' i.id %}"
+                               class="btn btn-warning">
+                                Edit
+                            </a>
+
+                            <a href="/gallery-delete/{{ i.id }}/"
+                               class="btn btn-danger"
+                               onclick="return confirm('Delete this record?')">
+                                Delete
+                            </a>
+                        </td>
+
+                    </tr>
+
+                {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
+<script>
+document.getElementById("galleryForm").addEventListener("submit", function(e){
+
+    let image = document.getElementById("image");
+    let error = document.getElementById("imageError");
+
+    if(image.files.length > 0){
+
+        let file = image.files[0];
+
+        let allowed = [
+            "image/jpeg",
+            "image/jpg",
+            "image/png",
+            "image/webp"
+        ];
+
+        if(!allowed.includes(file.type)){
+            e.preventDefault();
+            error.innerHTML =
+            "Only JPG, JPEG, PNG and WEBP images are allowed.";
+            return false;
+        }
+
+        if(file.size > 5 * 1024 * 1024){
+            e.preventDefault();
+            error.innerHTML =
+            "Image size must be less than 5 MB.";
+            return false;
+        }
+    }
+
+    error.innerHTML = "";
+});
+</script>

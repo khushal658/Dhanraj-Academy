@@ -1,0 +1,447 @@
+
+
+
+{% include "user/navbar.html" %}
+{% include "user/base.html" %}
+
+<style>
+    body{
+        box-sizing:border-box;
+        font-family:'Poppins',sans-serif;
+        background:#faf8f2;
+        color:#222;
+        overflow-x:hidden;
+}
+</style>
+
+
+<section class="latest-updates">
+
+<div class="section-header">
+
+    <span class="sub-title">
+        Latest Updates
+    </span>
+
+    <h2>
+        नवीन माहिती
+    </h2>
+
+    <p>
+        🔔 Notifications | 🏆 Results | 🎓 Admissions | 📅 Events
+    </p>
+
+</div>
+
+<!-- ===================== -->
+<!-- NOTIFICATIONS -->
+<!-- ===================== -->
+<section style="padding:30px;">
+<div class="section-title">
+<h2 style="text-align: start;">🔔 Notifications</h2>
+</div>
+
+<div class="updates-grid">
+
+<!-- Card 1 -->
+
+{% for i in notifications %}
+
+<div class="update-card">
+
+    <div class="card-image">
+
+        {% if i.slider_image %}
+        <img src="{{ i.slider_image.url }}" alt="">
+        {% endif %}
+
+    </div>
+
+    <div class="card-content">
+
+        <span class="category-badge">
+            {{ i.category }}
+        </span>
+
+        <h3>
+            {{ i.heading }}
+        </h3>
+
+        <p>
+            {{ i.heading_description }}
+        </p>
+
+        <div class="card-footer">
+
+            <div class="update-date">
+                <i class="fa-regular fa-calendar"></i>
+                {{ i.dob }}
+            </div>
+
+            <button class="share-btn">
+
+                <a href="{% url 'update_detail' i.id %}">
+    View More
+</a>
+            </button>
+
+            <button class="share-btn  action-btn">
+                <i class="fas fa-share-nodes"></i>
+                Share
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% empty %}
+
+<p>No Notifications Found</p>
+
+{% endfor %}
+<!-- Card 2 -->
+
+
+
+</div>
+
+<!-- ===================== -->
+<!-- RESULTS -->
+<!-- ===================== -->
+
+<div class="section-title">
+<h2>🏆 Results</h2>
+</div>
+
+<div class="updates-grid">
+
+<!-- Police Result -->
+
+{% for i in results %}
+
+<div class="update-card">
+
+    <div class="card-image">
+
+        {% if i.slider_image %}
+        <img src="{{ i.slider_image.url }}" alt="">
+        {% endif %}
+
+    </div>
+
+    <div class="card-content">
+
+        <span class="category-badge">
+            {{ i.category }}
+        </span>
+
+        <h3>
+            {{ i.heading }}
+        </h3>
+
+        <p>
+            {{ i.heading_description }}
+        </p>
+
+        <div class="card-footer">
+
+            <div class="update-date">
+                <i class="fa-regular fa-calendar"></i>
+                {{ i.dob }}
+            </div>
+
+            <button class="share-btn">
+            <a href="{% url 'update_detail' i.id %}">
+            View More
+         </a>
+            </button>
+
+            <button class="share-btn action-btn">
+                <i class="fas fa-share-nodes"></i>
+                Share
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% empty %}
+
+<p>No Results Found</p>
+
+{% endfor %}
+
+
+
+
+
+</div>
+
+
+<!-- ===================== -->
+<!-- NEW BATCH -->
+<!-- ===================== -->
+
+<div class="section-title">
+<h2>🎯 New Batch</h2>
+</div>
+
+<div class="updates-grid">
+
+    <!-- MPSC Batch -->
+{% for i in batches %}
+
+<div class="update-card">
+
+    <div class="card-image">
+
+        {% if i.slider_image %}
+            <img src="{{ i.slider_image.url }}" alt="{{ i.heading }}">
+        {% endif %}
+
+    </div>
+
+    <div class="card-content">
+
+        <span class="category-badge">
+            {{ i.category }}
+        </span>
+
+        <h3>
+            {{ i.heading }}
+        </h3>
+
+        <p>
+            {{ i.heading_description }}
+        </p>
+
+        <div class="card-footer">
+
+            <div class="update-date">
+                <i class="fa-regular fa-calendar"></i>
+                {{ i.dob }}
+            </div>
+
+            <button class="share-btn">
+               <a href="{% url 'update_detail' i.id %}">
+    View More
+</a>
+            </button>
+
+            <button class="share-btn action-btn">
+                <i class="fas fa-share-nodes"></i>
+                Share
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% empty %}
+
+<div class="text-center">
+    <h4>No New Batch Available</h4>
+</div>
+
+{% endfor %}
+    <!-- Police Batch -->
+
+
+
+</div>
+
+<!-- ===================== -->
+<!-- ADMISSIONS -->
+<!-- ===================== -->
+
+<div class="section-title">
+<h2>🎓 Admissions</h2>
+</div>
+
+<div class="updates-grid">
+
+{% for i in admissions %}
+
+<div class="update-card">
+
+    <div class="card-image">
+
+        {% if i.slider_image %}
+            <img src="{{ i.slider_image.url }}" alt="{{ i.heading }}">
+        {% endif %}
+
+    </div>
+
+    <div class="card-content">
+
+        <span class="category-badge">
+            {{ i.category }}
+        </span>
+
+        <h3>
+            {{ i.heading }}
+        </h3>
+
+        <p>
+            {{ i.heading_description }}
+        </p>
+
+        <div class="card-footer">
+
+            <div class="update-date">
+                <i class="fa-regular fa-calendar"></i>
+                {{ i.dob }}
+            </div>
+
+            <button class="share-btn">
+              <a href="{% url 'update_detail' i.id %}">
+    View More
+</a>
+            </button>
+
+            <button class="share-btn action-btn">
+                <i class="fas fa-share-nodes"></i>
+                Share
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% empty %}
+
+<div class="text-center">
+    <h4>No Admission Updates Available</h4>
+</div>
+
+{% endfor %}
+
+
+</div>
+
+<!-- ===================== -->
+<!-- EVENTS -->
+<!-- ===================== -->
+
+<div class="section-title">
+<h2>📅 Events</h2>
+</div>
+
+<div class="updates-grid">
+{% for i in events %}
+
+<div class="update-card">
+
+    <div class="card-image">
+
+        {% if i.slider_image %}
+            <img src="{{ i.slider_image.url }}" alt="{{ i.heading }}">
+        {% endif %}
+
+    </div>
+
+    <div class="card-content">
+
+        <span class="category-badge">
+            {{ i.category }}
+        </span>
+
+        <h3>
+            {{ i.heading }}
+        </h3>
+
+        <p>
+            {{ i.heading_description }}
+        </p>
+
+        <div class="card-footer">
+
+            <div class="update-date">
+                <i class="fa-regular fa-calendar"></i>
+                {{ i.dob }}
+            </div>
+
+            <button  class="share-btn">
+                <a href="{% url 'update_detail' i.id %}">
+                    View More
+                </a>
+            </button>
+
+            <button class="share-btn action-btn">
+                <i class="fas fa-share-nodes"></i>
+                Share
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% empty %}
+
+<div class="text-center">
+    <h4>No Events Available</h4>
+</div>
+
+{% endfor %}
+
+
+</div>
+
+</section>
+</section>
+
+<script>
+const shareButtons = document.querySelectorAll(".action-btn");
+
+shareButtons.forEach(button => {
+
+    button.addEventListener("click", async () => {
+
+        const card = button.closest(".update-card");
+
+        const title = card.querySelector("h3").innerText;
+        const text = card.querySelector("p").innerText;
+
+        if (navigator.share) {
+
+            try {
+
+                await navigator.share({
+                    title: title,
+                    text: text,
+                    url: window.location.href
+                });
+
+            } catch (err) {
+                console.log(err);
+            }
+
+        } else {
+
+            navigator.clipboard.writeText(window.location.href);
+            alert("Link Copied Successfully");
+
+        }
+
+    });
+
+});
+</script>
+
+
+
+
+
+
+
+{% include "user/footer.html" %}

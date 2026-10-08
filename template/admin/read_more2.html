@@ -1,0 +1,420 @@
+{% include "admin/navbar.html" %}
+
+<style>
+body{
+    background:#f4f7fc;
+    font-family:Arial,sans-serif;
+}
+
+/* Container */
+.container{
+    width:95%;
+    max-width:1400px;
+    margin:auto;
+    padding:20px;
+}
+
+/* Cards */
+.custom-card{
+    background:#fff;
+    border:none;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:0 8px 25px rgba(0,0,0,.08);
+    margin-bottom:35px;
+}
+
+/* Headers */
+.custom-header,
+.table-header{
+    background:linear-gradient(135deg,#2563eb,#1d4ed8);
+    color:#fff;
+    padding:20px 25px;
+}
+
+.card-header h3{
+    margin:0;
+    font-size:24px;
+    font-weight:600;
+}
+
+/* Body */
+.card-body{
+    padding:30px;
+}
+
+/* Labels */
+.form-label{
+    display:block;
+    margin-bottom:8px;
+    font-size:16px;
+    font-weight:600;
+    color:#374151;
+}
+
+/* Inputs */
+.form-control{
+    width:100%;
+    padding:14px 16px;
+    border:1px solid #dbe3f1;
+    border-radius:12px;
+    font-size:16px;
+    outline:none;
+    box-sizing:border-box;
+    transition:.3s;
+}
+
+.form-control:focus{
+    border-color:#2563eb;
+    box-shadow:0 0 0 4px rgba(37,99,235,.15);
+}
+
+/* Save Button */
+.btn-save{
+    background:linear-gradient(135deg,#2563eb,#1d4ed8);
+    color:white;
+    border:none;
+    border-radius:12px;
+    padding:14px 30px;
+    font-size:16px;
+    font-weight:600;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.btn-save:hover{
+    background:linear-gradient(135deg,#1d4ed8,#1e40af);
+    color:white;
+}
+
+/* Table */
+.table-responsive{
+    overflow-x:auto;
+}
+
+.custom-table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+.custom-table thead{
+    background:#eff6ff;
+}
+
+.custom-table th{
+    color:#1e40af;
+    font-weight:700;
+    padding:18px;
+    text-align:left;
+    font-size:15px;
+}
+
+.custom-table td{
+    padding:18px;
+    border-bottom:1px solid #eef2f7;
+    vertical-align:middle;
+    font-size:15px;
+}
+
+.custom-table tbody tr:hover{
+    background:#f8fbff;
+}
+
+/* ID Badge */
+.id-badge{
+    background:#e5e7eb;
+    color:#374151;
+    padding:8px 14px;
+    border-radius:50px;
+    font-weight:600;
+}
+
+/* Delete Button */
+.btn-danger{
+    background:linear-gradient(135deg,#ef4444,#dc2626);
+    color:#fff;
+    text-decoration:none;
+    padding:10px 18px;
+    border:none;
+    border-radius:10px;
+    font-size:14px;
+    font-weight:600;
+    display:inline-block;
+    transition:.3s;
+}
+
+.btn-danger:hover{
+    background:linear-gradient(135deg,#dc2626,#b91c1c);
+    color:#fff;
+    transform:translateY(-2px);
+}
+
+/* Responsive */
+@media(max-width:768px){
+
+    .container{
+        width:98%;
+        padding:10px;
+    }
+
+    .card-body{
+        padding:20px;
+    }
+
+    .card-header h3{
+        font-size:18px;
+    }
+
+    .custom-table{
+        min-width:800px;
+    }
+
+    .custom-table th,
+    .custom-table td{
+        padding:12px;
+        font-size:14px;
+    }
+
+    .btn-save{
+        width:100%;
+    }
+}
+</style>
+
+<div class="container py-4">
+
+    <!-- Update Form -->
+    <div class="card custom-card mb-5">
+
+        <div class="card-header custom-header">
+            <h3>📝 Update Current Affairs</h3>
+        </div>
+
+        <div class="card-body">
+
+            <form method="POST" action="/question/">
+                {% csrf_token %}
+
+                <div class="mb-3">
+                    <label class="form-label">Date</label>
+                    <input type="text"
+                           name="date"
+                           value="{{ data.date }}"
+                           class="form-control">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Title / Question</label>
+                    <input type="text"
+                           name="title"
+                           value="{{ data.title }}"
+                           class="form-control">
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label">Description / Answer</label>
+                    <textarea name="description"
+                              rows="5"
+                              class="form-control">{{ data.description }}</textarea>
+                </div>
+
+                <button type="submit" class="btn btn-save">
+                    Update Record
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- Table -->
+    <div class="card custom-card">
+
+        <div class="card-header table-header">
+            <h3>📋 Current Affairs List</h3>
+        </div>
+
+        <div class="card-body">
+
+            <div class="table-responsive">
+
+                <table class="table custom-table">
+
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Date</th>
+                            <th>Title</th>
+                            <th>Description</th>
+                            <th width="170">Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+    {% for i in all_data %}
+    <tr>
+
+        <td>
+            <span class="id-badge">
+                {{ forloop.counter }}
+            </span>
+        </td>
+
+        <td>{{ i.date }}</td>
+
+        <td class="fw-bold">
+            {{ i.title }}
+        </td>
+
+        <td>
+            {{ i.description|truncatechars:80 }}
+        </td>
+
+        <td>
+             <a href="/admin/delete_affair/{{ i.id }}/"
+                class="btn-danger"
+                onclick="return confirm('Delete this record?')">
+                Delete
+                </a>
+        </td>
+
+    </tr>
+
+    {% empty %}
+    <tr>
+        <td colspan="5" class="text-center py-4">
+            No Data Found
+        </td>
+    </tr>
+    {% endfor %}
+
+</tbody>                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+<!-- <style>
+    body{
+    background:#f4f7fc;
+    font-family:'Poppins',sans-serif;
+    
+}
+
+.custom-card{
+    border:none;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+}
+
+.custom-header{
+    background:linear-gradient(135deg,#2563eb,#1d4ed8);
+    color:#fff;
+    padding:20px;
+}
+
+.table-header{
+    background:linear-gradient(135deg,#2563eb,#1d4ed8);
+    color:#fff;
+    padding:20px;
+}
+
+.card-header h3{
+    margin:0;
+    font-size:22px;
+    font-weight:600;
+}
+
+.card-body{
+    padding:30px;
+}
+
+.form-label{
+    font-weight:600;
+    color:#374151;
+}
+
+.form-control{
+    border-radius:12px;
+    border:1px solid #dbe3f1;
+    padding:12px 15px;
+}
+
+.form-control:focus{
+    border-color:#2563eb;
+    box-shadow:0 0 0 4px rgba(37,99,235,.15);
+}
+
+.btn-save{
+    background:linear-gradient(135deg,#2563eb,#1d4ed8);
+    color:#fff;
+    border:none;
+    border-radius:12px;
+    padding:12px 30px;
+    font-weight:600;
+}
+
+.btn-save:hover{
+    color:#fff;
+    transform:translateY(-2px);
+}
+
+.custom-table thead{
+    background:#eff6ff;
+}
+
+.custom-table th{
+    color:#1e40af;
+    font-weight:700;
+    padding:16px;
+}
+
+.custom-table td{
+    padding:16px;
+    vertical-align:middle;
+}
+
+.custom-table tbody tr:hover{
+    background:#f8fbff;
+}
+
+.id-badge{
+    background:#e5e7eb;
+    padding:7px 12px;
+    border-radius:50px;
+    font-weight:600;
+}
+
+.btn-warning{
+    border-radius:8px;
+}
+
+.btn-danger{
+    border-radius:8px;
+}
+
+@media(max-width:768px){
+
+    .card-body{
+        padding:20px;
+    }
+
+    .card-header h3{
+        font-size:18px;
+    }
+
+    .custom-table th,
+    .custom-table td{
+        font-size:14px;
+        padding:10px;
+    }
+}
+</style> -->
+{% include "admin/footer.html" %}

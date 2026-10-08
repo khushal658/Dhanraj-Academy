@@ -1,0 +1,200 @@
+{% include "user/navbar.html" %}
+{% include "user/base.html" %}
+
+<style>
+    .exam-schedule{
+    padding:80px 20px;
+    background:#f8f9fc;
+}
+
+.exam-schedule .container{
+    max-width:1200px;
+    margin:auto;
+}
+
+.section-title{
+    text-align:center;
+    margin-bottom:50px;
+}
+
+.section-title h2{
+    font-size:2.5rem;
+    font-weight:700;
+    color:#0a2a66;
+    margin-bottom:15px;
+}
+
+.section-title p{
+    max-width:750px;
+    margin:auto;
+    color:#666;
+    font-size:1.05rem;
+    line-height:1.8;
+}
+
+.schedule-card{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:25px;
+}
+
+.schedule-item{
+    background:#fff;
+    padding:30px 25px;
+    border-radius:18px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.08);
+    transition:0.4s ease;
+    text-align:center;
+    border-top:4px solid #0a2a66;
+}
+
+.schedule-item:hover{
+    transform:translateY(-10px);
+    box-shadow:0 15px 35px rgba(0,0,0,0.12);
+}
+
+.icon{
+    width:70px;
+    height:70px;
+    margin:auto;
+    margin-bottom:20px;
+    border-radius:50%;
+    background:linear-gradient(135deg,#0a2a66,#1c4cb7);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:30px;
+    color:#fff;
+}
+
+.schedule-item h3{
+    font-size:1.3rem;
+    color:#0a2a66;
+    margin-bottom:12px;
+}
+
+.schedule-item p{
+    color:#666;
+    line-height:1.7;
+    font-size:0.95rem;
+}
+
+/* Mobile */
+@media(max-width:768px){
+
+    .exam-schedule{
+        padding:60px 15px;
+    }
+
+    .section-title h2{
+        font-size:2rem;
+    }
+
+    .section-title p{
+        font-size:0.95rem;
+    }
+
+    .schedule-item{
+        padding:25px 20px;
+    }
+}
+</style>
+<!-- <section class="exam-schedule">
+    <div class="container">
+
+        <div class="section-title">
+            <h2>परीक्षांचे वेळापत्रक</h2>
+            <p>
+                आगामी परीक्षांच्या तारखा, अर्ज करण्याच्या अंतिम मुदती,
+                महत्त्वाच्या अधिसूचना आणि आवश्यक वेळापत्रकांची माहिती मिळवा.
+            </p>
+        </div>
+
+        <div class="schedule-card">
+
+            <div class="schedule-item">
+                <div class="icon">📅</div>
+                <div class="content">
+                    <h3>आगामी परीक्षा</h3>
+                    <p>सर्व स्पर्धा परीक्षांच्या महत्त्वाच्या तारखा पहा.</p>
+                </div>
+            </div>
+
+            <div class="schedule-item">
+                <div class="icon">📝</div>
+                <div class="content">
+                    <h3>अर्जाची अंतिम मुदत</h3>
+                    <p>फॉर्म भरण्याच्या शेवटच्या तारखांची माहिती.</p>
+                </div>
+            </div>
+
+            <div class="schedule-item">
+                <div class="icon">📢</div>
+                <div class="content">
+                    <h3>महत्त्वाच्या अधिसूचना</h3>
+                    <p>नवीन जाहिराती आणि अधिकृत अपडेट्स.</p>
+                </div>
+            </div>
+
+            <div class="schedule-item">
+                <div class="icon">⏰</div>
+                <div class="content">
+                    <h3>वेळापत्रक</h3>
+                    <p>परीक्षा, प्रवेशपत्र आणि निकालाचे वेळापत्रक.</p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</section> -->
+
+
+<section class="exam-section">
+
+    <div class="exam-card">
+
+        <div class="exam-header">
+            <h2>📅 महाराष्ट्र स्पर्धा परीक्षा वेळापत्रक 2026</h2>
+            <p>आगामी स्पर्धा परीक्षांच्या महत्त्वाच्या तारखा</p>
+        </div>
+
+        <table class="exam-table">
+            <thead>
+                <tr>
+                    <th>परीक्षा</th>
+                    <th>तारीख</th>
+                </tr>
+            </thead>
+
+<tbody>
+    {% for i in exams %}
+    <tr>
+        <td>{{ i.exam_name }}</td>
+        <td>
+            <span class="date-badge">
+                {{ i.exam_date }}
+            </span>
+        </td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td colspan="2" style="text-align:center;">
+            No Exam Schedule Available
+        </td>
+    </tr>
+    {% endfor %}
+</tbody>
+        </table>
+
+        <div class="note">
+            ⚠️ सूचना: परीक्षा तारखा आयोगाच्या अधिकृत अधिसूचनेनुसार बदलू शकतात.
+            कृपया अधिकृत वेबसाईट नियमित तपासा.
+        </div>
+
+    </div>
+
+</section>
+
+{% include "user/footer.html" %}
+

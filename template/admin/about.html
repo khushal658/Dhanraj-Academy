@@ -1,0 +1,317 @@
+{% include "admin/navbar.html" %}
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+
+<style>
+body {
+    background: #f1f5f9;
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
+     
+}
+
+/* ── Page wrapper ── */
+.page-wrap {
+    max-width: 1100px;
+    margin:0px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+
+/* ── Cards ── */
+.custom-card {
+    background: #ffffff;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 30px rgba(0,0,0,.08);
+}
+
+.card-head {
+    padding: 18px 26px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.card-head.blue  { background: #1a56db; }
+.card-head.dark  { background: #1e2636; }
+
+.card-head h3 {
+    color: #fff;
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.card-head i {
+    color: #fff;
+    font-size: 22px;
+}
+
+.card-body {
+    padding: 28px;
+}
+
+/* ── Form layout ── */
+.form-top-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 18px;
+    margin-bottom: 20px;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+/* ── Fields ── */
+.field { display: flex; flex-direction: column; gap: 7px; }
+
+.field label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #475569;
+}
+
+.field label i {
+    font-size: 14px;
+    vertical-align: -1px;
+    margin-right: 4px;
+    color: #1a56db;
+}
+
+.field input,
+.field textarea {
+    background: #f8fafc;
+    border: 1px solid #dbe2ea;
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: 14px;
+    font-family: 'Poppins', sans-serif;
+    color: #0f172a;
+    outline: none;
+    transition: border-color .2s, box-shadow .2s;
+}
+
+.field input { height: 46px; }
+.field textarea { height: 115px; resize: vertical; }
+
+.field input:focus,
+.field textarea:focus {
+    border-color: #1a56db;
+    box-shadow: 0 0 0 3px rgba(26,86,219,.12);
+}
+
+/* ── Save button ── */
+.save-btn {
+    width: 100%;
+    height: 52px;
+    background: #1a56db;
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: background .2s, transform .15s;
+}
+
+.save-btn:hover  { background: #1641a3; }
+.save-btn:active { transform: scale(.99); }
+
+/* ── Table ── */
+.table-responsive { overflow-x: auto; }
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+table thead tr { background: #1e2636; }
+
+table thead th {
+    color: #fff;
+    padding: 14px 12px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 13px;
+    border: none;
+}
+
+table thead th:nth-child(3) { text-align: left; }
+
+table td {
+    padding: 13px 12px;
+    text-align: center;
+    vertical-align: middle;
+    border-bottom: 1px solid #f1f5f9;
+    color: #334155;
+}
+
+table td:nth-child(3) {
+    text-align: left;
+    font-size: 13px;
+    color: #64748b;
+}
+
+table tbody tr { transition: background .2s; }
+table tbody tr:hover { background: #eff6ff; }
+
+/* ── Action buttons (always visible, BIG) ── */
+.actions {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+.btn-update,
+.btn-delete {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 9px 18px;
+    border: none;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background .2s, transform .15s;
+}
+
+.btn-update { background: #1a56db; color: #fff; }
+.btn-update:hover { background: #1641a3; color: #fff; }
+
+.btn-delete { background: #dc2626; color: #fff; }
+.btn-delete:hover { background: #b91c1c; color: #fff; }
+
+.btn-update:active,
+.btn-delete:active { transform: scale(.97); }
+
+</style>
+
+</head>
+<body>
+
+<div class="page-wrap container">
+
+    <!-- ── Form Card ── -->
+    <div class="custom-card">
+        <div class="card-head blue">
+            <i class="ti ti-info-circle"></i>
+            <h3>Add About Dhanraj Information</h3>
+        </div>
+
+        <div class="card-body">
+            <form action="/save_train/" method="POST">
+                {% csrf_token %}
+
+                <div class="form-top-grid">
+                    <div class="field">
+                        <label>Heading</label>
+                        <input type="text" name="heading" placeholder="Enter heading">
+                    </div>
+                    <div class="field">
+                        <label>Paragraph</label>
+                        <textarea name="paragraph" placeholder="Enter description"></textarea>
+                    </div>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="field">
+                        <label><i class="ti ti-certificate"></i>Training Counter</label>
+                        <input type="text" name="train_number">
+                    </div>
+                    <div class="field">
+                        <label><i class="ti ti-users"></i>Students Counter</label>
+                        <input type="text" name="selc_stud">
+                    </div>
+                    <div class="field">
+                        <label><i class="ti ti-school"></i>Faculty Counter</label>
+                        <input type="text" name="expfac_num">
+                    </div>
+                    <div class="field">
+                        <label><i class="ti ti-book"></i>Course Counter</label>
+                        <input type="text" name="course_num">
+                    </div>
+                </div>
+
+                <button type="submit" class="save-btn">
+                    <i class="ti ti-device-floppy" style="font-size:20px"></i>
+                    Save Information
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ── Table Card ── -->
+    <div class="custom-card">
+        <div class="card-head dark">
+            <i class="ti ti-table"></i>
+            <h3>About Information Records</h3>
+        </div>
+
+        <div class="card-body" style="padding:0">
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Heading</th>
+                            <th>Paragraph</th>
+                            <th>Training</th>
+                            <th>Students</th>
+                            <th>Faculty</th>
+                            <th>Courses</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in about_data %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ i.heading }}</td>
+                            <td style="max-width:300px;">{{ i.paragraph }}</td>
+                            <td>{{ i.train_number }}</td>
+                            <td>{{ i.stu_num }}</td>
+                            <td>{{ i.expfac_num }}</td>
+                            <td>{{ i.course_num }}</td>
+                            <td>
+                                <div class="actions">
+                                    <a href="{% url 'update_about' i.id %}" class="btn-update">
+                                        <i class="ti ti-edit" style="font-size:15px"></i>Update
+                                    </a>
+                                    <a href="{% url 'delete_about' i.id %}" class="btn-delete">
+                                        <i class="ti ti-trash" style="font-size:15px"></i>Delete
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="8" class="text-center text-danger fw-bold py-4">
+                                No Data Found
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% include "admin/footer.html" %}

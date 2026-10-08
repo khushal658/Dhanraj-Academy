@@ -1,0 +1,417 @@
+{% include "admin/navbar.html" %}
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <title>Books & Notes</title>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+body {
+    background: #f1f5f9;
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
+}
+
+/* ── Page wrapper ── */
+.page-wrap {
+    max-width: 1100px;
+    margin: 30px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+
+/* ── Cards ── */
+.custom-card {
+    background: #ffffff;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 30px rgba(0,0,0,.08);
+}
+
+.card-head {
+    padding: 18px 26px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.card-head.blue  { background: #1a56db; }
+.card-head.dark  { background: #1e2636; }
+
+.card-head h3 {
+    color: #fff;
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.card-head i {
+    color: #fff;
+    font-size: 22px;
+}
+
+.card-body {
+    padding: 28px;
+}
+
+/* ── Form layout ── */
+.form-top-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 18px;
+    margin-bottom: 20px;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+/* ── Fields ── */
+.field { display: flex; flex-direction: column; gap: 7px; }
+
+.field label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #475569;
+}
+
+.field label i {
+    font-size: 14px;
+    vertical-align: -1px;
+    margin-right: 4px;
+    color: #1a56db;
+}
+
+.field input,
+.field textarea {
+    background: #f8fafc;
+    border: 1px solid #dbe2ea;
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: 14px;
+    font-family: 'Poppins', sans-serif;
+    color: #0f172a;
+    outline: none;
+    transition: border-color .2s, box-shadow .2s;
+}
+
+.field input { height: 46px; }
+.field textarea { height: 115px; resize: vertical; }
+
+.field input:focus,
+.field textarea:focus {
+    border-color: #1a56db;
+    box-shadow: 0 0 0 3px rgba(26,86,219,.12);
+}
+
+/* ── Save button ── */
+.save-btn {
+    width: 100%;
+    height: 52px;
+    background: #1a56db;
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: background .2s, transform .15s;
+}
+
+.save-btn:hover  { background: #1641a3; }
+.save-btn:active { transform: scale(.99); }
+
+/* ── Table ── */
+.table-responsive { overflow-x: auto; }
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+table thead tr { background: #1e2636; }
+
+table thead th {
+    color: #fff;
+    padding: 14px 12px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 13px;
+    border: none;
+}
+
+table thead th:nth-child(3) { text-align: left; }
+
+table td {
+    padding: 13px 12px;
+    text-align: center;
+    vertical-align: middle;
+    border-bottom: 1px solid #f1f5f9;
+    color: #334155;
+}
+
+table td:nth-child(3) {
+    text-align: left;
+    font-size: 13px;
+    color: #64748b;
+}
+
+table tbody tr { transition: background .2s; }
+table tbody tr:hover { background: #eff6ff; }
+
+/* ── Action buttons (always visible, BIG) ── */
+.actions {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+.btn-update,
+.btn-delete {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 9px 18px;
+    border: none;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background .2s, transform .15s;
+}
+
+.btn-update { background: #1a56db; color: #fff; }
+.btn-update:hover { background: #1641a3; color: #fff; }
+
+.btn-delete { background: #dc2626; color: #fff; }
+.btn-delete:hover { background: #b91c1c; color: #fff; }
+
+.btn-update:active,
+.btn-delete:active { transform: scale(.97); }
+
+.save-btn{
+    background: #1e4fd1;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    min-width: 180px;
+    transition: all .3s ease;
+    box-shadow: 0 4px 12px rgba(30,79,209,.25);
+}
+
+.save-btn:hover{
+    background: #1641a3;
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+.save-btn:active{
+    transform: scale(.98);
+}
+
+.form-select{
+    border-radius: 10px;
+    padding: 10px 14px;
+}
+
+.form-label{
+    color: #2c3e50;
+    margin-bottom: 8px;
+}
+.stats-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:18px;
+}
+
+@media(max-width:992px){
+    .stats-grid{grid-template-columns:repeat(2,1fr);}
+}
+
+@media(max-width:576px){
+    .stats-grid{grid-template-columns:1fr;}
+}
+
+.save-btn{
+    background:#1a56db;
+    color:#fff;
+    border:none;
+    border-radius:12px;
+    padding:12px 32px;
+    min-width:220px;
+    font-size:15px;
+    font-weight:600;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    box-shadow:0 6px 18px rgba(26,86,219,.25);
+    transition:.3s;
+}
+
+.save-btn:hover{
+    background:#1641a3;
+    transform:translateY(-2px);
+}
+
+.save-btn:active{
+    transform:scale(.98);
+}
+
+.table-responsive{
+    overflow-x:auto;
+}
+</style>
+
+
+<body class="bg-light">
+
+<div class="page-wrap">
+
+
+<!-- Form Card -->
+<div class="custom-card">
+
+    <div class="card-head blue">
+        <i class="ti ti-book"></i>
+        <h3>Books & Notes Management</h3>
+    </div>
+
+    <div class="card-body">
+
+        <form action="{% url 'save_books' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="stats-grid">
+
+                <div class="field">
+                    <label>Icon</label>
+                    <input type="text" name="icon" placeholder="Enter Icon">
+                </div>
+
+                <div class="field">
+                    <label>Book Name</label>
+                    <input type="text" name="book_name" placeholder="Enter Book Name" required>
+                </div>
+
+                <div class="field">
+                    <label>Upload Book</label>
+                    <input type="file" name="upload_book" required>
+                </div>
+
+                <div class="field">
+                    <label>Category</label>
+                    <select name="category" class="form-select" required>
+                        <option value="">Select Category</option>
+                        <option value="POLICE">Police Bharti</option>
+                        <option value="MPSC">MPSC</option>
+                        <option value="GRAMSEVAK">Gramsevak</option>
+                        <option value="TALATHI">Talathi</option>
+                        <option value="VANRAKSHAK">Vanrakshak</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <div class="d-flex justify-content-center mt-4">
+                <button type="submit" class="save-btn">
+                    <i class="ti ti-device-floppy"></i>
+                    Save Book
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+<!-- TABLE -->
+<div class="custom-card">
+
+    <div class="card-head dark">
+        <i class="ti ti-table"></i>
+        <h3>Books Records</h3>
+    </div>
+
+    <div class="card-body">
+
+        <div class="table-responsive">
+            <table class="table table-hover">
+
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Icon</th>
+                        <th>Book Name</th>
+                        <th>File</th>
+                        <th>Category</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for i in book_data %}
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>
+                            <i class="{{ i.icon }}" style="font-size:24px; color:#d4ae35;"></i>
+                        </td>
+                        <td>{{ i.book_name }}</td>
+                        <td>
+                            <a href="{{ i.upload_book.url }}" class="btn btn-info btn-sm">
+                                Download
+                            </a>
+                        </td>
+                        <td>{{ i.category }}</td>
+                        <td>
+                            <div class="actions">
+                                <a href="{% url 'update_book' i.id %}" class="btn-update">Update</a>
+                                <a href="{% url 'delete_book' i.id %}" class="btn-delete">Delete</a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" style="text-align:center;">No Books Found</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+
+            </table>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+{% if messages %}
+    {% for message in messages %}
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: '{{ message }}',
+                confirmButtonColor: '#1a56db'
+            });
+        </script>
+    {% endfor %}
+{% endif %}
+</html>
+
+
+{% include "admin/footer.html" %}

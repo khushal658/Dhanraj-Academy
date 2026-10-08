@@ -1,0 +1,319 @@
+{% include "admin/navbar.html" %}
+ 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+ <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<style>
+body{
+    background:#f1f5f9;
+    font-family:'Poppins',sans-serif;
+}
+ 
+.page-wrap{
+    max-width:1100px;
+    margin:30px auto;
+    display:flex;
+    flex-direction:column;
+    gap:25px;
+    padding:0 15px;
+}
+ 
+.custom-card{
+    background:#fff;
+    border-radius:16px;
+    overflow:hidden;
+    box-shadow:0 8px 30px rgba(0,0,0,.08);
+}
+ 
+.card-head{
+    padding:18px 26px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    color:#fff;
+}
+ 
+.card-head.blue{background:#1a56db;}
+.card-head.dark{background:#1e2636;}
+ 
+.card-body{padding:24px;}
+ 
+/* GRID */
+.stats-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:16px;
+}
+ 
+/* FIELD */
+.field{
+    display:flex;
+    flex-direction:column;
+    gap:7px;
+}
+ 
+.field label{
+    font-size:13px;
+    font-weight:600;
+}
+ 
+.field input,
+.field select,
+.field textarea{
+    height:46px;
+    border:1px solid #dbe2ea;
+    border-radius:10px;
+    padding:10px 12px;
+    outline:none;
+    font-size:14px;
+}
+ 
+textarea{
+    height:90px;
+    resize:none;
+}
+ 
+/* BUTTON */
+.save-btn{
+    width:100%;
+    height:52px;
+    background:#1a56db;
+    color:#fff;
+    border:none;
+    border-radius:12px;
+    font-weight:600;
+    margin-top:15px;
+}
+ 
+/* TABLE */
+.table-responsive-custom{
+    width:100%;
+    overflow-x:auto;
+}
+ 
+table{
+    width:100%;
+    min-width:1200px;
+}
+ 
+/* EXTRA SPACING FOR RANK & CATEGORY COLUMNS ONLY */
+.col-gap{
+    padding-left:36px !important;
+    padding-right:36px !important;
+}
+ 
+/* ACTION BUTTONS */
+.actions{
+    display:flex;
+    justify-content:center;
+    gap:8px;
+}
+ 
+.btn-update,
+.btn-delete{
+    padding:7px 12px;
+    border-radius:8px;
+    color:#fff;
+    text-decoration:none;
+    font-size:13px;
+}
+ 
+.btn-update{background:#1a56db;}
+.btn-delete{background:#dc2626;}
+ 
+/* RESPONSIVE */
+@media(max-width:992px){
+    .stats-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+}
+ 
+@media(max-width:576px){
+    .stats-grid{
+        grid-template-columns:1fr;
+    }
+ 
+    .card-body{
+        padding:16px;
+    }
+}
+</style>
+ 
+<div class="page-wrap">
+ 
+<!-- FORM -->
+<div class="custom-card">
+ 
+    <div class="card-head blue">
+        <i class="ti ti-award"></i>
+        <h3>ALL Result Management</h3>
+    </div>
+ 
+    <div class="card-body">
+ 
+        <form action="/save_result/" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+ 
+            <div class="stats-grid">
+ 
+                <div class="field">
+                    <label>Category</label>
+                    <select name="category" required>
+                        <option value="">Select Category</option>
+                        <option value="Police">Police</option>
+                        <option value="Gramsevak">Gramsevak</option>
+                        <option value="Vanrakshak">Vanrakshak</option>
+                        <option value="MPSC">MPSC</option>
+                        <option value="Talathi">Talathi</option>
+                    </select>
+                </div>
+ 
+                <div class="field">
+                    <label>Image</label>
+                    <input type="file" name="image" required>
+                </div>
+ 
+                <div class="field">
+                    <label>Name</label>
+                    <input type="text" name="name" required>
+                </div>
+ 
+                <div class="field">
+                    <label>Year</label>
+                    <input type="text" name="year" required>
+                </div>
+ 
+                <div class="field">
+                    <label>Rank</label>
+                    <input type="text" name="rank" required>
+                </div>
+ 
+                <div class="field">
+                    <label>Title</label>
+                    <input type="text" name="title">
+                </div>
+ 
+                <div class="field">
+                    <label>Post</label>
+                    <input type="text" name="post">
+                </div>
+ 
+                <div class="field">
+                    <label>Education</label>
+                    <input type="text" name="education">
+                </div>
+ 
+                <div class="field">
+                    <label>Posting</label>
+                    <input type="text" name="posting">
+                </div>
+ 
+                <div class="field">
+                    <label>Preparation</label>
+                    <input type="text" name="preparation">
+                </div>
+ 
+            </div>
+ 
+            <div class="stats-grid" style="grid-template-columns:1fr; margin-top:15px;">
+ 
+                <div class="field">
+                    <label>Success Journey</label>
+                    <textarea name="success_journey"></textarea>
+                </div>
+ 
+                <div class="field">
+                    <label>Daily Routine</label>
+                    <textarea name="daily_routine"></textarea>
+                </div>
+ 
+                <div class="field">
+                    <label>Motivation Message</label>
+                    <input type="text" name="motivation_message">
+                </div>
+ 
+            </div>
+ 
+            <button type="submit" class="save-btn">
+                Save Result
+            </button>
+ 
+        </form>
+ 
+    </div>
+</div>
+ 
+<!-- TABLE -->
+<div class="custom-card">
+ 
+    <div class="card-head blue">
+        <i class="ti ti-table"></i>
+        <h3>Result Records</h3>
+    </div>
+ 
+    <div class="card-body table-responsive-custom">
+ 
+        <table class="table table-hover">
+ 
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Image</th>
+                    <th>Name</th>
+                    <th>Year</th>
+                    <th class="col-gap">Rank</th>
+                    <th class="col-gap">Category</th>
+                    <th>Title</th>
+                    <th>Post</th>
+                    <th>Education</th>
+                    <th>Posting</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+ 
+            <tbody>
+                {% for i in result %}
+                <tr>
+                    <td>{{ forloop.counter}}</td>
+                    <td>
+                        <img src="/{{ i.image }}" width="60" class="rounded">
+                    </td>
+                    <td>{{ i.name }}</td>
+                    <td>{{ i.year }}</td>
+                    <td class="col-gap">{{ i.rank }}</td>
+                    <td class="col-gap">{{ i.category }}</td>
+                    <td>{{ i.title }}</td>
+                    <td>{{ i.post }}</td>
+                    <td>{{ i.education }}</td>
+                    <td>{{ i.posting }}</td>
+                    <td>
+                        <div class="actions">
+                            <a href="{% url 'edit_result' i.id %}" class="btn-update">Edit</a>
+                            <a href="{% url 'delete_result' i.id %}" class="btn-delete">Delete</a>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+ 
+        </table>
+ 
+    </div>
+ 
+</div>
+ 
+</div>
+
+{% if messages %}
+    {% for message in messages %}
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: '{{ message }}',
+                confirmButtonColor: '#1a56db'
+            });
+        </script>
+    {% endfor %}
+{% endif %}
+ 
+{% include "admin/footer.html" %}

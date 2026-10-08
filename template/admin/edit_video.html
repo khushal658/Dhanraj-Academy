@@ -1,0 +1,86 @@
+{% include "admin/navbar.html" %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Video</title>
+
+    <style>
+        body{
+            font-family: Arial;
+            background:#f4f6fb;
+        }
+
+        .box{
+            max-width:600px;
+            margin:50px auto;
+            background:#fff;
+            padding:25px;
+            border-radius:12px;
+            box-shadow:0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        input, textarea{
+            width:100%;
+            padding:10px;
+            margin-bottom:10px;
+            border:1px solid #ddd;
+            border-radius:8px;
+        }
+
+        button{
+            width:100%;
+            padding:12px;
+            background:green;
+            color:#fff;
+            border:none;
+            border-radius:8px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="box">
+
+    <h2>Edit Video</h2>
+
+    <form method="POST" id="videoForm">
+    {% csrf_token %}
+
+    <!-- Title -->
+    <input type="text"
+           name="title"
+           id="title"
+           value="{{ video.title }}"
+           required
+           minlength="3"
+           maxlength="100"
+           placeholder="Enter Title">
+
+    <!-- Description -->
+    <textarea name="description"
+              id="description"
+              required
+              minlength="10"
+              maxlength="1000"
+              placeholder="Enter Description">{{ video.description }}</textarea>
+
+    <!-- Video URL -->
+    <input type="url"
+           name="video_url"
+           id="video_url"
+           value="{{ video.video_url }}"
+           required
+           placeholder="Enter YouTube URL">
+
+    <small id="urlError" style="color:red;"></small>
+
+    <button type="submit">Update Video</button>
+</form>
+
+</div>
+
+</body>
+</html>
+{% include "admin/footer.html" %}

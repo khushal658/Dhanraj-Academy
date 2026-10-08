@@ -1,0 +1,121 @@
+{% include "user/navbar.html" %}
+{% include "user/base.html" %}
+
+<style>
+.current-affairs{
+    padding:70px 8%;
+    background:#f5f7fb;
+}
+
+.affairs-heading{
+    text-align:center;
+    margin-bottom:50px;
+}
+
+.affairs-heading h2{
+    font-size:42px;
+    color:#0f172a;
+    font-weight:700;
+    margin-bottom:12px;
+    position:relative;
+}
+
+.affairs-heading h2::after{
+    content:'';
+    width:90px;
+    height:4px;
+    background:#f4b400;
+    display:block;
+    margin:12px auto 0;
+    border-radius:10px;
+}
+
+.affairs-heading p{
+    color:#64748b;
+    font-size:16px;
+}
+
+.affairs-container{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+    gap:30px;
+}
+
+.affair-card{
+    background:#fff;
+    padding:28px;
+    border-radius:20px;
+    box-shadow:0 10px 25px rgba(15,23,42,0.08);
+    transition:all .3s ease;
+    border-top:5px solid #f4b400;
+    position:relative;
+    overflow:hidden;
+}
+
+.affair-card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 18px 35px rgba(15,23,42,0.12);
+}
+
+.date{
+    display:inline-block;
+    background:#0f172a;
+    color:#f4b400;
+    padding:8px 14px;
+    border-radius:25px;
+    font-size:13px;
+    font-weight:600;
+    margin-bottom:18px;
+}
+
+.affair-card h3{
+    color:#0f172a;
+    font-size:22px;
+    font-weight:700;
+    margin-bottom:14px;
+    line-height:1.4;
+}
+
+.affair-card p{
+    color:#475569;
+    line-height:1.8;
+    font-size:15px;
+}
+
+.affair-card::before{
+    content:'📌';
+    position:absolute;
+    top:15px;
+    right:18px;
+    font-size:22px;
+    opacity:.15;
+}</style>
+<h2>मराठी वर्तमानपत्रांची झलक
+</h2>
+{% for i in affairs %}
+
+<div class="affair-card">
+
+    <span class="date">
+        {{ i.date }}
+    </span>
+
+    <h3>
+        {{ i.title }}
+    </h3>
+
+    <p>
+        {{ i.description }}
+    </p>
+
+</div>
+
+{% empty %}
+
+<div class="affair-card">
+    <h3>No Current Affairs Available</h3>
+    <p>सध्या कोणताही डेटा उपलब्ध नाही.</p>
+</div>
+
+{% endfor %}
+{% include "user/footer.html" %}

@@ -1,0 +1,109 @@
+{% include "user/navbar.html" %}
+{% include "user/base.html" %}
+
+
+<style>
+    body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(145deg, #f8faff 0%, #f0f3fe 100%);
+            color: #1a2c3e;
+            line-height: 1.4;
+        }
+</style>
+
+<body>
+
+<div class="toast-msg" id="toastMsg">✨ Registration successful! ✨</div>
+
+<!-- Hero Banner -->
+<div class="hero6">
+    <div class="hero-content6">
+        <div class="hero-badge6"><i class="fas fa-trophy"></i> Scholarship Test 2026</div>
+        <h1>Win Scholarships <br> <span class="hero-highlight6">Up To 100%</span></h1>
+        <div class="hero-sub6">Unlock your potential with Dhanraj Academy. Merit-based fee concession & excellence rewards.</div>
+        <button class="btn-register-hero" id="heroRegBtn"><i class="fas fa-graduation-cap"></i> Register Now</button>
+    </div>
+    <div class="hero-stats6">
+        <div class="stat-number" >10K+</div>
+        <div>Students Benefited</div>
+        <div class="stat-number" style="font-size:1.4rem; margin-top:10px;">🏆 100%</div>
+        <div>Maximum Waiver</div>
+    </div>
+</div>
+
+<div class="container6">
+    <!-- Purpose & Why Participate -->
+    <div class="info-grid">
+        <div class="card6"><div class="card-icon"><i class="fas fa-bullseye"></i></div><h3>Purpose of Scholarship Exam</h3><p>To identify talented students across the nation and provide financial support, encouraging academic excellence.</p></div>
+        <div class="card6"><div class="card-icon"><i class="fas fa-user-graduate"></i></div><h3>Why Students Should Participate</h3><p>✓ Up to 100% fee waiver <br> ✓ Free Study Material <br> ✓ Free Counseling <br> ✓ Merit Certificate</p></div>
+    </div>
+    <!-- Eligibility & Benefits -->
+    <div class="info-grid">
+        <div class="card6"><div class="card-icon"><i class="fas fa-check-circle"></i></div><h3>Eligibility</h3><ul class="eligibility-list"><li><i class="fas fa-graduation-cap"></i> 10th Pass</li><li><i class="fas fa-school"></i> 12th Pass</li><li><i class="fas fa-university"></i> Graduate</li></ul></div>
+        <div class="card6"><div class="card-icon"><i class="fas fa-gift"></i></div><h3>Benefits</h3><ul class="benefits-list"><li><i class="fas fa-percent"></i> Up to 100% Fee Waiver</li><li><i class="fas fa-book-open"></i> Free Study Material</li><li><i class="fas fa-chalkboard-user"></i> Free Counseling</li><li><i class="fas fa-award"></i> Merit Certificate</li></ul></div>
+    </div>
+
+    <!-- Exam details -->
+    <div class="exam-details">
+        <div class="exam-item"><i class="fas fa-calendar-alt" style="color:#f9c74f;"></i> <strong>Exam Date:</strong> 15th March 2026</div>
+        <div class="exam-item"><i class="fas fa-laptop-house"></i> <strong>Mode:</strong> Offline</div>
+        <div class="exam-item"><i class="fas fa-hourglass-half"></i> <strong>Duration:</strong> 90 Minutes</div>
+        <div class="exam-item"><i class="fas fa-layer-group"></i> <strong>Syllabus:</strong> Aptitude, Reasoning, Subject knowledge</div>
+    </div>
+
+    <!-- Scholarship Table -->
+    <div class="scholarship-table">
+        <table>
+            <thead><tr><th>Marks Range</th><th>Scholarship %</th><th>Rewards</th></tr></thead>
+            <tbody>
+                <tr class="highlight"><td>90 - 100 Marks</td><td>🏅 100% Scholarship</td><td>Full Fee Waiver + Certificate</td></tr>
+                <tr><td>80 - 89 Marks</td><td>🎓 75% Scholarship</td><td>75% Tuition Concession</td></tr>
+                <tr><td>70 - 79 Marks</td><td>📚 50% Scholarship</td><td>50% Fee Waiver + Study Kit</td></tr>
+                <tr><td>Below 70</td><td>✨ Participation Perks</td><td>Free Counseling & Study Material</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Registration Form -->
+    <div class="form-section" id="registerFormSection">
+        <div class="form-title"><i class="fas fa-pen-alt"></i> Registration Form</div>
+        <p style="margin-bottom: 1rem;">Apply now and secure your seat for Scholarship Test 2026. After registration, you can attempt a demo exam!</p>
+        <form id="scholarshipForm">
+            <div class="form-grid">
+                <div class="input-group"><label>Full Name *</label><input type="text" id="fullName" placeholder="e.g. Ananya Sharma" required></div>
+                <div class="input-group"><label>Mobile Number *</label><input type="tel" id="mobile" placeholder="9876543210" required pattern="[0-9]{10}"></div>
+                <div class="input-group"><label>Email Address *</label><input type="email" id="email" placeholder="student@example.com" required></div>
+                <div class="input-group"><label>Select Course *</label><select id="course" required><option value="">-- Choose Course --</option><option>Engineering (JEE)</option><option>Medical (NEET)</option><option>Foundation (10th/12th)</option><option>Commerce</option><option>Government Exams</option></select></div>
+                <div class="input-group"><label>City *</label><input type="text" id="city" placeholder="e.g. Mumbai" required></div>
+            </div>
+            <button type="submit" class="btn-submit"><i class="fas fa-arrow-right"></i> Submit Registration & Unlock Demo Exam</button>
+        </form>
+    </div>
+
+    <!-- DEMO EXAM PANEL (initially hidden) -->
+    <div id="demoExamPanel" style="display: none;">
+        <div class="demo-exam-section">
+            <div class="demo-header">
+                <div class="demo-title"><i class="fas fa-laptop-code"></i> 📝 Demo Scholarship Exam (Practice Test)</div>
+                <div class="demo-badge"><i class="far fa-clock"></i> 5 Questions | Aptitude + Reasoning</div>
+            </div>
+            <div id="questionsContainer"></div>
+            <div class="quiz-controls">
+                <button id="prevBtn" class="quiz-btn secondary" disabled><i class="fas fa-chevron-left"></i> Previous</button>
+                <span id="qCounter" style="font-weight:500;">Question 1/5</span>
+                <button id="nextBtn" class="quiz-btn">Next <i class="fas fa-chevron-right"></i></button>
+            </div>
+            <div style="text-align: center; margin-top: 20px;">
+                <button id="submitQuizBtn" class="quiz-btn" style="background:#f9c74f; color:#1e2f3e;"><i class="fas fa-check-double"></i> Submit Demo Test</button>
+            </div>
+            <div id="quizResultArea" class="result-area" style="display: none;"></div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+
+
+
+{% include "user/footer.html" %}

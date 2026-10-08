@@ -1,0 +1,215 @@
+{% include "user/navbar.html" %}
+{% include "user/base.html" %}
+
+<link rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+<style>
+
+
+    body{
+    background:#f5f7fb;
+    color:#222;
+
+
+}
+
+
+</style>
+<body>
+
+    <!-- HERO SECTION -->
+
+    <section class="study-hub-banner">
+
+        <div class="study-hub-content">
+
+            <h1>महाराष्ट्र स्पर्धा परीक्षा मार्गदर्शन केंद्र</h1>
+
+            <p>
+                Police Bharti • MPSC • Gramsevak • Talathi • Vanvibhag Bharti
+            </p>
+
+        </div>
+
+    </section>
+
+    <!-- POLICE BHARTI -->
+
+    <section class="prep-material-section">
+
+    <h2>🏆 पोलीस भरती</h2>
+
+    <div class="prep-material-grid">
+
+       {% for i in books_data %}
+
+    {% if i.category == "POLICE" %}
+
+        <div class="prep-material-card">
+
+            <i class="{{ i.icon }} prep-icon"></i>
+
+            <h3>{{ i.book_name }}</h3>
+
+            <a href="{{ i.upload_book.url }}"
+               download
+               class="prep-download-btn story-btn" style="color: black;">
+                Download Notes
+            </a>
+
+        </div>
+
+    {% endif %}
+
+{% endfor %}
+
+    </div>
+
+</section>
+
+
+    <!-- GRAMSEVAK -->
+
+     <section class="prep-material-section">
+
+    <h2>🏆 ग्रामसेवक</h2>
+
+    <div class="prep-material-grid">
+
+       {% for i in books_data %}
+
+    {% if i.category == "GRAMSEVAK" %}
+
+        <div class="prep-material-card">
+
+            <i class="{{ i.icon }} prep-icon"></i>
+
+            <h3>{{ i.book_name }}</h3>
+
+            <a href="{{ i.upload_book.url }}"
+               download
+               class="prep-download-btn story-btn" style="color: black;">
+                Download Notes
+            </a>
+
+        </div>
+
+    {% endif %}
+
+{% endfor %}
+
+    </div>
+
+</section>
+
+    <!-- VANRAKSHAK -->
+ <section class="prep-material-section">
+
+    <h2>🏆 वनरक्षक भरती</h2>
+
+    <div class="prep-material-grid">
+
+       {% for i in books_data %}
+
+    {% if i.category == "VANRAKSHAK" %}
+
+        <div class="prep-material-card">
+
+            <i class="{{ i.icon }} prep-icon"></i>
+
+            <h3>{{ i.book_name }}</h3>
+
+            <a href="{{ i.upload_book.url }}"
+               download
+               class="prep-download-btn story-btn" style="color: black;">
+                Download Notes
+            </a>
+
+        </div>
+
+    {% endif %}
+
+{% endfor %}
+
+    </div>
+
+</section>
+    
+    <!-- TALATHI -->
+    
+     <section class="prep-material-section">
+
+    <h2>🏆तलाठी</h2>
+
+    <div class="prep-material-grid">
+
+       {% for i in books_data %}
+
+    {% if i.category == "TALATHI" %}
+
+        <div class="prep-material-card">
+
+            <i class="{{ i.icon }} prep-icon"></i>
+
+            <h3>{{ i.book_name }}</h3>
+
+            <a href="{{ i.upload_book.url }}"
+               download
+               class="prep-download-btn story-btn" style="color: black;">
+                Download Notes
+            </a>
+
+        </div>
+
+    {% endif %}
+
+{% endfor %}
+
+    </div>
+
+</section>
+
+ <!-- mpsc -->
+    
+     <section class="prep-material-section">
+
+    <h2>🏆MPSC</h2>
+
+    <div class="prep-material-grid">
+
+       {% for i in books_data %}
+
+    {% if i.category == "MPSC" %}
+
+        <div class="prep-material-card">
+
+            <i class="{{ i.icon }} prep-icon"></i>
+
+            <h3>{{ i.book_name }}</h3>
+
+            <a href="{{ i.upload_book.url }}"
+               download
+               class="prep-download-btn story-btn" style="color: black;">
+                Download Notes
+            </a>
+
+        </div>
+
+    {% endif %}
+
+{% endfor %}
+
+    </div>
+
+</section>
+
+
+</body>
+
+
+
+
+{% include "user/footer.html" %}

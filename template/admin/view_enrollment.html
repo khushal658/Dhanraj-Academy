@@ -1,0 +1,194 @@
+{% include "admin/navbar.html" %}
+
+<!-- Bootstrap Icons CDN (add if not already added in base template) -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+<style>
+    .info-box{
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0 10px;
+    }
+
+    .info-box th{
+        text-align: left;
+        padding: 12px 15px;
+        width: 30%;
+        background: #f1f5f9;
+        border-radius: 8px 0 0 8px;
+        font-weight: 600;
+        color: #333;
+    }
+
+    .info-box td{
+        padding: 12px 15px;
+        background: #ffffff;
+        border-radius: 0 8px 8px 0;
+        color: #555;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    .section-title{
+        font-size: 22px;
+        font-weight: 700;
+        margin-bottom: 15px;
+        color: #0d6efd;
+    }
+
+    .container-box{
+        background: #fff;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    }
+
+    .btn-call-custom{
+        background: linear-gradient(135deg,#198754,#146c43);
+        color: #fff;
+        padding: 12px 20px;
+        border-radius: 12px;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: 600;
+        transition: 0.3s;
+        box-shadow: 0 4px 10px rgba(25,135,84,0.3);
+    }
+
+
+    .btn-call-danger{
+        background: linear-gradient(135deg,#a4130b,#cb5409);
+        color: #fff;
+        padding: 12px 20px;
+        border-radius: 12px;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: 600;
+        transition: 0.3s;
+        box-shadow: 0 4px 10px rgba(25,135,84,0.3);
+    }
+
+    .btn-call-custom:hover{
+        transform: translateY(-2px);
+        color: #fff;
+        box-shadow: 0 6px 14px rgba(25,135,84,0.4);
+    }
+
+    .btn-whatsapp-custom{
+        background: linear-gradient(135deg,#25D366,#1ebe5d);
+        color: #fff;
+        padding: 12px 20px;
+        border-radius: 12px;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: 600;
+        transition: 0.3s;
+        box-shadow: 0 4px 10px rgba(37,211,102,0.3);
+    }
+
+    .btn-whatsapp-custom:hover{
+        transform: translateY(-2px);
+        color: #fff;
+        box-shadow: 0 6px 14px rgba(37,211,102,0.4);
+    }
+</style>
+
+<div class="container mt-4 container-box">
+
+    <div class="section-title">
+        📄 Student Information
+    </div>
+
+    <table class="info-box">
+
+        <tr>
+            <th>Name</th>
+            <td>{{ view_enroll.name }}</td>
+        </tr>
+
+        <tr>
+            <th>Mobile Number</th>
+            <td>{{ view_enroll.mobile }}</td>
+        </tr>
+
+        <tr>
+            <th>Email Address</th>
+            <td>{{ view_enroll.email }}</td>
+        </tr>
+
+        <tr>
+            <th>Birth Date</th>
+            <td>{{ view_enroll.dob }}</td>
+        </tr>
+
+        <tr>
+            <th>Gender</th>
+            <td>{{ view_enroll.gender }}</td>
+        </tr>
+
+        <tr>
+            <th>City</th>
+            <td>{{ view_enroll.city }}</td>
+        </tr>
+
+        <tr>
+            <th>District</th>
+            <td>{{ view_enroll.district }}</td>
+        </tr>
+
+        <tr>
+            <th>Qualification</th>
+            <td>{{ view_enroll.qualification }}</td>
+        </tr>
+
+        
+        <tr>
+            <th>Current Status</th>
+            <td>{{ view_enroll.occupation }}</td>
+        </tr>
+
+        <tr>
+            <th>Course Enrolled</th>
+            <td>{{ view_enroll.course }}</td>
+        </tr>
+
+        <tr>
+            <th>Batch Timing</th>
+            <td>{{ view_enroll.batch }}</td>
+        </tr>
+
+    </table>
+
+   <div class="mt-4 d-flex gap-3 flex-wrap">
+
+    <a href="tel:{{ view_enroll.mobile }}" class="btn-call-custom">
+        📞 Call Student
+    </a>
+
+    <a href="https://wa.me/91{{ view_enroll.mobile }}?text=Hello%20{{ view_enroll.name }},%20regarding%20your%20admission%20at%20Dhanraj%20Academy."
+       target="_blank"
+       class="btn-whatsapp-custom">
+        💬 WhatsApp
+    </a>
+
+
+     <a href="/admin/enrollment/" class="btn-call-custom ">
+        Back
+    </a>
+
+     <a href="{% url 'delete_enrollment' view_enroll.id %}" class="btn-call-danger" onclick="return confirm('Are you sure delete record')">
+        Delete
+    </a>
+
+   </div>
+
+
+  
+</div>
+
+{% include "admin/footer.html" %}
