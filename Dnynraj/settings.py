@@ -75,6 +75,7 @@ WSGI_APPLICATION = 'Dnynraj.wsgi.application'
 
 
 
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
