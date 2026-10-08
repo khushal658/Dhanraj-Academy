@@ -50,6 +50,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'Dnynraj.urls'
@@ -73,19 +74,6 @@ TEMPLATES = [
 WSGI_APPLICATION = 'Dnynraj.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'bdi2ou58znatoyevl7zv',
-#         'USER': 'uhvo3jtcuxfujckv',
-#         'PASSWORD': 'XLAmz2Y3spiNynjvA2Th',
-#         'HOST': 'bdi2ou58znatoyevl7zv-mysql.services.clever-cloud.com',
-      
-#     }
-# }
 
 DATABASES = {
     'default': {
