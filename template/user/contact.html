@@ -199,11 +199,12 @@
                 <label class="form-label" for="mobile">
                   Mobile Number <span class="text-danger">*</span>
                 </label>
-                <input type="number"
+                <input type="tel"
                   class="form-control"
                   id="mobile"
                   name="mobile"
                   placeholder="9876543210"
+                  pattern="[0-9]{10}"
                   maxlength="10"
                   required>
               </div>
@@ -217,7 +218,9 @@
                   class="form-control"
                   id="email"
                   name="email"
-                  placeholder="you@example.com"
+                  pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+                  title="Please enter a valid email address" 
+                  placeholder="example@gmail.com"
                   required>
               </div>
 
