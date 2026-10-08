@@ -130,20 +130,19 @@ textarea.form-control{
 
             <div class="row">
 
-    <div class="col-md-6">
-        <label>Mobile Number</label>
-        <input type="number"
-               name="mobile"
-               value="{{ upd_profile.mobile }}"
-               class="form-control">
-    </div>
+    <div class="col-md-6"> <label>Mobile Number</label> 
+        <input type="tel" name="mobile" value="{{ upd_profile.mobile }}" class="form-control" maxlength="10" pattern="[0-9]{10}" inputmode="numeric" title="Please enter exactly 10 digits" >
+     </div>
 
     <div class="col-md-6">
         <label>Email</label>
         <input type="email"
                name="email"
                value="{{ upd_profile.email }}"
-               class="form-control">
+               class="form-control"
+               pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" 
+               title="Please enter a valid email address"
+             placeholder="example@gmail.com">
     </div>
 
     <div class="col-md-6">
